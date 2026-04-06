@@ -1,0 +1,178 @@
+import svgPaths from "./svg-bx5nslcxj4";
+
+function Indicators() {
+  return (
+    <div className="absolute content-stretch flex gap-[6.5px] items-center right-[18.7px] top-[23px]" data-name="Indicators">
+      <div className="h-[12px] relative shrink-0 w-[19.971px]" data-name="Elements / Signal">
+        <svg className="absolute block inset-0" fill="none" preserveAspectRatio="none" viewBox="0 0 19.9707 12">
+          <path d={svgPaths.pe92800} fill="var(--fill-0, black)" id="Cellular Connection" />
+        </svg>
+      </div>
+      <div className="h-[12.5px] relative shrink-0 w-[17px]" data-name="Elements / Connection">
+        <svg className="absolute block inset-0" fill="none" preserveAspectRatio="none" viewBox="0 0 17 12.5001">
+          <path d={svgPaths.p2b7cea80} fill="var(--fill-0, black)" id="Wifi" />
+        </svg>
+      </div>
+      <div className="h-[13px] relative shrink-0 w-[27.33px]" data-name="Elements / Battery">
+        <div className="absolute inset-[0_8.53%_0_0]" data-name="Subtract">
+          <svg className="absolute block inset-0" fill="none" preserveAspectRatio="none" viewBox="0 0 25 13">
+            <path d={svgPaths.p2eb707c0} fill="var(--fill-0, black)" id="Subtract" opacity="0.4" />
+          </svg>
+        </div>
+        <div className="absolute inset-[34.62%_0_34.62%_95.13%]" data-name="Cap">
+          <svg className="absolute block inset-0" fill="none" preserveAspectRatio="none" viewBox="0 0 1.33 4">
+            <path d={svgPaths.p1847ee80} fill="var(--fill-0, black)" id="Cap" opacity="0.5" />
+          </svg>
+        </div>
+        <div className="absolute inset-[15.38%_59.4%_15.38%_7.32%]" data-name="Subtract">
+          <svg className="absolute block inset-0" fill="none" preserveAspectRatio="none" viewBox="0 0 9.09473 9">
+            <path d={svgPaths.p575f8f0} fill="var(--fill-0, #34C759)" id="Subtract" />
+          </svg>
+        </div>
+        <div className="absolute inset-[-1.49%_35.95%_-4.92%_31.06%]" data-name="􀋦">
+          <svg className="absolute block inset-0" fill="none" preserveAspectRatio="none" viewBox="0 0 9.01758 13.8326">
+            <path d={svgPaths.p15161100} fill="var(--fill-0, black)" id="ô¦" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ArrowBack24Px() {
+  return (
+    <div className="relative shrink-0 size-[24px]" data-name="arrow_back-24px (2)">
+      <svg className="absolute block inset-0" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
+        <g id="arrow_back-24px (2)">
+          <g id="Caminho 1231" />
+          <path d={svgPaths.p1d45ae00} fill="var(--fill-0, #58586B)" id="Caminho 1232" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function Frame1() {
+  return (
+    <div className="content-stretch flex flex-[1_0_0] gap-[12px] items-center min-h-px min-w-px relative">
+      <ArrowBack24Px />
+      <p className="font-['Fira_Sans:Regular',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#58586b] text-[20px]">Lembrete de ponto</p>
+    </div>
+  );
+}
+
+function Frame2() {
+  return (
+    <div className="bg-white content-stretch flex gap-[200px] items-start pb-[24px] pt-[16px] px-[16px] relative shrink-0 w-[360px]">
+      <Frame1 />
+      <div className="relative shrink-0 size-[24px]" data-name="shape">
+        <svg className="absolute block inset-0" fill="none" preserveAspectRatio="none" viewBox="0 0 32 32">
+          <path d={svgPaths.p12e75200} fill="var(--fill-0, #58586B)" id="shape" opacity="0" />
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+function StateLayer() {
+  return (
+    <div className="content-stretch flex items-center justify-center p-[8px] relative shrink-0" data-name="state-layer">
+      <div className="overflow-clip relative shrink-0 size-[24px]" data-name="icon">
+        <div className="absolute inset-[12.5%]" data-name="icon">
+          <svg className="absolute block inset-0" fill="none" preserveAspectRatio="none" viewBox="0 0 18 18">
+            <path d={svgPaths.p3370a680} fill="var(--fill-0, #444444)" id="icon" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Container() {
+  return (
+    <div className="content-stretch flex items-center justify-center overflow-clip relative rounded-[100px] shrink-0" data-name="container">
+      <StateLayer />
+    </div>
+  );
+}
+
+function Frame() {
+  return (
+    <div className="content-stretch flex flex-[1_0_0] h-full items-center min-h-px min-w-px py-[10px] relative">
+      <p className="flex-[1_0_0] font-['Open_Sans:Regular',sans-serif] leading-[normal] min-h-px min-w-px not-italic relative text-[#58586b] text-[14px] text-left whitespace-pre-wrap">Ativar lembrete</p>
+    </div>
+  );
+}
+
+function Frame3() {
+  return (
+    <div className="content-stretch flex flex-col gap-[16px] items-center relative shrink-0 w-full">
+      <div className="font-['Open_Sans:Regular',sans-serif] leading-[0] not-italic relative shrink-0 text-[#78788f] text-[14px] tracking-[0.3px] w-full whitespace-pre-wrap">
+        <p className="mb-[16px]">
+          <span className="leading-[22px]">{`Siga os passos abaixo para `}</span>
+          <span className="font-['Open_Sans:Bold',sans-serif] leading-[22px] not-italic">configurar ou editar um lembrete</span>
+          <span className="leading-[22px]">{` de retorno do intervalo:`}</span>
+        </p>
+        <ol className="mb-[16px]" start="1">
+          <li className="mb-0 ms-[21px]">
+            <span className="font-['Open_Sans:Semibold',sans-serif] leading-[22px] not-italic">Ative o lembrete.</span>
+          </li>
+          <li className="mb-0 ms-[21px]">
+            <span className="font-['Open_Sans:Semibold',sans-serif] leading-[22px] not-italic">Escolha a duração do intervalo. Ex: 15min.</span>
+          </li>
+          <li className="ms-[21px]">
+            <span className="font-['Open_Sans:Semibold',sans-serif] leading-[22px] not-italic">{`Selecione "Repetir" para receber notificações automáticas.`}</span>
+          </li>
+        </ol>
+        <p>
+          <span className="font-['Open_Sans:Semibold',sans-serif] leading-[22px] not-italic">Exemplo</span>
+          <span className="leading-[22px]">: Se você definir 15min, receberá uma notificação 15 minutos após o início do intervalo.</span>
+        </p>
+      </div>
+      <button className="content-stretch cursor-pointer flex items-center py-[8px] relative shrink-0 w-full" data-name="Checkbox">
+        <div aria-hidden="true" className="absolute border-[#78788f] border-solid border-t-[0.5px] inset-0 pointer-events-none" />
+        <div className="content-stretch flex items-center justify-center relative shrink-0" data-name="Checkbox">
+          <Container />
+        </div>
+        <div className="flex flex-[1_0_0] flex-row items-center self-stretch">
+          <Frame />
+        </div>
+      </button>
+    </div>
+  );
+}
+
+function Frame4() {
+  return (
+    <div className="-translate-x-1/2 absolute bg-white content-stretch flex flex-col gap-[16px] items-center left-1/2 rounded-[4px] top-[127px] w-[328px]">
+      <Frame3 />
+    </div>
+  );
+}
+
+export default function MyAhgoraConfigLembrete() {
+  return (
+    <div className="bg-white relative size-full" data-name="My-Ahgora-config-lembrete01">
+      <div className="absolute content-stretch flex flex-col items-start left-0 shadow-[0px_1px_1px_0px_rgba(0,0,0,0.16)] top-0" data-name="Header-mobile">
+        <div className="bg-white h-[47px] overflow-clip relative shrink-0 w-[360px]" data-name="Status Bar / iPhone 13 Mini">
+          <Indicators />
+          <div className="absolute left-[282px] size-[6px] top-[6px]" data-name="Mic & Cam">
+            <svg className="absolute block inset-0" fill="none" preserveAspectRatio="none" viewBox="0 0 32 32">
+              <g id="Mic/Cam Indicator" />
+            </svg>
+          </div>
+          <div className="-translate-x-1/2 -translate-y-1/2 absolute content-stretch flex font-['SF_Pro_Text:Semibold',sans-serif] gap-[2px] items-center justify-center leading-[0] left-[calc(50%-131.5px)] not-italic text-black text-center top-[calc(50%+6px)] whitespace-nowrap" data-name="Elements / Time">
+            <div className="flex flex-col justify-center relative shrink-0 text-[17px] tracking-[-0.5px]" style={{ fontFeatureSettings: "\'ss03\'" }}>
+              <p className="leading-[17px]">9:41</p>
+            </div>
+            <div className="flex flex-col justify-center relative shrink-0 text-[14px]">
+              <p className="leading-[14px]">􀋑</p>
+            </div>
+          </div>
+        </div>
+        <Frame2 />
+      </div>
+      <Frame4 />
+    </div>
+  );
+}
