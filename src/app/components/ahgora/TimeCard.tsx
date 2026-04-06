@@ -73,7 +73,7 @@ export function TimeCard() {
     <div className="bg-card rounded-lg p-4 shadow-sm border border-muted mx-4 mt-6 relative z-10 flex flex-col gap-4">
       {/* Header */}
       <div className="flex justify-between items-center w-full">
-        <h2 className="font-semibold text-foreground text-base">Registrar ponto</h2>
+        <h2 className="font-semibold text-foreground text-base">Registrar o ponto</h2>
         <span className="text-sm text-foreground">{currentDateDisplay}</span>
       </div>
 
