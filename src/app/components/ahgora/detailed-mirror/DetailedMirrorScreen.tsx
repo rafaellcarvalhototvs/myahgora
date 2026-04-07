@@ -124,7 +124,7 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
     <div className="min-h-screen bg-[#f0f0f5] flex justify-center font-['Open_Sans']">
       <div className="w-full max-w-md bg-white min-h-screen relative shadow-2xl pb-20">
         {/* Header */}
-        <div className="sticky top-0 z-10 bg-[#1199DD]">
+        <div className="sticky top-0 z-10 bg-primary">
           <div className="flex items-center px-4 py-3">
             <button 
               onClick={onBack}
@@ -144,13 +144,13 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
           <div className="mb-6">
             <div className="flex items-center justify-between mb-3">
               <label className="text-base font-semibold text-[#2A2A33]">Competência</label>
-              <button className="text-sm text-[#1199DD] font-medium hover:text-[#0d7bb8] transition-colors">
+              <button className="text-sm text-primary font-medium hover:text-primary/80 transition-colors">
                 Trocar competência
               </button>
             </div>
             <div className="flex items-center justify-between p-4 bg-[#F8F8FA] rounded-lg border border-[#2A2A33]/[0.08] min-h-[84px]">
               <span className="text-base font-medium text-[#2A2A33]">{selectedMonth}</span>
-              <button className="flex items-center gap-2 px-4 py-2 bg-[#1199DD] text-white rounded-lg hover:bg-[#0d7bb8] transition-colors">
+              <button className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors shadow-sm">
                 <DownloadIcon className="w-5 h-5" />
                 <span className="text-sm font-medium">Baixar espelho</span>
               </button>
@@ -172,10 +172,10 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
                   onClick={() => handleDayClick(day.day)}
                   className={`
                     relative flex items-center justify-center h-10 rounded-lg text-sm font-medium
-                    ${day.isSelected 
-                      ? 'bg-[#1199DD] text-white' 
-                      : day.isWeekend 
-                        ? 'text-[#A0A0AB]' 
+                    ${day.isSelected
+                      ? 'bg-primary text-white'
+                      : day.isWeekend
+                        ? 'text-[#A0A0AB]'
                         : 'text-[#2A2A33] hover:bg-gray-100'
                     }
                     ${!day.isCurrentMonth ? 'opacity-40' : ''}
@@ -185,7 +185,7 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
                   {/* Indicators */}
                   <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 flex gap-0.5">
                     {day.hasPunch && (
-                      <div className="w-1 h-1 rounded-full bg-[#1199DD]"></div>
+                      <div className="w-1 h-1 rounded-full bg-primary"></div>
                     )}
                     {day.hasException && (
                       <div className="w-1 h-1 rounded-full bg-[#FF6B6B]"></div>

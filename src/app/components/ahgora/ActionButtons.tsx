@@ -105,7 +105,7 @@ export function ActionButtons({ onAction }: ActionButtonsProps) {
           <button 
             key={index} 
             type="button"
-            className="flex flex-col items-center gap-[10px] shrink-0 w-[84px] cursor-pointer group snap-start focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1199dd] focus-visible:ring-offset-2 rounded-[8px]"
+            className="flex flex-col items-center gap-[10px] shrink-0 w-[84px] cursor-pointer group snap-start focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-[8px]"
             onClick={(e) => {
               // Prevent click if we were dragging
               if (isDragging) {

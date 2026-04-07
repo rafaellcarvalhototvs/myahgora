@@ -66,7 +66,7 @@ export function OptionsGrid() {
         {options.map((option, index) => (
           <div 
             key={index}
-            className="bg-[#1199dd] h-[88px] rounded-[8px] p-2 flex flex-col justify-between relative overflow-hidden cursor-pointer hover:bg-[#0e8bc9] transition-colors"
+            className="bg-primary h-[88px] rounded-[8px] p-2 flex flex-col justify-between relative overflow-hidden cursor-pointer hover:bg-primary/90 transition-colors"
           >
             {/* Icon positioned at top-right */}
             <div className="self-end opacity-100 w-6 h-6 flex items-center justify-center">

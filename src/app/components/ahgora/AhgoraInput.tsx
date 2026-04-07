@@ -66,7 +66,7 @@ const AhgoraInput = forwardRef<HTMLInputElement | HTMLTextAreaElement, AhgoraInp
           className={cn(
             "flex items-center w-full rounded-[4px] bg-white border border-[#78788f] px-[16px] transition-colors overflow-hidden cursor-text",
             multiline ? "items-start py-[12px] min-h-[100px]" : "min-h-[48px]",
-            "focus-within:border-[#1199dd]", // Primary color
+            "focus-within:border-primary", // Primary color
             error && "border-[#dd1818] focus-within:border-[#dd1818]", // Destructive color
             className
           )}
