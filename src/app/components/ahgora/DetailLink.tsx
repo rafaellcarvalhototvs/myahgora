@@ -1,9 +1,16 @@
 import svgPaths from "../../../imports/svg-p2xlkv60gr";
 
-export function DetailLink() {
+interface DetailLinkProps {
+  onClick?: () => void;
+}
+
+export function DetailLink({ onClick }: DetailLinkProps) {
   return (
     <div className="mx-4 mt-6">
-      <div className="flex gap-2.5 items-center p-2 relative w-full border-t border-b border-[#2A2A33]/[0.08] cursor-pointer hover:bg-gray-50/50 transition-colors">
+      <div 
+        className="flex gap-2.5 items-center p-2 relative w-full border-t border-b border-[#2A2A33]/[0.08] cursor-pointer hover:bg-gray-50/50 transition-colors"
+        onClick={onClick}
+      >
         {/* Mirror Icon */}
         <div className="relative shrink-0 w-[18px] h-[18px] flex items-center justify-center">
           <svg width="14" height="15" viewBox="0 0 13.5 15" fill="none" xmlns="http://www.w3.org/2000/svg">

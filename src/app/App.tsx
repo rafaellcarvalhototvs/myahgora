@@ -16,6 +16,7 @@ import { RequestOvertimeScreen } from "./components/ahgora/request-overtime/Requ
 import { ReplacePunchScreen } from "./components/ahgora/replace-punch/ReplacePunchScreen";
 import { DailyExceptionScreen } from "./components/ahgora/daily-exception/DailyExceptionScreen";
 import { PunchReminderScreen } from "./components/ahgora/reminder/PunchReminderScreen";
+import { DetailedMirrorScreen } from "./components/ahgora/detailed-mirror/DetailedMirrorScreen";
 
 export default function App() {
   const [currentView, setCurrentView] = useState('home');
@@ -40,6 +41,8 @@ export default function App() {
       setCurrentView('replace-punch');
     } else if (action === 'daily-exception') {
       setCurrentView('daily-exception');
+    } else if (action === 'detailed-mirror') {
+      setCurrentView('detailed-mirror');
     }
   };
 
@@ -79,6 +82,10 @@ export default function App() {
     return <PunchReminderScreen onBack={() => setCurrentView('home')} />;
   }
 
+  if (currentView === 'detailed-mirror') {
+    return <DetailedMirrorScreen onBack={() => setCurrentView('home')} />;
+  }
+
   return (
     <div className="min-h-screen bg-[#f0f0f5] flex justify-center font-['Open_Sans']">
       <div className="w-full max-w-md bg-white min-h-screen relative shadow-2xl pb-20">
@@ -88,7 +95,7 @@ export default function App() {
           onNotificationClick={() => setCurrentView('punch-reminder')}
         />
         <TimeCard />
-        <DetailLink />
+        <DetailLink onClick={() => handleAction('detailed-mirror')} />
         <ActionButtons onAction={handleAction} />
         <ComplimentsCarousel />
         <AppCard />
