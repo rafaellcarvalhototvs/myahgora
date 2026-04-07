@@ -5,7 +5,7 @@ function PointInfo() {
     <div className="content-stretch flex items-center justify-between relative shrink-0 w-full" data-name="Point Info">
       <div className="content-stretch flex items-center justify-center relative shrink-0" data-name="Typography">
         <div className="flex flex-col font-['Open_Sans:SemiBold',sans-serif] font-semibold justify-center leading-[0] relative shrink-0 text-[#2a2a33] text-[16px] tracking-[0.024px] whitespace-nowrap" style={{ fontVariationSettings: "\'wdth\' 100" }}>
-          <p className="leading-[24px]">Registrar ponto</p>
+          <p className="leading-[24px]">Registrar o ponto</p>
         </div>
       </div>
       <div className="content-stretch flex items-center justify-center relative shrink-0" data-name="Typography">
@@ -132,7 +132,7 @@ function RegistrarPonto() {
           <div className="flex flex-row items-center justify-center size-full">
             <div className="content-stretch flex gap-[8px] items-center justify-center px-[22px] py-[8px] relative w-full">
               <p className="font-['Open_Sans:SemiBold',sans-serif] font-semibold leading-[26px] relative shrink-0 text-[#f9f9f9] text-[15px] tracking-[0.46px]" style={{ fontVariationSettings: "\'wdth\' 100" }}>
-                Registrar ponto
+                Registrar o ponto
               </p>
             </div>
           </div>
