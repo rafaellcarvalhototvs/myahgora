@@ -17,6 +17,7 @@ interface DayData {
   hasPunch: boolean;
   hasException: boolean;
   isWeekend: boolean;
+  isHoliday: boolean;
 }
 
 interface DayDetail {
@@ -24,6 +25,8 @@ interface DayDetail {
   schedule: string;
   punches: string[];
   expectedHours: string;
+  isHoliday: boolean;
+  hasExpectedHours: boolean;
 }
 
 export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
@@ -32,45 +35,65 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
   
   // Mock data for calendar
   const days: DayData[] = [
-    { date: '2026-04-01', day: 1, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false },
-    { date: '2026-04-02', day: 2, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false },
-    { date: '2026-04-03', day: 3, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: true, isWeekend: false },
-    { date: '2026-04-04', day: 4, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false },
-    { date: '2026-04-05', day: 5, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false },
-    { date: '2026-04-06', day: 6, isCurrentMonth: true, isSelected: false, hasPunch: false, hasException: false, isWeekend: true },
-    { date: '2026-04-07', day: 7, isCurrentMonth: true, isSelected: false, hasPunch: false, hasException: false, isWeekend: true },
-    { date: '2026-04-08', day: 8, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false },
-    { date: '2026-04-09', day: 9, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false },
-    { date: '2026-04-10', day: 10, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: true, isWeekend: false },
-    { date: '2026-04-11', day: 11, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false },
-    { date: '2026-04-12', day: 12, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false },
-    { date: '2026-04-13', day: 13, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false },
-    { date: '2026-04-14', day: 14, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false },
-    { date: '2026-04-15', day: 15, isCurrentMonth: true, isSelected: true, hasPunch: true, hasException: false, isWeekend: false },
-    { date: '2026-04-16', day: 16, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false },
-    { date: '2026-04-17', day: 17, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: true, isWeekend: false },
-    { date: '2026-04-18', day: 18, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false },
-    { date: '2026-04-19', day: 19, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false },
-    { date: '2026-04-20', day: 20, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false },
-    { date: '2026-04-21', day: 21, isCurrentMonth: true, isSelected: false, hasPunch: false, hasException: false, isWeekend: true },
-    { date: '2026-04-22', day: 22, isCurrentMonth: true, isSelected: false, hasPunch: false, hasException: false, isWeekend: true },
-    { date: '2026-04-23', day: 23, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false },
-    { date: '2026-04-24', day: 24, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false },
-    { date: '2026-04-25', day: 25, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: true, isWeekend: false },
-    { date: '2026-04-26', day: 26, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false },
-    { date: '2026-04-27', day: 27, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false },
-    { date: '2026-04-28', day: 28, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false },
-    { date: '2026-04-29', day: 29, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false },
-    { date: '2026-04-30', day: 30, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false },
+    { date: '2026-04-01', day: 1, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
+    { date: '2026-04-02', day: 2, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
+    { date: '2026-04-03', day: 3, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: true, isWeekend: false, isHoliday: false },
+    { date: '2026-04-04', day: 4, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
+    { date: '2026-04-05', day: 5, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
+    { date: '2026-04-06', day: 6, isCurrentMonth: true, isSelected: false, hasPunch: false, hasException: false, isWeekend: true, isHoliday: false },
+    { date: '2026-04-07', day: 7, isCurrentMonth: true, isSelected: false, hasPunch: false, hasException: false, isWeekend: true, isHoliday: false },
+    { date: '2026-04-08', day: 8, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
+    { date: '2026-04-09', day: 9, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
+    { date: '2026-04-10', day: 10, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: true, isWeekend: false, isHoliday: false },
+    { date: '2026-04-11', day: 11, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
+    { date: '2026-04-12', day: 12, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
+    { date: '2026-04-13', day: 13, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
+    { date: '2026-04-14', day: 14, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
+    { date: '2026-04-15', day: 15, isCurrentMonth: true, isSelected: true, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
+    { date: '2026-04-16', day: 16, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
+    { date: '2026-04-17', day: 17, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: true, isWeekend: false, isHoliday: false },
+    { date: '2026-04-18', day: 18, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
+    { date: '2026-04-19', day: 19, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
+    { date: '2026-04-20', day: 20, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
+    { date: '2026-04-21', day: 21, isCurrentMonth: true, isSelected: false, hasPunch: false, hasException: false, isWeekend: true, isHoliday: true },
+    { date: '2026-04-22', day: 22, isCurrentMonth: true, isSelected: false, hasPunch: false, hasException: false, isWeekend: true, isHoliday: false },
+    { date: '2026-04-23', day: 23, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
+    { date: '2026-04-24', day: 24, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
+    { date: '2026-04-25', day: 25, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: true, isWeekend: false, isHoliday: false },
+    { date: '2026-04-26', day: 26, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
+    { date: '2026-04-27', day: 27, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
+    { date: '2026-04-28', day: 28, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
+    { date: '2026-04-29', day: 29, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
+    { date: '2026-04-30', day: 30, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
   ];
 
-  // Mock data for selected day details
-  const selectedDayDetail: DayDetail = {
-    date: '15 de Abril, 2026',
-    schedule: '08:00 às 12:00 - 13:00 às 17:00',
-    punches: ['08:27', '12:01', '13:02', '17:27'],
-    expectedHours: '08:00'
+  // Function to get day details based on selected day
+  const getDayDetail = (day: number): DayDetail => {
+    const dayData = days.find(d => d.day === day);
+    
+    if (day === 21) {
+      return {
+        date: '21 de Abril, 2026',
+        schedule: 'Feriado - Tiradentes',
+        punches: [],
+        expectedHours: '',
+        isHoliday: true,
+        hasExpectedHours: false
+      };
+    }
+    
+    // Default day details
+    return {
+      date: `${day} de Abril, 2026`,
+      schedule: day === 15 ? '08:00 às 12:00 - 13:00 às 17:00' : '08:00 às 12:00 - 13:00 às 17:00',
+      punches: day === 15 ? ['08:27', '12:01', '13:02', '17:27'] : ['08:30', '12:00', '13:00', '17:30'],
+      expectedHours: '08:00',
+      isHoliday: dayData?.isHoliday || false,
+      hasExpectedHours: true
+    };
   };
+
+  const dayDetail = getDayDetail(selectedDay);
 
   // Mock monthly summary data
   const monthlySummary = {
@@ -176,30 +199,43 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
           {/* Selected Day Details */}
           <div className={`mb-6 border rounded-[4px] p-4 border-[#78788f]`}>
             <div className="mb-4">
-              <h3 className="text-base font-semibold text-[#2A2A33]">{selectedDayDetail.date}</h3>
+              <h3 className="text-base font-semibold text-[#2A2A33]">{dayDetail.date}</h3>
+              {dayDetail.schedule && (
+                <p className={`text-sm ${dayDetail.isHoliday ? 'text-[#FF6B6B]' : 'text-[#6B6B7A]'} mt-1`}>
+                  {dayDetail.schedule}
+                </p>
+              )}
             </div>
             
             <div className="space-y-4">
               <div>
                 <h4 className="text-sm font-semibold text-[#2A2A33] mb-3">Registros do dia:</h4>
                 <div className="flex flex-wrap gap-3">
-                  {selectedDayDetail.punches.map((punch, index) => (
-                    <div 
-                      key={index}
-                      className="bg-[#eaf8ff] flex items-center justify-center px-[10px] py-[19px] relative rounded-[168px] shrink-0 size-[48px]"
-                    >
-                      <div aria-hidden="true" className="absolute border-0 border-[#19d] border-solid inset-0 pointer-events-none rounded-[168px]" />
-                      <p className="font-['Open_Sans:Semibold',sans-serif] leading-[20极] not-italic relative shrink-0 text-[#3a3a45] text-[14px] tracking-[0.035px]">
-                        {punch}
-                      </p>
-                    </div>
-                  ))}
+                  {dayDetail.punches.length > 0 ? (
+                    dayDetail.punches.map((punch, index) => (
+                      <div
+                        key={index}
+                        className="bg-[#eaf8ff] flex items-center justify-center px-[10px] py-[19px] relative rounded-[168px] shrink-0 size-[48px]"
+                      >
+                        <div aria-hidden="true" className="absolute border-0 border-[#19d] border-solid inset-0 pointer-events-none rounded-[168px]" />
+                        <p className="font-['Open_Sans:Semibold',sans-serif] leading-[20极] not-italic relative shrink-0 text-[#3a3a45] text-[14px] tracking-[0.035px]">
+                          {punch}
+                        </p>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-sm text-[#6B6B7A] italic">Não há registros de batidas</p>
+                  )}
                 </div>
               </div>
               
               <div className="flex items-center justify-between pt-3 border-t border-[#2A2A33]/[0.08]">
                 <span className="text-sm font-medium text-[#2A2A33]">Horas previstas:</span>
-                <span className="text-base font-semibold text-[#2A2A33]">{selectedDayDetail.expectedHours}</span>
+                {dayDetail.hasExpectedHours ? (
+                  <span className="text-base font-semibold text-[#2A2A33]">{dayDetail.expectedHours}</span>
+                ) : (
+                  <span className="text-sm font-medium text-[#2A2A33] italic">Não há horas previstas</span>
+                )}
               </div>
             </div>
           </div>
