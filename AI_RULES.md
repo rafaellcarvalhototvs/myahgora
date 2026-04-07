@@ -76,6 +76,14 @@ This React application uses the following technology stack:
 - **Toasts**: Use **Sonner** for toast notifications (`toast.success`, `toast.error`, etc.)
 - **Positioning**: Use default positioning (top-right) unless specified otherwise
 
+## Typography Rules
+
+- **Section Titles**: Use `text-base font-semibold` for section titles (e.g., "Competência", "Calendário", "Solicitar ajustes")
+- **Page Titles**: Use `text-lg font-semibold` or `text-[18px]` for main page titles
+- **Form Labels**: Use `text-sm font-semibold` for form field labels
+- **Body Text**: Use `text-sm` or `text-base` for regular text depending on hierarchy
+- **Subtitles**: Use `text-sm font-semibold` for subtitles within sections
+
 ## File Structure Rules
 
 - **Source Code**: All source code belongs in `src/` directory

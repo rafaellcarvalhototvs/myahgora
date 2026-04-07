@@ -120,7 +120,7 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
           {/* Competência Block */}
           <div className="mb-6">
             <div className="flex items-center justify-between mb-3">
-              <label className="text-sm font-semibold text-[#2A2A33]">Competência</label>
+              <label className="text-base font-semibold text-[#2A2A33]">Competência</label>
               <button className="text-sm text-[#1199DD] font-medium hover:text-[#0d7bb8] transition-colors">
                 Trocar competência
               </button>
@@ -136,7 +136,7 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
 
           {/* Calendar */}
           <div className="mb-6">
-            <h3 className="text-sm font-semibold text-[#2A2A33] mb-3">Calendário</h3>
+            <h3 className="text-base font-semibold text-[#2A2A33] mb-3">Calendário</h3>
             <div className="grid grid-cols-7 gap-2 mb-3">
               {['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'].map((day) => (
                 <div key={day} className="text-center text-xs font-medium text-[#6B6B7A] py-1">
