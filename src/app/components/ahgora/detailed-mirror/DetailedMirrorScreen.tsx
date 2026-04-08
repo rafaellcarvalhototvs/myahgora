@@ -6,7 +6,7 @@ import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { ActionButtons } from '../ActionButtons';
 import { MonthYearBottomSheet } from '../MonthYearBottomSheet';
-import { Button } from '../../../ui/button';
+import { Button } from '../../ui/button';
 
 interface DetailedMirrorScreenProps {
   onBack: () => void;
