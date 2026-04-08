@@ -4,6 +4,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { ActionButtons } from '../ActionButtons';
+import { MonthYearBottomSheet } from '../MonthYearBottomSheet';
 
 interface DetailedMirrorScreenProps {
   onBack: () => void;
@@ -32,6 +33,47 @@ interface DayDetail {
 export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
   const [selectedMonth, setSelectedMonth] = useState('Abril - 2026');
   const [selectedDay, setSelectedDay] = useState<number>(15);
+  const [showMonthYearBottomSheet, setShowMonthYearBottomSheet] = useState(false);
+  
+  // Parse month/year from string like "Abril - 2026"
+  const parseMonthYear = (monthYearStr: string): { monthIndex: number; year: number } => {
+    const months = [
+      'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+      'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+    ];
+    const [monthName, yearStr] = monthYearStr.split(' - ');
+    const monthIndex = months.findIndex(m => m === monthName);
+    const year = parseInt(yearStr, 10);
+    return { monthIndex: monthIndex >= 0 ? monthIndex : 3, year: isNaN(year) ? 2026 : year };
+  };
+
+  // Format month/year to string
+  const formatMonthYear = (monthIndex: number, year: number): string => {
+    const months = [
+      'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+      'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+    ];
+    return `${months[monthIndex]} - ${year}`;
+  };
+
+  // Get current month/year for bottom sheet
+  const { monthIndex: currentMonthIndex, year: currentYear } = parseMonthYear(selectedMonth);
+  
+  // Handle month/year selection from bottom sheet
+  const handleMonthYearSelect = (monthIndex: number, year: number) => {
+    setSelectedMonth(formatMonthYear(monthIndex, year));
+    // In a real app, you would fetch data for the new month/year
+  };
+
+  // Open bottom sheet
+  const handleOpenMonthYearBottomSheet = () => {
+    setShowMonthYearBottomSheet(true);
+  };
+
+  // Close bottom sheet
+  const handleCloseMonthYearBottomSheet = () => {
+    setShowMonthYearBottomSheet(false);
+  };
   
   // Mock data for calendar
   const days: DayData[] = [
@@ -144,7 +186,10 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
           <div className="mb-6">
             <div className="flex items-center justify-between mb-3">
               <label className="text-base font-semibold text-[#2A2A33] tracking-[0.024px]">Competência</label>
-              <button className="text-sm text-primary font-medium hover:text-primary/80 transition-colors">
+              <button
+                onClick={handleOpenMonthYearBottomSheet}
+                className="text-sm text-primary font-medium hover:text-primary/80 transition-colors"
+              >
                 Trocar competência
               </button>
             </div>
@@ -311,6 +356,15 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
           </div>
         </div>
       </div>
+      
+      {/* Month/Year Selection Bottom Sheet */}
+      <MonthYearBottomSheet
+        isVisible={showMonthYearBottomSheet}
+        onClose={handleCloseMonthYearBottomSheet}
+        onSelect={handleMonthYearSelect}
+        currentMonth={currentMonthIndex}
+        currentYear={currentYear}
+      />
     </div>
   );
 }
