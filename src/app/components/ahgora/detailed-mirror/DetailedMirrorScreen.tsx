@@ -255,18 +255,15 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
             <div className="space-y-4">
               <div>
                 <h4 className="text-sm font-semibold text-foreground mb-3">Registros do dia:</h4>
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-4">
                   {dayDetail.punches.length > 0 ? (
                     dayDetail.punches.map((punch, index) => (
-                      <div
+                      <span
                         key={index}
-                        className="bg-[#eaf8ff] flex items-center justify-center px-[10px] py-[19px] relative rounded-[168px] shrink-0 size-[48px]"
+                        className="text-sm font-medium text-foreground py-1 px-2"
                       >
-                        <div aria-hidden="true" className="absolute border-0 border-primary border-solid inset-0 pointer-events-none rounded-[168px]" />
-                        <p className="font-['Open_Sans:Semibold',sans-serif] leading-[20极] not-italic relative shrink-0 text-foreground text-[14px] tracking-[0.035px]">
-                          {punch}
-                        </p>
-                      </div>
+                        {punch}
+                      </span>
                     ))
                   ) : (
                     <p className="text-sm text-muted-foreground italic">Não há registros de batidas</p>
