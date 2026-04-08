@@ -6,6 +6,7 @@ import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { ActionButtons } from '../ActionButtons';
 import { MonthYearBottomSheet } from '../MonthYearBottomSheet';
+import { Button } from '../ui/button';
 
 interface DetailedMirrorScreenProps {
   onBack: () => void;
@@ -187,15 +188,16 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
           <div className="mb-6">
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-base font-semibold text-[#2A2A33] tracking-[0.024px]">Competência</h2>
-              <button
+              <Button
+                variant="ghost"
+                size="icon"
                 onClick={handleOpenMonthYearBottomSheet}
                 aria-expanded={showMonthYearBottomSheet}
                 aria-label="Trocar mês e ano da competência"
-                className="flex items-center gap-1.5 px-3 py-2 bg-muted hover:bg-muted/80 border border-muted-foreground/20 rounded-lg text-sm font-medium text-[#2A2A33] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                className="text-[#2A2A33] hover:bg-muted"
               >
-                <SwapHorizIcon className="w-4 h-4" />
-                Trocar competência
-              </button>
+                <SwapHorizIcon className="w-5 h-5" />
+              </Button>
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
