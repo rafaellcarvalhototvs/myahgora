@@ -242,7 +242,7 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
           </div>
 
           {/* Selected Day Details */}
-          <div className="mb-6">
+          <div className={`mb-6 border rounded-[4px] p-4 border-muted`}>
             <div className="mb-4">
               <h3 className="text-base font-semibold text-[#2A2A33] tracking-[0.024px]">{dayDetail.date}</h3>
               {dayDetail.schedule && (
@@ -271,7 +271,7 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
                 </div>
               </div>
               
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between pt-3 border-t border-muted">
                 <span className="text-sm font-medium text-foreground">Horas previstas:</span>
                 {dayDetail.hasExpectedHours ? (
                   <span className="text-base font-semibold text-foreground">{dayDetail.expectedHours}</span>
