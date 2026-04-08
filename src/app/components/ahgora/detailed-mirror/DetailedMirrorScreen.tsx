@@ -185,17 +185,24 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
           {/* Competência Block */}
           <div className="mb-6">
             <div className="flex items-center justify-between mb-3">
-              <label className="text-base font-semibold text-[#2A2A33] tracking-[0.024px]">Competência</label>
+              <h2 className="text-base font-semibold text-[#2A2A33] tracking-[0.024px]">Competência</h2>
               <button
                 onClick={handleOpenMonthYearBottomSheet}
-                className="text-sm text-primary font-medium hover:text-primary/80 transition-colors"
+                aria-expanded={showMonthYearBottomSheet}
+                className="text-sm text-[#2A2A33] font-medium hover:text-primary transition-colors"
               >
                 Trocar competência
               </button>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-base font-medium text-foreground">{selectedMonth}</span>
-              <button className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors shadow-sm">
+              <div className="flex items-center gap-2">
+                <CalendarTodayIcon className="w-5 h-5 text-[#5a5a6b]" />
+                <span className="text-base font-medium text-foreground" aria-live="polite" aria-atomic="true">{selectedMonth}</span>
+              </div>
+              <button
+                className="flex items-center gap-2 px-4 py-2 bg-[#0a7cb5] text-white rounded-lg hover:bg-[#0a7cb5]/90 transition-colors shadow-sm font-semibold"
+                aria-label="Baixar espelho de ponto"
+              >
                 <DownloadIcon className="w-5 h-5" />
                 <span className="text-sm font-medium">Baixar espelho</span>
               </button>
