@@ -2,6 +2,7 @@ import { useState } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DownloadIcon from '@mui/icons-material/Download';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { ActionButtons } from '../ActionButtons';
 import { MonthYearBottomSheet } from '../MonthYearBottomSheet';
@@ -189,8 +190,10 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
               <button
                 onClick={handleOpenMonthYearBottomSheet}
                 aria-expanded={showMonthYearBottomSheet}
-                className="text-sm text-[#2A2A33] font-medium hover:text-primary transition-colors"
+                aria-label="Trocar mês e ano da competência"
+                className="flex items-center gap-1.5 px-3 py-2 bg-muted hover:bg-muted/80 border border-muted-foreground/20 rounded-lg text-sm font-medium text-[#2A2A33] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
+                <SwapHorizIcon className="w-4 h-4" />
                 Trocar competência
               </button>
             </div>
