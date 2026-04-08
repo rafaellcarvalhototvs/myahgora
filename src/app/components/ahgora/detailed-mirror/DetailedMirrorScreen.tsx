@@ -186,7 +186,7 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
         <div className="px-4 py-6">
           {/* Competência Block */}
           <div className="mb-6">
-            <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center justify-between mb-3 gap-8">
               <h2 className="text-base font-semibold text-[#2A2A33] tracking-[0.024px]">Competência</h2>
               <Button
                 variant="ghost"
