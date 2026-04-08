@@ -162,7 +162,7 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
             <h3 className="text-base font-semibold text-[#2A2A33] mb-3 tracking-[0.024px]">Calendário</h3>
             <div className="grid grid-cols-7 gap-2 mb-3">
               {['D', 'S', 'T', 'Q', 'Q', 'S', 'S'].map((day) => (
-                <div key={day} className="text-center text-xs font-medium text-[#2A2A33] py-1">
+                <div key={day} className="text-center text-xs font-semibold text-[#2A2A33] py-1">
                   {day}
                 </div>
               ))}
