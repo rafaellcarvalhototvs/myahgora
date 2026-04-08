@@ -203,10 +203,10 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
                 <span className="text-base font-medium text-foreground" aria-live="polite" aria-atomic="true">{selectedMonth}</span>
               </div>
               <button
-                className="flex items-center gap-2 px-4 py-2 bg-[#0a7cb5] text-white rounded-lg hover:bg-[#0a7cb5]/90 transition-colors shadow-sm font-semibold"
+                className="flex items-center gap-2 px-4 py-2 border border-primary text-primary bg-transparent hover:bg-primary/10 transition-colors font-semibold rounded-lg"
                 aria-label="Baixar espelho de ponto"
               >
-                <DownloadIcon className="w-5 h-5" />
+                <DownloadIcon className="w-5 h-5 text-primary" />
                 <span className="text-sm font-medium">Baixar espelho</span>
               </button>
             </div>
