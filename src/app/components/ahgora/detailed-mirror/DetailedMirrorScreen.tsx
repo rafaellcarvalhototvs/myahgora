@@ -3,6 +3,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DownloadIcon from '@mui/icons-material/Download';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import StarIcon from '@mui/icons-material/Star';
 import { ActionButtons } from '../ActionButtons';
 
 interface DetailedMirrorScreenProps {
@@ -184,8 +185,8 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
                   {day.day}
                   {/* Indicators */}
                   <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 flex gap-0.5">
-                    {day.hasPunch && (
-                      <div className="w-1 h-1 rounded-full bg-primary"></div>
+                    {day.isHoliday && (
+                      <StarIcon className="w-3 h-3 text-primary" />
                     )}
                     {day.hasException && (
                       <div className="w-1 h-1 rounded-full bg-[#FF6B6B]"></div>
