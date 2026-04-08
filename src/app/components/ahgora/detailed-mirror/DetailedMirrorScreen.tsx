@@ -124,32 +124,32 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
     <div className="min-h-screen bg-[#f0f0f5] flex justify-center font-['Open_Sans']">
       <div className="w-full max-w-md bg-white min-h-screen relative shadow-2xl pb-20">
         {/* Header */}
-        <div className="sticky top-0 z-10 bg-primary">
-          <div className="flex items-center px-4 py-3">
-            <button 
-              onClick={onBack}
-              className="flex items-center justify-center w-10 h-10 -ml-2"
-              aria-label="Voltar"
-            >
-              <ArrowBackIcon className="text-white" />
-            </button>
-            <h1 className="flex-1 text-left text-lg font-semibold text-white">
-              Espelho detalhado
-            </h1>
-          </div>
+        <div className="sticky top-0 z-10 bg-primary px-4 py-3 flex items-center gap-2 shrink-0 shadow-sm h-[62px] relative">
+          <button
+            onClick={onBack}
+            className="text-white p-1 mr-2"
+            aria-label="Voltar"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+              <path d="M16 7H3.83L9.42 1.41L8 0L0 8L8 16L9.41 14.59L3.83 9H16V7Z" />
+            </svg>
+          </button>
+          <h1 className="text-white font-semibold text-[18px] leading-[28px] tracking-[0.027px]">
+            Espelho detalhado
+          </h1>
         </div>
 
         <div className="px-4 py-6">
           {/* Competência Block */}
           <div className="mb-6">
             <div className="flex items-center justify-between mb-3">
-              <label className="text-base font-semibold text-[#2A2A33]">Competência</label>
+              <label className="text-base font-semibold text-[#2A2A33] tracking-[0.024px]">Competência</label>
               <button className="text-sm text-primary font-medium hover:text-primary/80 transition-colors">
                 Trocar competência
               </button>
             </div>
-            <div className="flex items-center justify-between p-4 bg-[#F8F8FA] rounded-lg border border-[#2A2A33]/[0.08] min-h-[84px]">
-              <span className="text-base font-medium text-[#2A2A33]">{selectedMonth}</span>
+            <div className="flex items-center justify-between p-4 bg-[#F8F8FA] rounded-lg border border-gray-200 min-h-[84px]">
+              <span className="text-base font-medium text-foreground">{selectedMonth}</span>
               <button className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors shadow-sm">
                 <DownloadIcon className="w-5 h-5" />
                 <span className="text-sm font-medium">Baixar espelho</span>
@@ -159,10 +159,10 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
 
           {/* Calendar */}
           <div className="mb-6">
-            <h3 className="text-base font-semibold text-[#2A2A33] mb-3">Calendário</h3>
+            <h3 className="text-base font-semibold text-[#2A2A33] mb-3 tracking-[0.024px]">Calendário</h3>
             <div className="grid grid-cols-7 gap-2 mb-3">
               {['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'].map((day) => (
-                <div key={day} className="text-center text-xs font-medium text-[#6B6B7A] py-1">
+                <div key={day} className="text-center text-xs font-medium text-muted-foreground py-1">
                   {day}
                 </div>
               ))}
@@ -199,9 +199,9 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
           {/* Selected Day Details */}
           <div className={`mb-6 border rounded-[4px] p-4 border-[#78788f]`}>
             <div className="mb-4">
-              <h3 className="text-base font-semibold text-[#2A2A33]">{dayDetail.date}</h3>
+              <h3 className="text-base font-semibold text-[#2A2A33] tracking-[0.024px]">{dayDetail.date}</h3>
               {dayDetail.schedule && (
-                <p className={`text-sm ${dayDetail.isHoliday ? 'text-[#FF6B6B]' : 'text-[#6B6B7A]'} mt-1`}>
+                <p className={`text-sm ${dayDetail.isHoliday ? 'text-[#FF6B6B]' : 'text-muted-foreground'} mt-1`}>
                   {dayDetail.schedule}
                 </p>
               )}
@@ -209,7 +209,7 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
             
             <div className="space-y-4">
               <div>
-                <h4 className="text-sm font-semibold text-[#2A2A33] mb-3">Registros do dia:</h4>
+                <h4 className="text-sm font-semibold text-foreground mb-3">Registros do dia:</h4>
                 <div className="flex flex-wrap gap-3">
                   {dayDetail.punches.length > 0 ? (
                     dayDetail.punches.map((punch, index) => (
@@ -224,17 +224,17 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
                       </div>
                     ))
                   ) : (
-                    <p className="text-sm text-[#6B6B7A] italic">Não há registros de batidas</p>
+                    <p className="text-sm text-muted-foreground italic">Não há registros de batidas</p>
                   )}
                 </div>
               </div>
               
-              <div className="flex items-center justify-between pt-3 border-t border-[#2A2A33]/[0.08]">
-                <span className="text-sm font-medium text-[#2A2A33]">Horas previstas:</span>
+              <div className="flex items-center justify-between pt-3 border-t border-gray-200">
+                <span className="text-sm font-medium text-foreground">Horas previstas:</span>
                 {dayDetail.hasExpectedHours ? (
-                  <span className="text-base font-semibold text-[#2A2A33]">{dayDetail.expectedHours}</span>
+                  <span className="text-base font-semibold text-foreground">{dayDetail.expectedHours}</span>
                 ) : (
-                  <span className="text-sm font-medium text-[#2A2A33] italic">Não há horas previstas</span>
+                  <span className="text-sm font-medium text-foreground italic">Não há horas previstas</span>
                 )}
               </div>
             </div>
@@ -244,7 +244,7 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
           <ActionButtons onAction={handleAction} />
 
           {/* Bank Hours Summary - Same as home screen */}
-          <div className="flex justify-between items-center w-full mb-6 py-4 border-t border-b border-[#2A2A33]/[0.08]">
+          <div className="flex justify-between items-center w-full mb-6 py-4 border-t border-b border-gray-200">
             <div className="flex items-center gap-2">
                <div className="w-4 h-5 flex items-center justify-center">
                  <svg width="8" height="14" viewBox="0 0 8 13.3333" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -260,49 +260,49 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
 
           {/* Monthly Summary */}
           <div className="mb-6">
-            <h3 className="text-base font-semibold text-[#2A2A33] mb-4">Resumo mensal, Abril, 2026</h3>
+            <h3 className="text-base font-semibold text-[#2A2A33] mb-4 tracking-[0.024px]">Resumo mensal, Abril, 2026</h3>
             <div className="space-y-3">
               <div className="flex justify-between items-center">
-                <span className="text-sm text-[#2A2A33]">Horas Trabalhadas</span>
-                <span className="text-sm font-medium text-[#2A2A33]">{monthlySummary.hoursWorked}</span>
+                <span className="text-sm text-foreground">Horas Trabalhadas</span>
+                <span className="text-sm font-medium text-foreground">{monthlySummary.hoursWorked}</span>
               </div>
               
               <div className="flex justify-between items-center">
-                <span className="text-sm text-[#2A2A33]">Horas Previstas</span>
-                <span className="text-sm font-medium text-[#2A2A33]">{monthlySummary.hoursExpected}</span>
+                <span className="text-sm text-foreground">Horas Previstas</span>
+                <span className="text-sm font-medium text-foreground">{monthlySummary.hoursExpected}</span>
               </div>
               
               {monthlySummary.holidays.map((holiday, index) => (
                 <div key={index} className="flex justify-between items-center">
-                  <span className="text-sm text-[#2A2A33]">{holiday.name}</span>
-                  <span className="text-sm font-medium text-[#2A2A33]">{holiday.hours}</span>
+                  <span className="text-sm text-foreground">{holiday.name}</span>
+                  <span className="text-sm font-medium text-foreground">{holiday.hours}</span>
                 </div>
               ))}
               
               <div className="flex justify-between items-center">
-                <span className="text-sm text-[#2A2A33]">Horas mensais positivas</span>
+                <span className="text-sm text-foreground">Horas mensais positivas</span>
                 <span className="text-sm font-medium text-[#4CAF50]">{monthlySummary.monthlyPositive}</span>
               </div>
               
               <div className="flex justify-between items-center">
-                <span className="text-sm text-[#2A2A33]">Horas mensais negativas</span>
+                <span className="text-sm text-foreground">Horas mensais negativas</span>
                 <span className="text-sm font-medium text-[#FF6B6B]">{monthlySummary.monthlyNegative}</span>
               </div>
               
               <div className="flex justify-between items-center">
-                <span className="text-sm text-[#2A2A33]">Banco de horas acumulado até Março/2026</span>
-                <span className="text-sm font-medium text-[#2A2A33]">{monthlySummary.bankAccumulated}</span>
+                <span className="text-sm text-foreground">Banco de horas acumulado até Março/2026</span>
+                <span className="text-sm font-medium text-foreground">{monthlySummary.bankAccumulated}</span>
               </div>
               
-              <div className="flex justify-between items-center pt-3 border-t border-[#2A2A33]/[0.08]">
-                <span className="text-sm font-medium text-[#2A2A33]">SALDO</span>
+              <div className="flex justify-between items-center pt-3 border-t border-gray-200">
+                <span className="text-sm font-medium text-foreground">SALDO</span>
                 <span className={`text-base font-bold ${monthlySummary.totalBalance.startsWith('-') ? 'text-[#FF6B6B]' : 'text-[#4CAF50]'}`}>
                   {monthlySummary.totalBalance}
                 </span>
               </div>
               
               <div className="flex justify-between items-center">
-                <span className="text-sm text-[#2A2A33]">Banco de horas no mês</span>
+                <span className="text-sm text-foreground">Banco de horas no mês</span>
                 <span className={`text-sm font-medium ${monthlySummary.bankThisMonth.startsWith('-') ? 'text-[#FF6B6B]' : 'text-[#4CAF50]'}`}>
                   {monthlySummary.bankThisMonth}
                 </span>
