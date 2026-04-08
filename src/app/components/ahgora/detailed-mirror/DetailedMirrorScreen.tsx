@@ -193,7 +193,7 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
                 Trocar competência
               </button>
             </div>
-            <div className="flex items-center justify-between p-4 bg-[#F8F8FA] rounded-lg border border-muted min-h-[84px]">
+            <div className="flex items-center justify-between">
               <span className="text-base font-medium text-foreground">{selectedMonth}</span>
               <button className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors shadow-sm">
                 <DownloadIcon className="w-5 h-5" />
