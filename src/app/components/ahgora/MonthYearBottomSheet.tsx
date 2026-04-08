@@ -45,7 +45,7 @@ export function MonthYearBottomSheet({
 
   return (
     <div className="fixed inset-0 bg-black/50 z-[60] flex items-end justify-center animate-in fade-in duration-200 font-['Open_Sans']">
-      <div className="bg-white relative rounded-t-[8px] w-full sm:max-w-md overflow-hidden animate-in slide-in-from-bottom-full fade-in duration-300 shadow-xl">
+      <div className="bg-white relative rounded-t-[8px] w-full max-w-md overflow-hidden animate-in slide-in-from-bottom-full fade-in duration-300 shadow-xl">
         {/* Header + Body */}
         <div className="content-stretch flex flex-col gap-[24px] items-start p-[24px] relative w-full">
           {/* Header */}
