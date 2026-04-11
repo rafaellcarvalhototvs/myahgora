@@ -550,10 +550,9 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
                     dayDetail.punches.map((punch, index) => (
                       <div
                         key={index}
-                        className="bg-[#eaf8ff] flex items-center justify-center px-[10px] py-[19px] relative rounded-[168px] shrink-0 size-[48px]"
+                        className="bg-[#eaf8ff] border border-primary relative w-12 h-12 rounded-full flex items-center justify-center shrink-0"
                       >
-                        <div aria-hidden="true" className="absolute border-0 border-primary border-solid inset-0 pointer-events-none rounded-[168px]" />
-                        <p className="font-['Open_Sans:Semibold',sans-serif] leading-[20极] not-italic relative shrink-0 text-foreground text-[14px] tracking-[0.035px]">
+                        <p className="text-sm font-semibold text-foreground">
                           {punch}
                         </p>
                       </div>
