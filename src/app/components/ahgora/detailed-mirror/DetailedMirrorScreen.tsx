@@ -527,7 +527,11 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
             {/* Schedule */}
             {dayDetail.schedule && (
               <div className={`text-center text-sm ${dayDetail.isHoliday ? 'text-destructive' : 'text-[#5a5a6b]'} mt-2 mb-3`}>
-                {dayDetail.schedule}
+                {dayDetail.isHoliday ? dayDetail.schedule : (
+                  <>
+                    <span className="font-semibold">Escala:</span> {dayDetail.schedule}
+                  </>
+                )}
               </div>
             )}
           </div>
