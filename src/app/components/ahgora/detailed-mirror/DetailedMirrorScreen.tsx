@@ -5,6 +5,7 @@ import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import { ActionButtons } from '../ActionButtons';
 import { MonthYearBottomSheet } from '../MonthYearBottomSheet';
 import { Button } from '../../ui/button';
+import { AhgoraButton } from '../AhgoraButton';
 
 interface DetailedMirrorScreenProps {
   onBack: () => void;
@@ -198,15 +199,14 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
                 <span aria-live="polite" aria-atomic="true">{selectedMonth}</span>
                 <SwapHorizIcon className="w-4 h-4 text-[#5a5a6b]" />
               </Button>
-              <Button
+              <AhgoraButton
                 size="sm"
                 variant="outline"
-                className="text-primary"
                 aria-label="Baixar espelho de ponto"
               >
                 <DownloadIcon className="w-4 h-4" />
-                <span className="font-medium">Baixar espelho</span>
-              </Button>
+                <span>Baixar espelho</span>
+              </AhgoraButton>
             </div>
           </div>
 

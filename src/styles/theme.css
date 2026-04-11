@@ -12,6 +12,13 @@
   /* Font weights */
   --font-weight-semibold: 600;
   --font-weight-regular: 400;
+  
+  /* Spacing tokens for consistent spacing across components */
+  --spacing-xxs: 4px;
+  --spacing-xs: 8px;
+  --spacing-sm: 16px;
+  --spacing-lg: 24px;
+  
   /* The default background color for the application. */
   --background: rgba(255, 255, 255, 1.00);
   /* The default color for elements or text that appears on top of the background. */
