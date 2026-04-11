@@ -389,7 +389,6 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
                 className="text-white hover:bg-white/20"
               >
                 <AccessibilityIcon className="w-4 h-4" />
-                <span className="sr-only sm:not-sr-only sm:ml-1">Acessibilidade</span>
               </AhgoraButton>
             )}
           </div>
