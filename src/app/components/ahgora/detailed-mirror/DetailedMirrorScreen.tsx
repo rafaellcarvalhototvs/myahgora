@@ -1,6 +1,5 @@
 import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import DownloadIcon from '@mui/icons-material/Download';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 import AccessibilityIcon from '@mui/icons-material/Accessibility';
@@ -552,7 +551,6 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
                 aria-label="Baixar espelho de ponto"
                 className="flex items-center gap-2 font-medium"
               >
-                <DownloadIcon className="w-4 h-4" aria-hidden="true" />
                 <span>Baixar espelho</span>
               </AhgoraButton>
             </div>
