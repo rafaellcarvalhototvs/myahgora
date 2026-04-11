@@ -40,8 +40,35 @@ interface DayDetail {
 }
 
 export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: DetailedMirrorScreenProps) {
-  const [selectedMonth, setSelectedMonth] = useState('Abril - 2026');
-  const [selectedDay, setSelectedDay] = useState<number>(15);
+  // Parse month/year from string like "Abril - 2026"
+  const parseMonthYear = (monthYearStr: string): { monthIndex: number; year: number } => {
+    const months = [
+      'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+      'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+    ];
+    const [monthName, yearStr] = monthYearStr.split(' - ');
+    const monthIndex = months.findIndex(m => m === monthName);
+    const year = parseInt(yearStr, 10);
+    return { monthIndex: monthIndex >= 0 ? monthIndex : 3, year: isNaN(year) ? 2026 : year };
+  };
+
+  // Format month/year to string
+  const formatMonthYear = (monthIndex: number, year: number): string => {
+    const months = [
+      'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+      'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+    ];
+    return `${months[monthIndex]} - ${year}`;
+  };
+
+  const [selectedMonth, setSelectedMonth] = useState(() => {
+    const today = new Date();
+    return formatMonthYear(today.getMonth(), today.getFullYear());
+  });
+  const [selectedDay, setSelectedDay] = useState<number>(() => {
+    const today = new Date();
+    return today.getDate();
+  });
   const [showMonthYearBottomSheet, setShowMonthYearBottomSheet] = useState(false);
   const [isCalendarExpanded, setIsCalendarExpanded] = useState(false);
   const [focusedDayIndex, setFocusedDayIndex] = useState<number>(-1);
@@ -80,27 +107,6 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
     }
   }, [focusedDayIndex]);
   
-  // Parse month/year from string like "Abril - 2026"
-  const parseMonthYear = (monthYearStr: string): { monthIndex: number; year: number } => {
-    const months = [
-      'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-      'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
-    ];
-    const [monthName, yearStr] = monthYearStr.split(' - ');
-    const monthIndex = months.findIndex(m => m === monthName);
-    const year = parseInt(yearStr, 10);
-    return { monthIndex: monthIndex >= 0 ? monthIndex : 3, year: isNaN(year) ? 2026 : year };
-  };
-
-  // Format month/year to string
-  const formatMonthYear = (monthIndex: number, year: number): string => {
-    const months = [
-      'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-      'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
-    ];
-    return `${months[monthIndex]} - ${year}`;
-  };
-
   // Calculate worked hours from punch times
   const calculateWorkedHours = (punches: string[]): string => {
     if (punches.length < 4) return '00:00';
@@ -124,6 +130,10 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
   // Get current month/year for bottom sheet
   const { monthIndex: currentMonthIndex, year: currentYear } = parseMonthYear(selectedMonth);
   
+  // Check if selected month is the current month (for showing/hiding adjustment options)
+  const today = new Date();
+  const isCurrentMonthSelected = currentMonthIndex === today.getMonth() && currentYear === today.getFullYear();
+
   // Handle month/year selection from bottom sheet
   const handleMonthYearSelect = (monthIndex: number, year: number) => {
     setSelectedMonth(formatMonthYear(monthIndex, year));
@@ -577,9 +587,11 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
           </div>
 
           {/* Quick Actions - Reusing the same component from home screen */}
-          <div className="-mx-6">
-            <ActionButtons onAction={handleAction} />
-          </div>
+          {isCurrentMonthSelected && (
+            <div className="-mx-6">
+              <ActionButtons onAction={handleAction} />
+            </div>
+          )}
 
           {/* Bank Hours Summary - Same as home screen */}
           <div className="flex justify-between items-center w-full mb-6 py-4 border-t border-b border-muted">
