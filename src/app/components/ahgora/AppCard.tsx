@@ -4,7 +4,7 @@ import svgPaths from "../../../imports/svg-e87qwrkf8p";
 export function AppCard() {
   return (
     <div 
-      className="bg-white rounded-[4px] shadow-[0px_1px_2px_0px_rgba(0,0,0,0.16)] p-4 flex flex-col gap-6 mx-4 mt-6"
+      className="bg-white rounded-[4px] shadow-[0px_1px_2px_0px_rgba(0,0,0,0.16)] p-4 flex flex-col gap-6 mx-6 mt-6"
       data-name="MyAhgora Card"
     >
       {/* Header Section */}

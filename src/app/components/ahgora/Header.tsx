@@ -10,7 +10,7 @@ interface HeaderProps {
 export function Header({ userName, avatarUrl, onNotificationClick, onAvatarClick }: HeaderProps) {
   return (
     <div className="bg-primary flex flex-col items-start w-full relative">
-      <div className="flex flex-col gap-2 items-start px-4 py-4 w-full">
+      <div className="flex flex-col gap-2 items-start px-6 py-4 w-full">
         {/* User Details Row */}
         <div className="flex items-start justify-between w-full">
           {/* Avatar */}

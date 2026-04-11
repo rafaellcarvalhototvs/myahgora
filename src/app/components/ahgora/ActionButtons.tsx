@@ -87,13 +87,13 @@ export function ActionButtons({ onAction }: ActionButtonsProps) {
   };
 
   return (
-    <div className="mt-6 px-4">
+    <div className="mt-6 px-6">
       <h3 className="font-semibold text-base mb-4 text-[#2a2a33] tracking-[0.024px]">Solicitar ajustes</h3>
       
       {/* Native App-like Carousel with Scroll Snap & Drag Support */}
       <div 
         ref={scrollRef}
-        className={`flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 snap-x snap-mandatory scroll-pl-4 overscroll-x-contain [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] ${isDragging ? 'cursor-grabbing snap-none' : 'cursor-grab'}`}
+        className={`flex gap-4 overflow-x-auto pb-4 -mx-6 px-6 snap-x snap-mandatory scroll-pl-6 overscroll-x-contain [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] ${isDragging ? 'cursor-grabbing snap-none' : 'cursor-grab'}`}
         role="region"
         aria-label="Opções de ajuste de ponto"
         onMouseDown={handleMouseDown}

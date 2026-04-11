@@ -59,7 +59,7 @@ const options = [
 
 export function OptionsGrid() {
   return (
-    <div className="flex flex-col mt-6 px-[16px] pt-[0px] pb-[32px]">
+    <div className="flex flex-col mt-6 px-6 pt-[0px] pb-[32px]">
       <h3 className="font-semibold text-base mb-4 text-[#2a2a33] tracking-[0.024px] leading-6">Outras opções</h3>
       
       <div className="grid grid-cols-2 gap-x-[17px] gap-y-4">

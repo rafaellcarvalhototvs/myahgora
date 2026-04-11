@@ -32,14 +32,14 @@ export function ComplimentsCarousel() {
 
   return (
     <div className="mt-6 p-[0px]">
-      <div className="flex justify-between items-center px-4 mb-4">
+      <div className="flex justify-between items-center px-6 mb-4">
         <h3 className="font-semibold text-lg text-foreground">Elogios</h3>
         <button className="text-primary text-sm font-semibold hover:underline">Ver todos</button>
       </div>
       
       <div 
         ref={scrollRef}
-        className={`flex gap-4 px-4 pb-4 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] ${ isDragging ? 'cursor-grabbing snap-none' : 'cursor-grab snap-x snap-mandatory' } ml-[16px] mr-[0px] my-[0px]`}
+        className={`flex gap-4 px-6 pb-4 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] ${ isDragging ? 'cursor-grabbing snap-none' : 'cursor-grab snap-x snap-mandatory' } ml-0 mr-0 my-0`}
         onMouseDown={handleMouseDown}
         onMouseLeave={handleMouseLeave}
         onMouseUp={handleMouseUp}
