@@ -583,7 +583,9 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
           </div>
 
           {/* Quick Actions - Reusing the same component from home screen */}
-          <ActionButtons onAction={handleAction} />
+          <div className="-mx-6">
+            <ActionButtons onAction={handleAction} />
+          </div>
 
           {/* Bank Hours Summary - Same as home screen */}
           <div className="flex justify-between items-center w-full mb-6 py-4 border-t border-b border-muted">
