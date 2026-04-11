@@ -503,23 +503,17 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
             <div className="flex justify-center mt-2 mb-3">
               <AhgoraButton
                 variant="ghost"
-                size="sm"
+                size="md"
                 onClick={toggleCalendarExpand}
-                className="flex items-center gap-1"
+                className="px-3"
                 aria-expanded={isCalendarExpanded}
                 aria-controls="calendar-grid"
                 aria-label={isCalendarExpanded ? "Recolher calendário" : "Expandir calendário"}
               >
                 {isCalendarExpanded ? (
-                  <>
-                    <ChevronUpIcon className="w-4 h-4" aria-hidden="true" />
-                    <span>Recolher</span>
-                  </>
+                  <ChevronUpIcon className="w-5 h-5" aria-hidden="true" />
                 ) : (
-                  <>
-                    <ChevronDownIcon className="w-4 h-4" aria-hidden="true" />
-                    <span>Expandir</span>
-                  </>
+                  <ChevronDownIcon className="w-5 h-5" aria-hidden="true" />
                 )}
               </AhgoraButton>
             </div>
