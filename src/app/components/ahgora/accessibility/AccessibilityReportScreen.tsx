@@ -6,7 +6,7 @@ interface AccessibilityReportScreenProps {
 }
 
 export function AccessibilityReportScreen({ onBack }: AccessibilityReportScreenProps) {
-  const [currentView, setCurrentView] = useState<'summary' | 'detailed' | 'wcag'>('summary');
+  const [currentView, setCurrentView] = useState<'summary' | 'detailed' | 'wcag' | 'screen-reader'>('summary');
   
   const improvements = [
     {
@@ -147,6 +147,152 @@ export function AccessibilityReportScreen({ onBack }: AccessibilityReportScreenP
     }
   ];
 
+  const screenReaderOutputs = [
+    {
+      screen: 'Tela Inicial',
+      elements: [
+        {
+          element: 'Cabeçalho',
+          announcement: 'Olá, Rafael. Botão de perfil. Botão de notificações. Botão de mensagens, 4 novas. Botão de lembretes.',
+          rating: 'excelente',
+          notes: 'Labels descritivos, contagem de mensagens inclusa'
+        },
+        {
+          element: 'Cartão de ponto',
+          announcement: 'Registrar o ponto. 25 de Março, 2026. Vamos começar o dia? Registre seu primeiro ponto. Botão registrar ponto. Saldo total banco de horas, mais 02:04.',
+          rating: 'bom',
+          notes: 'Informação temporal clara, estado do botão explícito'
+        },
+        {
+          element: 'Link para espelho detalhado',
+          announcement: 'Ver espelho detalhado, link.',
+          rating: 'bom',
+          notes: 'Tipo de elemento anunciado como link'
+        },
+        {
+          element: 'Solicitar ajustes (carrossel)',
+          announcement: 'Opções de ajuste de ponto, região. Botão Incluir batida. Botão Cancelar batida. Botão Substituir batida. Botão Solicitar abono. Botão Enviar Mensagem. Botão Reposicionar batida. Botão Hora extra. Botão Exceção diária.',
+          rating: 'excelente',
+          notes: 'Região identificada, cada ação claramente rotulada'
+        },
+        {
+          element: 'Elogios da semana',
+          announcement: 'Elogios da semana, carrossel. João elogiou seu comprometimento. Maria elogiou sua proatividade. Carlos elogiou sua atenção aos detalhes.',
+          rating: 'bom',
+          notes: 'Tipo de componente (carrossel) anunciado'
+        },
+        {
+          element: 'Menu inferior',
+          announcement: 'Menu de navegação. Botão Ponto, selecionado. Botão Espelho. Botão Ajustes. Botão Perfil.',
+          rating: 'excelente',
+          notes: 'Estado de seleção anunciado para item ativo'
+        }
+      ]
+    },
+    {
+      screen: 'Espelho Detalhado',
+      elements: [
+        {
+          element: 'Calendário',
+          announcement: 'Calendário do mês de Abril 2026, grade. Domingo, segunda, terça, quarta, quinta, sexta, sábado. Dia 1, terça-feira, feriado, Páscoa. Dia 2, quarta-feira, dia útil. Dia 3, quinta-feira, dia útil. Dia 4, sexta-feira, dia útil, ponto registrado às 08:00 e 12:00. Dia 5, sábado, fim de semana.',
+          rating: 'excelente',
+          notes: 'Estrutura de grade, informações contextuais (feriados, pontos) incluídas'
+        },
+        {
+          element: 'Botões de navegação',
+          announcement: 'Trocar mês e ano da competência, atual: Abril 2026, botão recolhível. Baixar espelho de ponto, botão.',
+          rating: 'bom',
+          notes: 'Estado recolhível anunciado, função clara'
+        },
+        {
+          element: 'Detalhes do dia selecionado',
+          announcement: 'Detalhes do dia selecionado, região. Sexta-feira, 04 de Abril, 2026. Batidas: 08:00 entrada, 12:00 saída para almoço, 13:00 retorno, 17:00 saída. Total trabalhado: 08:00 horas.',
+          rating: 'excelente',
+          notes: 'Região identificada, informações de horários estruturadas'
+        },
+        {
+          element: 'Resumo mensal',
+          announcement: 'Resumo mensal, região. Total de horas trabalhadas: 160 horas. Horas extras: 08:00 horas. Faltas: 0 dias. Banco de horas: + 02:04 horas.',
+          rating: 'excelente',
+          notes: 'Dados resumidos apresentados de forma clara'
+        }
+      ]
+    },
+    {
+      screen: 'Modal Registrar Ponto',
+      elements: [
+        {
+          element: 'Modal',
+          announcement: 'Registrar ponto, diálogo modal. Sucesso! Ponto registrado às 14:30. Botão fechar.',
+          rating: 'bom',
+          notes: 'Tipo de componente (diálogo modal) anunciado'
+        }
+      ]
+    },
+    {
+      screen: 'Tela Incluir Batida',
+      elements: [
+        {
+          element: 'Formulário',
+          announcement: 'Incluir batida. Data, campo de entrada, 25 de Março, 2026. Hora, campo de entrada, 14:30. Tipo da batida, botão de opção, entrada, selecionado. Justificativa, campo de texto multilinha. Botão enviar solicitação.',
+          rating: 'excelente',
+          notes: 'Todos os campos rotulados, estado de seleção anunciado'
+        }
+      ]
+    }
+  ];
+
+  const screenReaderAnalysis = [
+    {
+      aspect: 'Navegação por cabeçalhos',
+      status: '✅ Implementado',
+      details: 'h1 para título principal, h2 para seções, h3 para subsseções',
+      example: 'Tela inicial: h1 "Olá, Rafael", h2 "Registrar o ponto", h2 "Solicitar ajustes"'
+    },
+    {
+      aspect: 'Landmarks (regiões)',
+      status: '✅ Implementado',
+      details: 'role="region" com aria-label para áreas importantes',
+      example: 'Calendário, detalhes do dia, resumo mensal, carrossel de ações'
+    },
+    {
+      aspect: 'Rotulagem de botões',
+      status: '✅ Implementado',
+      details: 'aria-label para ícones sem texto, textos descritivos',
+      example: 'Botão de perfil: "Perfil de Rafael. Clique para ver relatório de acessibilidade"'
+    },
+    {
+      aspect: 'Estados dinâmicos',
+      status: '✅ Implementado',
+      details: 'aria-expanded, aria-selected, aria-live para atualizações',
+      example: 'Calendário: aria-selected para dia selecionado, aria-expanded para expansão'
+    },
+    {
+      aspect: 'Navegação por teclado',
+      status: '✅ Implementado',
+      details: 'tabIndex gerenciado, ordem lógica, foco visível',
+      example: 'Calendário: navegação por teclas de seta, tabIndex para dias focáveis'
+    },
+    {
+      aspect: 'Alternativas para ícones',
+      status: '✅ Implementado',
+      details: 'aria-hidden="true" para ícones decorativos, textos alternativos',
+      example: 'Ícones de ações: svg com aria-hidden, rótulos textuais adjacentes'
+    },
+    {
+      aspect: 'Formulários',
+      status: '✅ Implementado',
+      details: 'labels associados, instruções, mensagens de erro',
+      example: 'Campos com aria-describedby para ajuda, aria-invalid para erros'
+    },
+    {
+      aspect: 'Conteúdo dinâmico',
+      status: '🔄 Parcial',
+      details: 'aria-live para notificações em tempo real',
+      example: 'Faltam anúncios automáticos para atualizações de saldo em tempo real'
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-[#f0f0f5] flex justify-center font-['Open_Sans']">
       <div className="w-full max-w-md bg-white min-h-screen relative shadow-2xl pb-20">
@@ -187,6 +333,13 @@ export function AccessibilityReportScreen({ onBack }: AccessibilityReportScreenP
               aria-current={currentView === 'wcag' ? 'page' : undefined}
             >
               WCAG
+            </button>
+            <button
+              onClick={() => setCurrentView('screen-reader')}
+              className={`flex-1 py-3 text-sm font-medium ${currentView === 'screen-reader' ? 'text-primary border-b-2 border-primary' : 'text-muted-foreground'}`}
+              aria-current={currentView === 'screen-reader' ? 'page' : undefined}
+            >
+              Leitor de Telas
             </button>
           </div>
 
@@ -332,6 +485,101 @@ export function AccessibilityReportScreen({ onBack }: AccessibilityReportScreenP
                   <p className="text-sm text-foreground">{criterion.description}</p>
                 </div>
               ))}
+            </div>
+          )}
+
+          {/* Screen Reader Output View */}
+          {currentView === 'screen-reader' && (
+            <div className="space-y-6">
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <div className="flex items-start gap-3">
+                  <div className="bg-blue-100 p-2 rounded-full">
+                    <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-blue-800">Análise do Leitor de Telas</h3>
+                    <p className="text-blue-700 mt-1">Simulação do output anunciado por leitores de tela (NVDA, JAWS, VoiceOver) nas principais telas do aplicativo.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-base font-semibold text-[#2A2A33] mb-4">Análise Técnica</h3>
+                <div className="space-y-4">
+                  {screenReaderAnalysis.map((item, index) => (
+                    <div key={index} className="border border-muted rounded-lg p-4">
+                      <div className="flex justify-between items-start mb-2">
+                        <h4 className="text-sm font-semibold text-foreground">{item.aspect}</h4>
+                        <span className={`px-2 py-1 rounded text-xs font-medium ${
+                          item.status.includes('✅') ? 'bg-green-100 text-green-800' : 
+                          item.status.includes('🔄') ? 'bg-yellow-100 text-yellow-800' : 
+                          'bg-red-100 text-red-800'
+                        }`}>
+                          {item.status}
+                        </span>
+                      </div>
+                      <p className="text-sm text-foreground mb-2">{item.details}</p>
+                      <p className="text-xs text-muted-foreground">Exemplo: {item.example}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-base font-semibold text-[#2A2A33] mb-4">Output por Tela</h3>
+                <p className="text-sm text-muted-foreground mb-4">O que um usuário de leitor de tela ouviria ao navegar pelas principais telas.</p>
+                
+                {screenReaderOutputs.map((screen, screenIndex) => (
+                  <div key={screenIndex} className="border border-muted rounded-lg p-4 mb-4">
+                    <h4 className="text-sm font-semibold text-foreground mb-3">{screen.screen}</h4>
+                    <div className="space-y-3">
+                      {screen.elements.map((element, elementIndex) => (
+                        <div key={elementIndex} className="border-l-4 border-primary pl-3 py-2">
+                          <div className="flex justify-between items-start">
+                            <h5 className="text-sm font-medium text-foreground">{element.element}</h5>
+                            <span className={`px-2 py-0.5 rounded text-xs font-medium ${
+                              element.rating === 'excelente' ? 'bg-green-100 text-green-800' :
+                              element.rating === 'bom' ? 'bg-blue-100 text-blue-800' :
+                              'bg-yellow-100 text-yellow-800'
+                            }`}>
+                              {element.rating}
+                            </span>
+                          </div>
+                          <div className="mt-1 p-3 bg-gray-50 rounded border border-gray-200">
+                            <p className="text-sm text-gray-700 font-medium mb-1">Anúncio do leitor de tela:</p>
+                            <p className="text-sm text-gray-800 italic">"{element.announcement}"</p>
+                          </div>
+                          <p className="text-xs text-muted-foreground mt-2">Notas: {element.notes}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                <h4 className="text-sm font-semibold text-gray-800 mb-2">Recomendações para Melhoria</h4>
+                <ul className="text-sm text-gray-700 space-y-2">
+                  <li className="flex items-start gap-2">
+                    <span className="text-blue-600 mt-0.5">•</span>
+                    <span><strong>Implementar aria-live para atualizações em tempo real:</strong> Anunciar automaticamente mudanças no saldo de horas</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-blue-600 mt-0.5">•</span>
+                    <span><strong>Adicionar skip links:</strong> Links para pular conteúdo repetitivo em telas mais longas</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-blue-600 mt-0.5">•</span>
+                    <span><strong>Melhorar descrições de gráficos:</strong> Fornecer alternativas textuais detalhadas para visualizações de dados</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-blue-600 mt-0.5">•</span>
+                    <span><strong>Testar com múltiplos leitores de tela:</strong> Validar compatibilidade com NVDA, JAWS, VoiceOver e TalkBack</span>
+                  </li>
+                </ul>
+              </div>
             </div>
           )}
         </div>
