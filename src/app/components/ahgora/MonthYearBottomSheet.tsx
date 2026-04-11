@@ -28,16 +28,35 @@ export function MonthYearBottomSheet({
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [selectedMonth, setSelectedMonth] = useState<number | null>(currentMonth);
 
+  // Get current date for comparison
+  const today = new Date();
+  const currentYearToday = today.getFullYear();
+  const currentMonthToday = today.getMonth();
+
+  // Check if a month/year is in the future
+  const isFutureMonth = (monthIndex: number, year: number): boolean => {
+    if (year > currentYearToday) return true;
+    if (year === currentYearToday && monthIndex > currentMonthToday) return true;
+    return false;
+  };
+
   // Handle year navigation
   const handlePrevYear = () => {
     setSelectedYear(prev => prev - 1);
   };
 
   const handleNextYear = () => {
-    setSelectedYear(prev => prev + 1);
+    // Only allow navigating to future years if we want to allow seeing future months (disabled)
+    // For now, restrict to current year
+    if (selectedYear < currentYearToday) {
+      setSelectedYear(prev => prev + 1);
+    }
   };
 
   const handleMonthSelect = (monthIndex: number) => {
+    // Don't allow selecting future months
+    if (isFutureMonth(monthIndex, selectedYear)) return;
+    
     setSelectedMonth(monthIndex);
     onSelect(monthIndex, selectedYear);
     onClose();
@@ -91,7 +110,10 @@ export function MonthYearBottomSheet({
               </div>
               <button 
                 onClick={handleNextYear}
-                className="content-stretch flex items-center justify-center p-2 hover:bg-gray-100 rounded-full"
+                disabled={selectedYear >= currentYearToday}
+                className={`content-stretch flex items-center justify-center p-2 hover:bg-gray-100 rounded-full ${
+                  selectedYear >= currentYearToday ? 'opacity-40 cursor-not-allowed' : ''
+                }`}
               >
                 <ChevronRightIcon sx={{ color: '#3A3A45', fontSize: 20 }} />
               </button>
@@ -99,24 +121,30 @@ export function MonthYearBottomSheet({
 
             {/* Months Grid */}
             <div className="grid grid-cols-3 gap-3 w-full">
-              {months.map((month, index) => (
-                <button
-                  key={month}
-                  onClick={() => handleMonthSelect(index)}
-                  className={`
-                    content-stretch flex flex-col items-center justify-center p-4 relative rounded-lg border
-                    ${selectedMonth === index 
-                      ? 'bg-primary border-primary text-white' 
-                      : 'bg-white border-gray-200 text-[#3a3a45] hover:bg-gray-50'
-                    }
-                    transition-colors
-                  `}
-                >
-                  <p className="font-['Open_Sans'] font-medium leading-[20px] relative shrink-0 text-[14px] tracking-[0.024px]">
-                    {month}
-                  </p>
-                </button>
-              ))}
+              {months.map((month, index) => {
+                const future = isFutureMonth(index, selectedYear);
+                return (
+                  <button
+                    key={month}
+                    onClick={() => handleMonthSelect(index)}
+                    disabled={future}
+                    className={`
+                      content-stretch flex flex-col items-center justify-center p-4 relative rounded-lg border
+                      ${future 
+                        ? 'bg-gray-100 border-gray-300 text-gray-400 cursor-not-allowed'
+                        : selectedMonth === index 
+                          ? 'bg-primary border-primary text-white' 
+                          : 'bg-white border-gray-200 text-[#3a3a45] hover:bg-gray-50'
+                      }
+                      transition-colors
+                    `}
+                  >
+                    <p className={`font-['Open_Sans'] font-medium leading-[20px] relative shrink-0 text-[14px] tracking-[0.024px] ${future ? 'opacity-60' : ''}`}>
+                      {month}
+                    </p>
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>
