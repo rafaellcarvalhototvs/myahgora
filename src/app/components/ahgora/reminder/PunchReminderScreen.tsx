@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { Checkbox } from '../../ui/checkbox';
 import { AhgoraInput } from '../AhgoraInput';
 import { Switch } from '../../ui/switch';
-import { Button } from '../../ui/button';
 import { cn } from '../../ui/utils';
+import { AhgoraButton } from '../AhgoraButton';
 
 const arrowBackPath = "M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z";
 
@@ -139,12 +139,14 @@ export function PunchReminderScreen({ onBack }: PunchReminderScreenProps) {
 
                         <div className="mt-auto pb-0">
                             <div className="fixed bottom-0 left-0 right-0 px-6 py-4 bg-white border-t border-[#DDDDDD] z-20 w-full max-w-md mx-auto">
-                                <Button 
-                                    className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-2 h-[48px] text-[14px] leading-[24px] tracking-[0.4px] rounded-[4px] shadow-none"
+                                <AhgoraButton
+                                    variant="primary"
+                                    size="lg"
+                                    className="w-full"
                                     onClick={handleSave}
                                 >
                                     Salvar lembrete
-                                </Button>
+                                </AhgoraButton>
                             </div>
                         </div>
                     </div>

@@ -4,7 +4,6 @@ import DownloadIcon from '@mui/icons-material/Download';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import { ActionButtons } from '../ActionButtons';
 import { MonthYearBottomSheet } from '../MonthYearBottomSheet';
-import { Button } from '../../ui/button';
 import { AhgoraButton } from '../AhgoraButton';
 
 interface DetailedMirrorScreenProps {
@@ -189,7 +188,7 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
               <h2 className="text-base font-semibold text-[#2A2A33] tracking-[0.024px]">Competência</h2>
             </div>
             <div className="flex items-center justify-between">
-              <Button
+              <AhgoraButton
                 variant="ghost"
                 onClick={handleOpenMonthYearBottomSheet}
                 aria-expanded={showMonthYearBottomSheet}
@@ -198,7 +197,7 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
               >
                 <span aria-live="polite" aria-atomic="true">{selectedMonth}</span>
                 <SwapHorizIcon className="w-4 h-4 text-[#5a5a6b]" />
-              </Button>
+              </AhgoraButton>
               <AhgoraButton
                 size="sm"
                 variant="outline"
