@@ -327,21 +327,6 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
           <div className="mb-6">
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-base font-semibold text-[#2A2A33] tracking-[0.024px]">Calendário</h3>
-              <button
-                onClick={toggleCalendarExpand}
-                className="flex items-center gap-1 text-sm text-foreground hover:text-primary transition-colors"
-                aria-expanded={isCalendarExpanded}
-                aria-label={isCalendarExpanded ? "Recolher calendário" : "Expandir calendário"}
-              >
-                <span className="text-sm font-medium">
-                  {isCalendarExpanded ? "Recolher" : "Expandir"}
-                </span>
-                {isCalendarExpanded ? (
-                  <ExpandLessIcon className="w-5 h-5" />
-                ) : (
-                  <ExpandMoreIcon className="w-5 h-5" />
-                )}
-              </button>
             </div>
             
             {/* Weekday headers */}
@@ -384,22 +369,29 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
               ))}
             </div>
             
-            {/* Expand button when collapsed */}
-            {!isCalendarExpanded && (
-              <div className="flex justify-center mt-2 mb-3">
-                <AhgoraButton
-                  variant="outline"
-                  size="sm"
-                  onClick={toggleCalendarExpand}
-                  className="flex items-center gap-1"
-                  aria-expanded={isCalendarExpanded}
-                  aria-label="Expandir calendário para ver o mês completo"
-                >
-                  <ExpandMoreIcon className="w-4 h-4" />
-                  <span>Expandir</span>
-                </AhgoraButton>
-              </div>
-            )}
+            {/* Expand/Collapse button */}
+            <div className="flex justify-center mt-2 mb-3">
+              <AhgoraButton
+                variant="ghost"
+                size="sm"
+                onClick={toggleCalendarExpand}
+                className="flex items-center gap-1"
+                aria-expanded={isCalendarExpanded}
+                aria-label={isCalendarExpanded ? "Recolher calendário" : "Expandir calendário para ver o mês completo"}
+              >
+                {isCalendarExpanded ? (
+                  <>
+                    <ExpandLessIcon className="w-4 h-4" />
+                    <span>Recolher</span>
+                  </>
+                ) : (
+                  <>
+                    <ExpandMoreIcon className="w-4 h-4" />
+                    <span>Expandir</span>
+                  </>
+                )}
+              </AhgoraButton>
+            </div>
             
             {/* Schedule */}
             {dayDetail.schedule && (
