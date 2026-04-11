@@ -18,6 +18,7 @@ import { DailyExceptionScreen } from "./components/ahgora/daily-exception/DailyE
 import { PunchReminderScreen } from "./components/ahgora/reminder/PunchReminderScreen";
 import { DetailedMirrorScreen } from "./components/ahgora/detailed-mirror/DetailedMirrorScreen";
 import { AccessibilityReportScreen } from "./components/ahgora/accessibility/AccessibilityReportScreen";
+import { DetailedMirrorAccessibilityReport } from "./components/ahgora/accessibility/DetailedMirrorAccessibilityReport";
 
 export default function App() {
   const [currentView, setCurrentView] = useState('home');
@@ -84,11 +85,20 @@ export default function App() {
   }
 
   if (currentView === 'detailed-mirror') {
-    return <DetailedMirrorScreen onBack={() => setCurrentView('home')} />;
+    return (
+      <DetailedMirrorScreen 
+        onBack={() => setCurrentView('home')} 
+        onAccessibilityReport={() => setCurrentView('detailed-mirror-accessibility-report')}
+      />
+    );
   }
 
   if (currentView === 'accessibility-report') {
     return <AccessibilityReportScreen onBack={() => setCurrentView('home')} />;
+  }
+
+  if (currentView === 'detailed-mirror-accessibility-report') {
+    return <DetailedMirrorAccessibilityReport onBack={() => setCurrentView('detailed-mirror')} />;
   }
 
   return (

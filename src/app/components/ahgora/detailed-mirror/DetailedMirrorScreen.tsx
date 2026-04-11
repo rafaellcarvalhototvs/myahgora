@@ -4,6 +4,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import AccessibilityIcon from '@mui/icons-material/Accessibility';
 import { format, parseISO, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isWeekend as isWeekendDate, getDay } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { ActionButtons } from '../ActionButtons';
@@ -12,6 +13,7 @@ import { AhgoraButton } from '../AhgoraButton';
 
 interface DetailedMirrorScreenProps {
   onBack: () => void;
+  onAccessibilityReport?: () => void;
 }
 
 interface DayData {
@@ -38,7 +40,7 @@ interface DayDetail {
   hasWorkedHours: boolean;
 }
 
-export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
+export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: DetailedMirrorScreenProps) {
   const [selectedMonth, setSelectedMonth] = useState('Abril - 2026');
   const [selectedDay, setSelectedDay] = useState<number>(15);
   const [showMonthYearBottomSheet, setShowMonthYearBottomSheet] = useState(false);
@@ -380,6 +382,18 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
           <div className="mb-6">
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-base font-semibold text-[#2A2A33] tracking-[0.024px]">Competência</h2>
+              {onAccessibilityReport && (
+                <AhgoraButton
+                  size="sm"
+                  variant="ghost"
+                  onClick={onAccessibilityReport}
+                  aria-label="Ver relatório de acessibilidade desta tela"
+                  className="text-primary hover:bg-primary/10"
+                >
+                  <AccessibilityIcon className="w-4 h-4" />
+                  <span className="sr-only sm:not-sr-only sm:ml-1">Acessibilidade</span>
+                </AhgoraButton>
+              )}
             </div>
             <div className="flex items-center justify-between">
               <AhgoraButton
