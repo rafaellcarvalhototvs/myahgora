@@ -2,6 +2,8 @@ import { useState } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DownloadIcon from '@mui/icons-material/Download';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { ActionButtons } from '../ActionButtons';
 import { MonthYearBottomSheet } from '../MonthYearBottomSheet';
 import { AhgoraButton } from '../AhgoraButton';
@@ -34,6 +36,7 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
   const [selectedMonth, setSelectedMonth] = useState('Abril - 2026');
   const [selectedDay, setSelectedDay] = useState<number>(15);
   const [showMonthYearBottomSheet, setShowMonthYearBottomSheet] = useState(false);
+  const [isCalendarExpanded, setIsCalendarExpanded] = useState(false);
   
   // Parse month/year from string like "Abril - 2026"
   const parseMonthYear = (monthYearStr: string): { monthIndex: number; year: number } => {
@@ -75,6 +78,11 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
     setShowMonthYearBottomSheet(false);
   };
   
+  // Toggle calendar expand/collapse
+  const toggleCalendarExpand = () => {
+    setIsCalendarExpanded(!isCalendarExpanded);
+  };
+
   // Mock data for calendar
   const days: DayData[] = [
     { date: '2026-04-01', day: 1, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
@@ -108,6 +116,30 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
     { date: '2026-04-29', day: 29, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
     { date: '2026-04-30', day: 30, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
   ];
+
+  // Calculate current week (Sunday to Saturday) containing the selected day
+  const getCurrentWeekDays = (): DayData[] => {
+    // Find the selected day
+    const selectedDayData = days.find(d => d.day === selectedDay);
+    if (!selectedDayData) return days.slice(0, 7); // Fallback to first 7 days
+    
+    // Find index of selected day
+    const selectedIndex = days.findIndex(d => d.day === selectedDay);
+    
+    // Calculate day of week for each day (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+    // April 1, 2026 is Wednesday (3)
+    const startDoW = 3; // Wednesday for April 1
+    const dayOfWeekMap: Record<string, number> = {};
+    days.forEach((day, idx) => {
+      dayOfWeekMap[day.day] = (startDoW + idx) % 7;
+    });
+    
+    const selectedDayOfWeek = dayOfWeekMap[selectedDay];
+    // Start index: selectedIndex - selectedDayOfWeek
+    const startIndex = selectedIndex - selectedDayOfWeek;
+    if (startIndex < 0) return days.slice(0, 7);
+    return days.slice(startIndex, startIndex + 7);
+  };
 
   // Function to get day details based on selected day
   const getDayDetail = (day: number): DayDetail => {
@@ -211,19 +243,42 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
 
           {/* Calendar */}
           <div className="mb-6">
-            <h3 className="text-base font-semibold text-[#2A2A33] mb-3 tracking-[0.024px]">Calendário</h3>
-            <div className="grid grid-cols-7 gap-2 mb-3">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-base font-semibold text-[#2A2A33] tracking-[0.024px]">Calendário</h3>
+              <button
+                onClick={toggleCalendarExpand}
+                className="flex items-center gap-1 text-sm text-foreground hover:text-primary transition-colors"
+                aria-expanded={isCalendarExpanded}
+                aria-label={isCalendarExpanded ? "Recolher calendário" : "Expandir calendário"}
+              >
+                <span className="text-sm font-medium">
+                  {isCalendarExpanded ? "Recolher" : "Expandir"}
+                </span>
+                {isCalendarExpanded ? (
+                  <ExpandLessIcon className="w-5 h-5" />
+                ) : (
+                  <ExpandMoreIcon className="w-5 h-5" />
+                )}
+              </button>
+            </div>
+            
+            {/* Weekday headers */}
+            <div className="grid grid-cols-7 gap-2 mb-2">
               {['D', 'S', 'T', 'Q', 'Q', 'S', 'S'].map((day) => (
                 <div key={day} className="text-center text-xs font-semibold text-[#2A2A33] py-1">
                   {day}
                 </div>
               ))}
-              {days.map((day) => (
+            </div>
+            
+            {/* Calendar grid */}
+            <div className={`grid grid-cols-7 gap-2 ${isCalendarExpanded ? 'mb-3' : ''}`}>
+              {(isCalendarExpanded ? days : getCurrentWeekDays()).map((day) => (
                 <button
                   key={day.date}
                   onClick={() => handleDayClick(day.day)}
                   className={`
-                    relative flex items-center justify-center h-10 rounded-lg text-sm font-medium
+                    relative flex items-center justify-center h-10 rounded-lg text-sm font-medium transition-colors
                     ${day.isSelected
                       ? 'bg-primary text-white'
                       : day.isWeekend
@@ -246,6 +301,13 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
                 </button>
               ))}
             </div>
+            
+            {/* Show message when collapsed */}
+            {!isCalendarExpanded && (
+              <div className="text-center text-sm text-muted-foreground mt-2 mb-3">
+                Mostrando apenas a semana vigente. Clique em "Expandir" para ver o mês completo.
+              </div>
+            )}
           </div>
 
           {/* Selected Day Details */}
