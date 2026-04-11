@@ -40,25 +40,23 @@ interface DayDetail {
 }
 
 export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: DetailedMirrorScreenProps) {
+  // Months in Portuguese
+  const MONTHS_IN_PORTUGUESE = [
+    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+  ];
+
   // Parse month/year from string like "Abril - 2026"
   const parseMonthYear = (monthYearStr: string): { monthIndex: number; year: number } => {
-    const months = [
-      'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-      'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
-    ];
     const [monthName, yearStr] = monthYearStr.split(' - ');
-    const monthIndex = months.findIndex(m => m === monthName);
+    const monthIndex = MONTHS_IN_PORTUGUESE.findIndex(m => m === monthName);
     const year = parseInt(yearStr, 10);
     return { monthIndex: monthIndex >= 0 ? monthIndex : 3, year: isNaN(year) ? 2026 : year };
   };
 
   // Format month/year to string
   const formatMonthYear = (monthIndex: number, year: number): string => {
-    const months = [
-      'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-      'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
-    ];
-    return `${months[monthIndex]} - ${year}`;
+    return `${MONTHS_IN_PORTUGUESE[monthIndex]} - ${year}`;
   };
 
   // Check if a date is in the future (after today)
@@ -268,7 +266,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
       // Fallback
       const punches = ['08:30', '12:00', '13:00', '17:30'];
       return {
-        date: `${day} de Abril, 2026`,
+        date: `${day} de ${MONTHS_IN_PORTUGUESE[currentMonthIndex]}, ${currentYear}`,
         schedule: '08:00 às 12:00 - 13:00 às 17:00',
         punches,
         expectedHours: '08:00',
@@ -312,19 +310,88 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
 
   const dayDetail = getDayDetail(selectedDay);
 
-  // Mock monthly summary data
-  const monthlySummary = {
-    hoursWorked: '130:53',
-    hoursExpected: '184:00',
-    holidays: [
-      { name: 'Aniversário Florianópolis', hours: '08:00' },
-      { name: 'Paixão de Cristo', hours: '08:00' }
-    ],
-    monthlyPositive: '05:53',
-    monthlyNegative: '-11:09',
-    bankAccumulated: '01:53',
-    totalBalance: '-03:23',
-    bankThisMonth: '-05:16'
+  // Mock monthly summary data based on month and year
+  const getMonthlySummary = (monthIndex: number, year: number) => {
+    // Base data structure
+    const baseSummary = {
+      hoursWorked: '130:53',
+      hoursExpected: '184:00',
+      holidays: [
+        { name: 'Aniversário Florianópolis', hours: '08:00' },
+        { name: 'Paixão de Cristo', hours: '08:00' }
+      ],
+      monthlyPositive: '05:53',
+      monthlyNegative: '-11:09',
+      bankAccumulated: '01:53',
+      totalBalance: '-03:23',
+      bankThisMonth: '-05:16'
+    };
+
+    // Adjust data based on month and year
+    if (monthIndex === 2 && year === 2026) { // March 2026
+      return {
+        ...baseSummary,
+        hoursWorked: '128:15',
+        hoursExpected: '176:00',
+        monthlyPositive: '02:15',
+        monthlyNegative: '-08:00',
+        totalBalance: '+01:30',
+        bankThisMonth: '+02:15',
+        bankAccumulated: '03:48'
+      };
+    }
+
+    if (monthIndex === 1 && year === 2026) { // February 2026
+      return {
+        ...baseSummary,
+        hoursWorked: '120:00',
+        hoursExpected: '168:00',
+        holidays: [
+          { name: 'Carnaval', hours: '08:00' },
+          { name: 'Quarta-feira de Cinzas', hours: '08:00' }
+        ],
+        monthlyPositive: '00:00',
+        monthlyNegative: '-12:00',
+        totalBalance: '-05:00',
+        bankThisMonth: '-12:00',
+        bankAccumulated: '01:53'
+      };
+    }
+
+    if (monthIndex === 0 && year === 2026) { // January 2026
+      return {
+        ...baseSummary,
+        hoursWorked: '152:30',
+        hoursExpected: '184:00',
+        holidays: [
+          { name: 'Confraternização Universal', hours: '08:00' }
+        ],
+        monthlyPositive: '08:30',
+        monthlyNegative: '-05:00',
+        totalBalance: '+03:30',
+        bankThisMonth: '+08:30',
+        bankAccumulated: '10:23'
+      };
+    }
+
+    // Default for other months (e.g., April 2026)
+    return baseSummary;
+  };
+
+  // Get monthly summary for current selected month
+  const monthlySummary = getMonthlySummary(currentMonthIndex, currentYear);
+
+  // Get name of previous month for "accumulated until" text
+  const getPreviousMonthName = (monthIndex: number, year: number): string => {
+    let prevMonthIndex = monthIndex - 1;
+    let prevYear = year;
+    
+    if (prevMonthIndex < 0) {
+      prevMonthIndex = 11;
+      prevYear = year - 1;
+    }
+    
+    return `${MONTHS_IN_PORTUGUESE[prevMonthIndex]}/${prevYear}`;
   };
 
   const handleDayClick = (day: DayData) => {
@@ -673,7 +740,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
 
           {/* Monthly Summary */}
           <div className="mb-6" role="region" aria-label="Resumo mensal">
-            <h3 className="text-base font-semibold text-[#2A2A33] mb-4 tracking-[0.024px]">Resumo mensal, Abril, 2026</h3>
+            <h3 className="text-base font-semibold text-[#2A2A33] mb-4 tracking-[0.024px]">Resumo mensal, {formatMonthYear(currentMonthIndex, currentYear).replace(' - ', ', ')}</h3>
             <div className="space-y-3">
               <div className="flex justify-between items-center">
                 <span className="text-sm text-foreground">Horas Trabalhadas</span>
@@ -703,7 +770,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
               </div>
               
               <div className="flex justify-between items-center">
-                <span className="text-sm text-foreground">Banco de horas acumulado até Março/2026</span>
+                <span className="text-sm text-foreground">Banco de horas acumulado até {getPreviousMonthName(currentMonthIndex, currentYear)}</span>
                 <span className="text-sm font-medium text-foreground">{monthlySummary.bankAccumulated}</span>
               </div>
               
