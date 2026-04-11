@@ -384,10 +384,27 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
               ))}
             </div>
             
-            {/* Show message when collapsed */}
+            {/* Expand button when collapsed */}
             {!isCalendarExpanded && (
-              <div className="text-center text-sm text-muted-foreground mt-2 mb-3">
-                Mostrando apenas a semana vigente. Clique em "Expandir" para ver o mês completo.
+              <div className="flex justify-center mt-2 mb-3">
+                <AhgoraButton
+                  variant="outline"
+                  size="sm"
+                  onClick={toggleCalendarExpand}
+                  className="flex items-center gap-1"
+                  aria-expanded={isCalendarExpanded}
+                  aria-label="Expandir calendário para ver o mês completo"
+                >
+                  <ExpandMoreIcon className="w-4 h-4" />
+                  <span>Expandir</span>
+                </AhgoraButton>
+              </div>
+            )}
+            
+            {/* Schedule */}
+            {dayDetail.schedule && (
+              <div className={`text-center text-sm ${dayDetail.isHoliday ? 'text-destructive' : 'text-muted-foreground'} mt-2 mb-3`}>
+                {dayDetail.schedule}
               </div>
             )}
           </div>
@@ -396,11 +413,6 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
           <div className={`mb-6 border rounded-[4px] p-4 border-muted`}>
             <div className="mb-4">
               <h3 className="text-base font-semibold text-[#2A2A33] tracking-[0.024px]">{dayDetail.date}</h3>
-              {dayDetail.schedule && (
-                <p className={`text-sm ${dayDetail.isHoliday ? 'text-destructive' : 'text-muted-foreground'} mt-1`}>
-                  {dayDetail.schedule}
-                </p>
-              )}
             </div>
             
             <div className="space-y-4">
