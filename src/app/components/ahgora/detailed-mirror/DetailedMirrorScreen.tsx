@@ -536,14 +536,15 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
             </div>
             <div className="flex items-center justify-between">
               <AhgoraButton
-                variant="ghost"
+                variant="outline"
+                size="md"
                 onClick={handleOpenMonthYearBottomSheet}
                 aria-expanded={showMonthYearBottomSheet}
                 aria-label={`Trocar mês e ano da competência, atual: ${selectedMonth}`}
-                className="flex items-center gap-2 text-base font-medium text-foreground hover:bg-muted p-1 h-auto"
+                className="flex items-center gap-2 font-medium"
               >
                 <span aria-live="polite" aria-atomic="true">{selectedMonth}</span>
-                <SwapHorizIcon className="w-4 h-4 text-[#5a5a6b]" aria-hidden="true" />
+                <SwapHorizIcon className="w-4 h-4" aria-hidden="true" />
               </AhgoraButton>
               <AhgoraButton
                 size="sm"
