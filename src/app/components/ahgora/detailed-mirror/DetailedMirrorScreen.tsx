@@ -373,7 +373,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
             </svg>
           </button>
           
-          <div className="flex-1 flex justify-center">
+          <div className="flex-1 flex justify-start">
             <h1 className="text-white font-semibold text-[18px] leading-[28px] tracking-[0.027px]">
               Espelho detalhado
             </h1>
