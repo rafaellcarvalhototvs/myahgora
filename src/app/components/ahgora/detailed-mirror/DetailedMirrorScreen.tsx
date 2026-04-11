@@ -2,8 +2,7 @@ import { useState, useMemo, useEffect, useRef } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DownloadIcon from '@mui/icons-material/Download';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 import AccessibilityIcon from '@mui/icons-material/Accessibility';
 import { format, parseISO, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isWeekend as isWeekendDate, getDay } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
@@ -445,6 +444,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
             {/* Calendar grid */}
             <div
               ref={calendarGridRef}
+              id="calendar-grid"
               className={`grid grid-cols-7 gap-2 ${isCalendarExpanded ? 'mb-3' : ''}`}
               role="grid"
               aria-label={`Calendário do mês de ${selectedMonth}`}
@@ -507,16 +507,17 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
                 onClick={toggleCalendarExpand}
                 className="flex items-center gap-1"
                 aria-expanded={isCalendarExpanded}
-                aria-label={isCalendarExpanded ? "Recolher calendário" : "Expandir calendário para ver o mês completo"}
+                aria-controls="calendar-grid"
+                aria-label={isCalendarExpanded ? "Recolher calendário" : "Expandir calendário"}
               >
                 {isCalendarExpanded ? (
                   <>
-                    <ExpandLessIcon className="w-4 h-4" aria-hidden="true" />
+                    <ChevronUpIcon className="w-4 h-4" aria-hidden="true" />
                     <span>Recolher</span>
                   </>
                 ) : (
                   <>
-                    <ExpandMoreIcon className="w-4 h-4" aria-hidden="true" />
+                    <ChevronDownIcon className="w-4 h-4" aria-hidden="true" />
                     <span>Expandir</span>
                   </>
                 )}
