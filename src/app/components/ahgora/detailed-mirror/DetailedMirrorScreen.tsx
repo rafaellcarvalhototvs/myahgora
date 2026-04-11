@@ -32,8 +32,10 @@ interface DayDetail {
   schedule: string;
   punches: string[];
   expectedHours: string;
+  workedHours: string;
   isHoliday: boolean;
   hasExpectedHours: boolean;
+  hasWorkedHours: boolean;
 }
 
 export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
@@ -72,6 +74,26 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
       'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
     ];
     return `${months[monthIndex]} - ${year}`;
+  };
+
+  // Calculate worked hours from punch times
+  const calculateWorkedHours = (punches: string[]): string => {
+    if (punches.length < 4) return '00:00';
+    
+    // Convert HH:MM to minutes
+    const toMinutes = (time: string): number => {
+      const [hours, minutes] = time.split(':').map(Number);
+      return hours * 60 + minutes;
+    };
+    
+    const [in1, out1, in2, out2] = punches.map(toMinutes);
+    const morning = out1 - in1;
+    const afternoon = out2 - in2;
+    const totalMinutes = morning + afternoon;
+    
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
   };
 
   // Get current month/year for bottom sheet
@@ -180,13 +202,16 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
     
     if (!dayData) {
       // Fallback
+      const punches = ['08:30', '12:00', '13:00', '17:30'];
       return {
         date: `${day} de Abril, 2026`,
         schedule: '08:00 às 12:00 - 13:00 às 17:00',
-        punches: ['08:30', '12:00', '13:00', '17:30'],
+        punches,
         expectedHours: '08:00',
+        workedHours: calculateWorkedHours(punches),
         isHoliday: false,
-        hasExpectedHours: true
+        hasExpectedHours: true,
+        hasWorkedHours: true
       };
     }
     
@@ -200,19 +225,24 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
         schedule: 'Feriado - Tiradentes',
         punches: [],
         expectedHours: '',
+        workedHours: '',
         isHoliday: true,
-        hasExpectedHours: false
+        hasExpectedHours: false,
+        hasWorkedHours: false
       };
     }
     
     // Default day details
+    const punches = dayData.isSelected ? ['08:27', '12:01', '13:02', '17:27'] : ['08:30', '12:00', '13:00', '17:30'];
     return {
       date: dateFormatted,
       schedule: dayData.isSelected ? '08:00 às 12:00 - 13:00 às 17:00' : '08:00 às 12:00 - 13:00 às 17:00',
-      punches: dayData.isSelected ? ['08:27', '12:01', '13:02', '17:27'] : ['08:30', '12:00', '13:00', '17:30'],
+      punches,
       expectedHours: '08:00',
+      workedHours: calculateWorkedHours(punches),
       isHoliday: false,
-      hasExpectedHours: true
+      hasExpectedHours: true,
+      hasWorkedHours: true
     };
   };
 
@@ -395,6 +425,14 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
                 </div>
               </div>
               
+              <div className="flex items-center justify-between pt-3">
+                <span className="text-sm font-medium text-foreground">Horas trabalhadas:</span>
+                {dayDetail.hasWorkedHours ? (
+                  <span className="text-base font-semibold text-foreground">{dayDetail.workedHours}</span>
+                ) : (
+                  <span className="text-sm font-medium text-foreground italic">Não há horas trabalhadas</span>
+                )}
+              </div>
               <div className="flex items-center justify-between pt-3 border-t border-muted">
                 <span className="text-sm font-medium text-foreground">Horas previstas:</span>
                 {dayDetail.hasExpectedHours ? (
