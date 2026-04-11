@@ -198,13 +198,15 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
                 <span aria-live="polite" aria-atomic="true">{selectedMonth}</span>
                 <SwapHorizIcon className="w-4 h-4 text-[#5a5a6b]" />
               </Button>
-              <button
-                className="flex items-center gap-2 px-3 py-1.5 border border-primary text-primary bg-transparent hover:bg-primary/10 transition-colors font-semibold rounded-lg text-xs"
+              <Button
+                size="sm"
+                variant="outline"
+                className="text-primary"
                 aria-label="Baixar espelho de ponto"
               >
-                <DownloadIcon className="w-4 h-4 text-primary" />
+                <DownloadIcon className="w-4 h-4" />
                 <span className="font-medium">Baixar espelho</span>
-              </button>
+              </Button>
             </div>
           </div>
 
