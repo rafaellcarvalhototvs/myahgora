@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useRef } from 'react';
+import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DownloadIcon from '@mui/icons-material/Download';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
@@ -61,6 +61,24 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
     return `${months[monthIndex]} - ${year}`;
   };
 
+  // Check if a date is in the future (after today)
+  const isFutureDate = useCallback((date: Date): boolean => {
+    const today = new Date();
+    const todayYear = today.getFullYear();
+    const todayMonth = today.getMonth();
+    const todayDay = today.getDate();
+    
+    const dateYear = date.getFullYear();
+    const dateMonth = date.getMonth();
+    const dateDay = date.getDate();
+    
+    // Compare year, month, day
+    if (dateYear > todayYear) return true;
+    if (dateYear === todayYear && dateMonth > todayMonth) return true;
+    if (dateYear === todayYear && dateMonth === todayMonth && dateDay > todayDay) return true;
+    return false;
+  }, []);
+
   const [selectedMonth, setSelectedMonth] = useState(() => {
     const today = new Date();
     return formatMonthYear(today.getMonth(), today.getFullYear());
@@ -106,7 +124,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedMonth, selectedDay, isCalendarExpanded, isFutureDate]);
+  }, [selectedMonth, selectedDay, isCalendarExpanded]);
 
   // Effect to focus the focused day element
   useEffect(() => {
@@ -136,24 +154,6 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;
     return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-  };
-
-  // Check if a date is in the future (after today)
-  const isFutureDate = (date: Date): boolean => {
-    const today = new Date();
-    const todayYear = today.getFullYear();
-    const todayMonth = today.getMonth();
-    const todayDay = today.getDate();
-    
-    const dateYear = date.getFullYear();
-    const dateMonth = date.getMonth();
-    const dateDay = date.getDate();
-    
-    // Compare year, month, day
-    if (dateYear > todayYear) return true;
-    if (dateYear === todayYear && dateMonth > todayMonth) return true;
-    if (dateYear === todayYear && dateMonth === todayMonth && dateDay > todayDay) return true;
-    return false;
   };
 
   // Get current month/year for bottom sheet
