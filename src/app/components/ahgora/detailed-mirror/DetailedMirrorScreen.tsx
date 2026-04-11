@@ -88,14 +88,25 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
   // Effect to set focused day when month changes or day is selected
   useEffect(() => {
     const currentDays = isCalendarExpanded ? days : getCurrentWeekDays();
+    
+    // Try to find the selected day index
     const selectedIndex = currentDays.findIndex(day => day.isSelected && day.isCurrentMonth);
-    if (selectedIndex >= 0) {
+    
+    // If selected day is found and not future, focus it
+    if (selectedIndex >= 0 && !isFutureDate(currentDays[selectedIndex].dateObj)) {
       setFocusedDayIndex(selectedIndex);
-    } else if (currentDays.length > 0) {
-      setFocusedDayIndex(0);
+    } else {
+      // Find first non-future day
+      const firstNonFutureIndex = currentDays.findIndex(day => !isFutureDate(day.dateObj));
+      if (firstNonFutureIndex >= 0) {
+        setFocusedDayIndex(firstNonFutureIndex);
+      } else if (currentDays.length > 0) {
+        // Fallback to first day if all are future (shouldn't happen in practice)
+        setFocusedDayIndex(0);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedMonth, selectedDay, isCalendarExpanded]);
+  }, [selectedMonth, selectedDay, isCalendarExpanded, isFutureDate]);
 
   // Effect to focus the focused day element
   useEffect(() => {
@@ -125,6 +136,24 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;
     return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+  };
+
+  // Check if a date is in the future (after today)
+  const isFutureDate = (date: Date): boolean => {
+    const today = new Date();
+    const todayYear = today.getFullYear();
+    const todayMonth = today.getMonth();
+    const todayDay = today.getDate();
+    
+    const dateYear = date.getFullYear();
+    const dateMonth = date.getMonth();
+    const dateDay = date.getDate();
+    
+    // Compare year, month, day
+    if (dateYear > todayYear) return true;
+    if (dateYear === todayYear && dateMonth > todayMonth) return true;
+    if (dateYear === todayYear && dateMonth === todayMonth && dateDay > todayDay) return true;
+    return false;
   };
 
   // Get current month/year for bottom sheet
@@ -299,8 +328,8 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
   };
 
   const handleDayClick = (day: DayData) => {
-    // Only allow selecting days from the current month
-    if (day.isCurrentMonth) {
+    // Only allow selecting days from the current month that are not in the future
+    if (day.isCurrentMonth && !isFutureDate(day.dateObj)) {
       setSelectedDay(day.day);
     }
   };
@@ -310,43 +339,72 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
     const cols = 7;
     const rows = Math.ceil(currentDays.length / cols);
     
+    // Helper to find next non-future index in a direction
+    const findNextNonFutureIndex = (startIndex: number, delta: number): number => {
+      let nextIndex = startIndex + delta;
+      
+      // Boundary checks
+      if (nextIndex < 0 || nextIndex >= currentDays.length) {
+        return startIndex; // Stay where we are if out of bounds
+      }
+      
+      // Skip future dates
+      while (nextIndex >= 0 && nextIndex < currentDays.length && isFutureDate(currentDays[nextIndex].dateObj)) {
+        nextIndex += delta;
+      }
+      
+      // If we went out of bounds, return to original
+      if (nextIndex < 0 || nextIndex >= currentDays.length) {
+        return startIndex;
+      }
+      
+      return nextIndex;
+    };
+    
     switch (e.key) {
       case 'ArrowLeft':
         e.preventDefault();
-        if (index > 0) {
-          setFocusedDayIndex(index - 1);
-        }
+        setFocusedDayIndex(findNextNonFutureIndex(index, -1));
         break;
       case 'ArrowRight':
         e.preventDefault();
-        if (index < currentDays.length - 1) {
-          setFocusedDayIndex(index + 1);
-        }
+        setFocusedDayIndex(findNextNonFutureIndex(index, 1));
         break;
       case 'ArrowUp':
         e.preventDefault();
-        if (index - cols >= 0) {
-          setFocusedDayIndex(index - cols);
-        }
+        setFocusedDayIndex(findNextNonFutureIndex(index, -cols));
         break;
       case 'ArrowDown':
         e.preventDefault();
-        if (index + cols < currentDays.length) {
-          setFocusedDayIndex(index + cols);
-        }
+        setFocusedDayIndex(findNextNonFutureIndex(index, cols));
         break;
       case 'Home':
         e.preventDefault();
-        setFocusedDayIndex(0);
+        // Find first non-future index
+        let homeIndex = 0;
+        while (homeIndex < currentDays.length && isFutureDate(currentDays[homeIndex].dateObj)) {
+          homeIndex++;
+        }
+        if (homeIndex < currentDays.length) {
+          setFocusedDayIndex(homeIndex);
+        }
         break;
       case 'End':
         e.preventDefault();
-        setFocusedDayIndex(currentDays.length - 1);
+        // Find last non-future index
+        let endIndex = currentDays.length - 1;
+        while (endIndex >= 0 && isFutureDate(currentDays[endIndex].dateObj)) {
+          endIndex--;
+        }
+        if (endIndex >= 0) {
+          setFocusedDayIndex(endIndex);
+        }
         break;
       case 'Enter':
       case ' ':
         e.preventDefault();
-        if (currentDays[index].isCurrentMonth) {
+        // Only allow selection if day is from current month and not future
+        if (currentDays[index].isCurrentMonth && !isFutureDate(currentDays[index].dateObj)) {
           setSelectedDay(currentDays[index].day);
         }
         break;
@@ -465,15 +523,19 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
                 if (day.isHoliday) indicators.push('feriado');
                 if (day.hasException) indicators.push('exceção');
                 
-                const ariaLabel = `${day.day} de ${selectedMonth.split(' - ')[0]}, ${dayName}${indicators.length > 0 ? `, ${indicators.join(', ')}` : ''}${day.isCurrentMonth ? '' : ' (não pertence ao mês atual)'}`;
+                const future = isFutureDate(day.dateObj);
+                
+                const ariaLabel = `${day.day} de ${selectedMonth.split(' - ')[0]}, ${dayName}${indicators.length > 0 ? `, ${indicators.join(', ')}` : ''}${day.isCurrentMonth ? '' : ' (não pertence ao mês atual)'}${future ? ', data futura' : ''}`;
                 
                 return (
                   <button
                     key={day.date}
                     onClick={() => handleDayClick(day)}
+                    disabled={future}
                     className={`
                       relative flex items-center justify-center h-10 rounded-lg text-sm font-medium transition-colors
                       focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
+                      ${future ? 'cursor-not-allowed opacity-50' : ''}
                       ${day.isSelected
                         ? 'bg-primary text-white'
                         : day.isWeekend
@@ -484,9 +546,10 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
                     `}
                     aria-label={ariaLabel}
                     aria-selected={day.isSelected}
+                    aria-disabled={future}
                     role="gridcell"
                     onKeyDown={(e) => handleCalendarKeyDown(e, index)}
-                    tabIndex={focusedDayIndex === index ? 0 : -1}
+                    tabIndex={future ? -1 : (focusedDayIndex === index ? 0 : -1)}
                   >
                     {day.day}
                     {/* Indicators with screen reader text */}
