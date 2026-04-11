@@ -2,6 +2,7 @@ import { useState } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DownloadIcon from '@mui/icons-material/Download';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import { ActionButtons } from '../ActionButtons';
 import { MonthYearBottomSheet } from '../MonthYearBottomSheet';
 import { Button } from '../../ui/button';
@@ -195,8 +196,9 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
                 aria-label={`Trocar mês e ano da competência, atual: ${selectedMonth}`}
                 className="flex items-center gap-2 text-base font-medium text-foreground hover:bg-muted p-1 h-auto"
               >
-                <CalendarTodayIcon className="w-5 h-5 text-[#5a5a6b]" />
+                <CalendarTodayIcon className="w-4 h-4 text-[#5a5a6b]" />
                 <span aria-live="polite" aria-atomic="true">{selectedMonth}</span>
+                <SwapHorizIcon className="w-4 h-4 text-[#5a5a6b]" />
               </Button>
               <button
                 className="flex items-center gap-2 px-4 py-2 border border-primary text-primary bg-transparent hover:bg-primary/10 transition-colors font-semibold rounded-lg"
