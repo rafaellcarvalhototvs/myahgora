@@ -566,7 +566,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
               <div className="flex items-center justify-between pt-3">
                 <span className="text-sm font-medium text-foreground">Horas trabalhadas:</span>
                 {dayDetail.hasWorkedHours ? (
-                  <span className="text-base font-semibold text-foreground">{dayDetail.workedHours}</span>
+                  <span className="text-sm font-semibold text-foreground">{dayDetail.workedHours}</span>
                 ) : (
                   <span className="text-sm font-medium text-foreground italic">Não há horas trabalhadas</span>
                 )}
@@ -574,7 +574,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
               <div className="flex items-center justify-between pt-3 border-t border-muted">
                 <span className="text-sm font-medium text-foreground">Horas previstas:</span>
                 {dayDetail.hasExpectedHours ? (
-                  <span className="text-base font-semibold text-foreground">{dayDetail.expectedHours}</span>
+                  <span className="text-sm font-semibold text-foreground">{dayDetail.expectedHours}</span>
                 ) : (
                   <span className="text-sm font-medium text-foreground italic">Não há horas previstas</span>
                 )}
