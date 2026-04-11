@@ -297,7 +297,7 @@ export function AccessibilityReportScreen({ onBack }: AccessibilityReportScreenP
     <div className="min-h-screen bg-[#f0f0f5] flex justify-center font-['Open_Sans']">
       <div className="w-full max-w-md bg-white min-h-screen relative shadow-2xl pb-20">
         {/* Header */}
-        <div className="sticky top-0 z-10 bg-primary px-4 py-3 flex items-center gap-2 shrink-0 shadow-sm h-[62px] relative">
+        <div className="sticky top-0 z-10 bg-primary px-6 py-3 flex items-center gap-2 shrink-0 shadow-sm h-[62px] relative">
           <button
             onClick={onBack}
             className="text-white p-1 mr-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary rounded"
@@ -310,7 +310,7 @@ export function AccessibilityReportScreen({ onBack }: AccessibilityReportScreenP
           </h1>
         </div>
 
-        <div className="px-4 py-6">
+        <div className="px-6 py-6">
           {/* Navigation Tabs */}
           <div className="flex border-b border-muted mb-6">
             <button

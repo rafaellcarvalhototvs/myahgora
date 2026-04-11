@@ -26,7 +26,7 @@ export function PunchReminderScreen({ onBack }: PunchReminderScreenProps) {
     <div className="fixed inset-0 z-50 overflow-y-auto bg-[#f0f0f5] flex justify-center font-['Open_Sans']">
         <div className="w-full max-w-md bg-white min-h-screen relative shadow-2xl pb-20 flex flex-col">
             {/* Header */}
-            <div className="bg-primary px-4 py-3 flex items-center gap-2 sticky top-0 z-10 shadow-sm h-[62px]">
+            <div className="bg-primary px-6 py-3 flex items-center gap-2 sticky top-0 z-10 shadow-sm h-[62px]">
                 <button onClick={onBack} className="text-white p-1 mr-2 cursor-pointer">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
                         <path d={arrowBackPath} />

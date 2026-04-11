@@ -66,7 +66,7 @@ export function CancelPunchScreen({ onBack }: CancelPunchScreenProps) {
     <div className="fixed inset-0 z-50 overflow-hidden bg-[#f0f0f5] flex justify-center items-stretch font-['Open_Sans'] h-[100dvh] w-screen">
       <div className="w-full max-w-md bg-white h-full relative shadow-2xl flex flex-col">
         {/* Header */}
-        <div className="bg-primary px-4 py-3 flex items-center gap-2 shrink-0 shadow-sm h-[62px] z-10 relative">
+        <div className="bg-primary px-6 py-3 flex items-center gap-2 shrink-0 shadow-sm h-[62px] z-10 relative">
         <button onClick={onBack} className="text-white p-1 mr-2">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
             <path d="M16 7H3.83L9.42 1.41L8 0L0 8L8 16L9.41 14.59L3.83 9H16V7Z" />

@@ -361,7 +361,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
       
       <div className="w-full max-w-md bg-white min-h-screen relative shadow-2xl pb-20">
         {/* Header */}
-        <div className="sticky top-0 z-10 bg-primary px-4 py-3 flex items-center justify-between shrink-0 shadow-sm h-[62px] relative">
+        <div className="sticky top-0 z-10 bg-primary px-6 py-3 flex items-center justify-between shrink-0 shadow-sm h-[62px] relative">
           <button
             onClick={onBack}
             className="text-white p-1 mr-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary rounded"
@@ -393,7 +393,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
           </div>
         </div>
 
-        <main id="main-content" className="px-4 py-6">
+        <main id="main-content" className="px-6 py-6">
           {/* Competência Block */}
           <div className="mb-6">
             <div className="flex items-center justify-between mb-3">

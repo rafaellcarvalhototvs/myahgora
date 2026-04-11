@@ -56,7 +56,7 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
   const renderStep1 = () => (
     <div className="flex flex-col h-full">
       {/* Header */}
-      <div className="bg-primary px-4 py-3 flex items-center gap-2 sticky top-0 z-10 shadow-sm shrink-0 h-[62px]">
+      <div className="bg-primary px-6 py-3 flex items-center gap-2 sticky top-0 z-10 shadow-sm shrink-0 h-[62px]">
         <button onClick={onBack} className="text-white p-1 mr-2">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
             <path d="M16 7H3.83L9.42 1.41L8 0L0 8L8 16L9.41 14.59L3.83 9H16V7Z" />
@@ -139,7 +139,7 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
   const renderStep2 = () => (
     <div className="flex flex-col h-full bg-white">
       {/* Header */}
-      <div className="bg-primary px-4 py-3 flex items-center gap-2 sticky top-0 z-10 shadow-sm shrink-0 h-[62px]">
+      <div className="bg-primary px-6 py-3 flex items-center gap-2 sticky top-0 z-10 shadow-sm shrink-0 h-[62px]">
         <button onClick={() => setViewState(1)} className="text-white p-1 mr-2">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
             <path d="M16 7H3.83L9.42 1.41L8 0L0 8L8 16L9.41 14.59L3.83 9H16V7Z" />
@@ -259,7 +259,7 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
   const renderStep3 = () => (
     <div className="flex flex-col h-full bg-white">
       {/* Header */}
-      <div className="bg-primary px-4 py-3 flex items-center gap-2 sticky top-0 z-10 shadow-sm shrink-0 h-[62px]">
+      <div className="bg-primary px-6 py-3 flex items-center gap-2 sticky top-0 z-10 shadow-sm shrink-0 h-[62px]">
         <button onClick={() => setViewState(2)} className="text-white p-1 mr-2">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
             <path d="M16 7H3.83L9.42 1.41L8 0L0 8L8 16L9.41 14.59L3.83 9H16V7Z" />
