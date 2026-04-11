@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DownloadIcon from '@mui/icons-material/Download';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import { format, parseISO, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isWeekend as isWeekendDate, getDay } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 import { ActionButtons } from '../ActionButtons';
 import { MonthYearBottomSheet } from '../MonthYearBottomSheet';
 import { AhgoraButton } from '../AhgoraButton';
@@ -15,12 +17,14 @@ interface DetailedMirrorScreenProps {
 interface DayData {
   date: string;
   day: number;
+  dayOfWeek: number; // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
   isCurrentMonth: boolean;
   isSelected: boolean;
   hasPunch: boolean;
   hasException: boolean;
   isWeekend: boolean;
   isHoliday: boolean;
+  dateObj: Date;
 }
 
 interface DayDetail {
@@ -37,6 +41,17 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
   const [selectedDay, setSelectedDay] = useState<number>(15);
   const [showMonthYearBottomSheet, setShowMonthYearBottomSheet] = useState(false);
   const [isCalendarExpanded, setIsCalendarExpanded] = useState(false);
+  
+  // Effect to adjust selectedDay when month changes
+  useEffect(() => {
+    const { monthIndex, year } = parseMonthYear(selectedMonth);
+    // Get last day of the month
+    const lastDayOfMonth = new Date(year, monthIndex + 1, 0).getDate();
+    // If selectedDay is greater than last day of month, set to last day
+    if (selectedDay > lastDayOfMonth) {
+      setSelectedDay(lastDayOfMonth);
+    }
+  }, [selectedMonth, selectedDay]);
   
   // Parse month/year from string like "Abril - 2026"
   const parseMonthYear = (monthYearStr: string): { monthIndex: number; year: number } => {
@@ -83,58 +98,76 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
     setIsCalendarExpanded(!isCalendarExpanded);
   };
 
-  // Mock data for calendar
-  const days: DayData[] = [
-    { date: '2026-04-01', day: 1, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
-    { date: '2026-04-02', day: 2, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
-    { date: '2026-04-03', day: 3, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: true, isWeekend: false, isHoliday: false },
-    { date: '2026-04-04', day: 4, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
-    { date: '2026-04-05', day: 5, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
-    { date: '2026-04-06', day: 6, isCurrentMonth: true, isSelected: false, hasPunch: false, hasException: false, isWeekend: true, isHoliday: false },
-    { date: '2026-04-07', day: 7, isCurrentMonth: true, isSelected: false, hasPunch: false, hasException: false, isWeekend: true, isHoliday: false },
-    { date: '2026-04-08', day: 8, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
-    { date: '2026-04-09', day: 9, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
-    { date: '2026-04-10', day: 10, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: true, isWeekend: false, isHoliday: false },
-    { date: '2026-04-11', day: 11, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
-    { date: '2026-04-12', day: 12, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
-    { date: '2026-04-13', day: 13, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
-    { date: '2026-04-14', day: 14, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
-    { date: '2026-04-15', day: 15, isCurrentMonth: true, isSelected: true, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
-    { date: '2026-04-16', day: 16, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
-    { date: '2026-04-17', day: 17, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: true, isWeekend: false, isHoliday: false },
-    { date: '2026-04-18', day: 18, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
-    { date: '2026-04-19', day: 19, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
-    { date: '2026-04-20', day: 20, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
-    { date: '2026-04-21', day: 21, isCurrentMonth: true, isSelected: false, hasPunch: false, hasException: false, isWeekend: true, isHoliday: true },
-    { date: '2026-04-22', day: 22, isCurrentMonth: true, isSelected: false, hasPunch: false, hasException: false, isWeekend: true, isHoliday: false },
-    { date: '2026-04-23', day: 23, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
-    { date: '2026-04-24', day: 24, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
-    { date: '2026-04-25', day: 25, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: true, isWeekend: false, isHoliday: false },
-    { date: '2026-04-26', day: 26, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
-    { date: '2026-04-27', day: 27, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
-    { date: '2026-04-28', day: 28, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
-    { date: '2026-04-29', day: 29, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
-    { date: '2026-04-30', day: 30, isCurrentMonth: true, isSelected: false, hasPunch: true, hasException: false, isWeekend: false, isHoliday: false },
-  ];
+  // Generate calendar days for the selected month/year
+  const days = useMemo(() => {
+    const { monthIndex, year } = parseMonthYear(selectedMonth);
+    
+    // Create date for first day of the month
+    const firstDayOfMonth = new Date(year, monthIndex, 1);
+    
+    // Start from the Sunday of the week containing the first day
+    const calendarStart = startOfWeek(firstDayOfMonth, { weekStartsOn: 0 }); // 0 = Sunday
+    
+    // End on the Saturday of the week containing the last day of month
+    const lastDayOfMonth = endOfMonth(firstDayOfMonth);
+    const calendarEnd = endOfWeek(lastDayOfMonth, { weekStartsOn: 0 });
+    
+    const daysArray: DayData[] = [];
+    let currentDate = calendarStart;
+    
+    // Get today's date for comparison
+    const today = new Date();
+    
+    // Mock data for punches/exceptions/holidays - in a real app this would come from an API
+    // We'll simulate some data based on day numbers for demonstration
+    
+    while (currentDate <= calendarEnd) {
+      const day = currentDate.getDate();
+      const month = currentDate.getMonth();
+      const year = currentDate.getFullYear();
+      const isCurrentMonth = isSameMonth(currentDate, firstDayOfMonth);
+      const isWeekend = isWeekendDate(currentDate);
+      const dayOfWeek = getDay(currentDate); // 0 = Sunday
+      
+      // Determine if this day is selected
+      const isSelected = isCurrentMonth && day === selectedDay;
+      
+      // Mock data logic - generate based on day number for demonstration
+      // In a real app, this would come from an API
+      const hasPunch = isCurrentMonth && day % 3 !== 0; // ~66% of days have punches
+      const hasException = isCurrentMonth && day % 7 === 0; // Every 7th day has exception
+      const isHoliday = isCurrentMonth && (day === 1 || day === 21); // 1st and 21st are holidays for demo
+      
+      daysArray.push({
+        date: format(currentDate, 'yyyy-MM-dd'),
+        day,
+        dayOfWeek,
+        isCurrentMonth,
+        isSelected,
+        hasPunch,
+        hasException,
+        isWeekend,
+        isHoliday,
+        dateObj: new Date(currentDate),
+      });
+      
+      currentDate = addDays(currentDate, 1);
+    }
+    
+    return daysArray;
+  }, [selectedMonth, selectedDay]);
 
   // Calculate current week (Sunday to Saturday) containing the selected day
   const getCurrentWeekDays = (): DayData[] => {
     // Find the selected day
-    const selectedDayData = days.find(d => d.day === selectedDay);
+    const selectedDayData = days.find(d => d.isSelected);
     if (!selectedDayData) return days.slice(0, 7); // Fallback to first 7 days
     
     // Find index of selected day
-    const selectedIndex = days.findIndex(d => d.day === selectedDay);
+    const selectedIndex = days.findIndex(d => d.isSelected);
     
-    // Calculate day of week for each day (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
-    // April 1, 2026 is Wednesday (3)
-    const startDoW = 3; // Wednesday for April 1
-    const dayOfWeekMap: Record<string, number> = {};
-    days.forEach((day, idx) => {
-      dayOfWeekMap[day.day] = (startDoW + idx) % 7;
-    });
-    
-    const selectedDayOfWeek = dayOfWeekMap[selectedDay];
+    // Use dayOfWeek property to find start of week
+    const selectedDayOfWeek = selectedDayData.dayOfWeek; // 0 = Sunday
     // Start index: selectedIndex - selectedDayOfWeek
     const startIndex = selectedIndex - selectedDayOfWeek;
     if (startIndex < 0) return days.slice(0, 7);
@@ -143,11 +176,27 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
 
   // Function to get day details based on selected day
   const getDayDetail = (day: number): DayDetail => {
-    const dayData = days.find(d => d.day === day);
+    const dayData = days.find(d => d.day === day && d.isCurrentMonth);
     
-    if (day === 21) {
+    if (!dayData) {
+      // Fallback
       return {
-        date: '21 de Abril, 2026',
+        date: `${day} de Abril, 2026`,
+        schedule: '08:00 às 12:00 - 13:00 às 17:00',
+        punches: ['08:30', '12:00', '13:00', '17:30'],
+        expectedHours: '08:00',
+        isHoliday: false,
+        hasExpectedHours: true
+      };
+    }
+    
+    // Format date in Portuguese
+    const dateFormatted = format(dayData.dateObj, "dd 'de' MMMM, yyyy", { locale: ptBR });
+    
+    // Determine if it's a holiday
+    if (dayData.isHoliday) {
+      return {
+        date: dateFormatted,
         schedule: 'Feriado - Tiradentes',
         punches: [],
         expectedHours: '',
@@ -158,11 +207,11 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
     
     // Default day details
     return {
-      date: `${day} de Abril, 2026`,
-      schedule: day === 15 ? '08:00 às 12:00 - 13:00 às 17:00' : '08:00 às 12:00 - 13:00 às 17:00',
-      punches: day === 15 ? ['08:27', '12:01', '13:02', '17:27'] : ['08:30', '12:00', '13:00', '17:30'],
+      date: dateFormatted,
+      schedule: dayData.isSelected ? '08:00 às 12:00 - 13:00 às 17:00' : '08:00 às 12:00 - 13:00 às 17:00',
+      punches: dayData.isSelected ? ['08:27', '12:01', '13:02', '17:27'] : ['08:30', '12:00', '13:00', '17:30'],
       expectedHours: '08:00',
-      isHoliday: dayData?.isHoliday || false,
+      isHoliday: false,
       hasExpectedHours: true
     };
   };
@@ -184,8 +233,11 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
     bankThisMonth: '-05:16'
   };
 
-  const handleDayClick = (day: number) => {
-    setSelectedDay(day);
+  const handleDayClick = (day: DayData) => {
+    // Only allow selecting days from the current month
+    if (day.isCurrentMonth) {
+      setSelectedDay(day.day);
+    }
   };
 
   const handleAction = (action: string) => {
@@ -276,7 +328,7 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
               {(isCalendarExpanded ? days : getCurrentWeekDays()).map((day) => (
                 <button
                   key={day.date}
-                  onClick={() => handleDayClick(day.day)}
+                  onClick={() => handleDayClick(day)}
                   className={`
                     relative flex items-center justify-center h-10 rounded-lg text-sm font-medium transition-colors
                     ${day.isSelected
