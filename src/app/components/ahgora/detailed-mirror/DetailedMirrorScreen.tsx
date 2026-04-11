@@ -547,9 +547,10 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
                 <SwapHorizIcon className="w-4 h-4" aria-hidden="true" />
               </AhgoraButton>
               <AhgoraButton
-                size="sm"
+                size="md"
                 variant="outline"
                 aria-label="Baixar espelho de ponto"
+                className="flex items-center gap-2 font-medium"
               >
                 <DownloadIcon className="w-4 h-4" aria-hidden="true" />
                 <span>Baixar espelho</span>
