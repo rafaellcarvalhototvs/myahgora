@@ -199,11 +199,11 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
                 <SwapHorizIcon className="w-4 h-4 text-[#5a5a6b]" />
               </Button>
               <button
-                className="flex items-center gap-2 px-4 py-2 border border-primary text-primary bg-transparent hover:bg-primary/10 transition-colors font-semibold rounded-lg"
+                className="flex items-center gap-2 px-3 py-1.5 border border-primary text-primary bg-transparent hover:bg-primary/10 transition-colors font-semibold rounded-lg text-xs"
                 aria-label="Baixar espelho de ponto"
               >
-                <DownloadIcon className="w-5 h-5 text-primary" />
-                <span className="text-sm font-medium">Baixar espelho</span>
+                <DownloadIcon className="w-4 h-4 text-primary" />
+                <span className="font-medium">Baixar espelho</span>
               </button>
             </div>
           </div>
