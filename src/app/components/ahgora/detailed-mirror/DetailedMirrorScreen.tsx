@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DownloadIcon from '@mui/icons-material/Download';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
@@ -43,6 +43,8 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
   const [selectedDay, setSelectedDay] = useState<number>(15);
   const [showMonthYearBottomSheet, setShowMonthYearBottomSheet] = useState(false);
   const [isCalendarExpanded, setIsCalendarExpanded] = useState(false);
+  const [focusedDayIndex, setFocusedDayIndex] = useState<number>(-1);
+  const calendarGridRef = useRef<HTMLDivElement>(null);
   
   // Effect to adjust selectedDay when month changes
   useEffect(() => {
@@ -54,6 +56,28 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
       setSelectedDay(lastDayOfMonth);
     }
   }, [selectedMonth, selectedDay]);
+
+  // Effect to set focused day when month changes or day is selected
+  useEffect(() => {
+    const currentDays = isCalendarExpanded ? days : getCurrentWeekDays();
+    const selectedIndex = currentDays.findIndex(day => day.isSelected && day.isCurrentMonth);
+    if (selectedIndex >= 0) {
+      setFocusedDayIndex(selectedIndex);
+    } else if (currentDays.length > 0) {
+      setFocusedDayIndex(0);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedMonth, selectedDay, isCalendarExpanded]);
+
+  // Effect to focus the focused day element
+  useEffect(() => {
+    if (focusedDayIndex >= 0 && calendarGridRef.current) {
+      const buttons = calendarGridRef.current.querySelectorAll('button[role="gridcell"]');
+      if (buttons[focusedDayIndex]) {
+        (buttons[focusedDayIndex] as HTMLButtonElement).focus();
+      }
+    }
+  }, [focusedDayIndex]);
   
   // Parse month/year from string like "Abril - 2026"
   const parseMonthYear = (monthYearStr: string): { monthIndex: number; year: number } => {
@@ -270,6 +294,54 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
     }
   };
 
+  const handleCalendarKeyDown = (e: React.KeyboardEvent, index: number) => {
+    const currentDays = isCalendarExpanded ? days : getCurrentWeekDays();
+    const cols = 7;
+    const rows = Math.ceil(currentDays.length / cols);
+    
+    switch (e.key) {
+      case 'ArrowLeft':
+        e.preventDefault();
+        if (index > 0) {
+          setFocusedDayIndex(index - 1);
+        }
+        break;
+      case 'ArrowRight':
+        e.preventDefault();
+        if (index < currentDays.length - 1) {
+          setFocusedDayIndex(index + 1);
+        }
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        if (index - cols >= 0) {
+          setFocusedDayIndex(index - cols);
+        }
+        break;
+      case 'ArrowDown':
+        e.preventDefault();
+        if (index + cols < currentDays.length) {
+          setFocusedDayIndex(index + cols);
+        }
+        break;
+      case 'Home':
+        e.preventDefault();
+        setFocusedDayIndex(0);
+        break;
+      case 'End':
+        e.preventDefault();
+        setFocusedDayIndex(currentDays.length - 1);
+        break;
+      case 'Enter':
+      case ' ':
+        e.preventDefault();
+        if (currentDays[index].isCurrentMonth) {
+          setSelectedDay(currentDays[index].day);
+        }
+        break;
+    }
+  };
+
   const handleAction = (action: string) => {
     // Handle actions from ActionButtons
     console.log('Action:', action);
@@ -278,15 +350,23 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
 
   return (
     <div className="min-h-screen bg-[#f0f0f5] flex justify-center font-['Open_Sans']">
+      {/* Skip to main content link for keyboard users */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-primary focus:text-white focus:px-4 focus:py-2 focus:rounded"
+      >
+        Pular para o conteúdo principal
+      </a>
+      
       <div className="w-full max-w-md bg-white min-h-screen relative shadow-2xl pb-20">
         {/* Header */}
         <div className="sticky top-0 z-10 bg-primary px-4 py-3 flex items-center gap-2 shrink-0 shadow-sm h-[62px] relative">
           <button
             onClick={onBack}
-            className="text-white p-1 mr-2"
-            aria-label="Voltar"
+            className="text-white p-1 mr-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary rounded"
+            aria-label="Voltar para tela anterior"
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="white" aria-hidden="true">
               <path d="M16 7H3.83L9.42 1.41L8 0L0 8L8 16L9.41 14.59L3.83 9H16V7Z" />
             </svg>
           </button>
@@ -295,7 +375,7 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
           </h1>
         </div>
 
-        <div className="px-4 py-6">
+        <main id="main-content" className="px-4 py-6">
           {/* Competência Block */}
           <div className="mb-6">
             <div className="flex items-center justify-between mb-3">
@@ -310,14 +390,14 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
                 className="flex items-center gap-2 text-base font-medium text-foreground hover:bg-muted p-1 h-auto"
               >
                 <span aria-live="polite" aria-atomic="true">{selectedMonth}</span>
-                <SwapHorizIcon className="w-4 h-4 text-[#5a5a6b]" />
+                <SwapHorizIcon className="w-4 h-4 text-[#5a5a6b]" aria-hidden="true" />
               </AhgoraButton>
               <AhgoraButton
                 size="sm"
                 variant="outline"
                 aria-label="Baixar espelho de ponto"
               >
-                <DownloadIcon className="w-4 h-4" />
+                <DownloadIcon className="w-4 h-4" aria-hidden="true" />
                 <span>Baixar espelho</span>
               </AhgoraButton>
             </div>
@@ -330,43 +410,74 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
             </div>
             
             {/* Weekday headers */}
-            <div className="grid grid-cols-7 gap-2 mb-2">
-              {['D', 'S', 'T', 'Q', 'Q', 'S', 'S'].map((day) => (
-                <div key={day} className="text-center text-xs font-semibold text-[#2A2A33] py-1">
-                  {day}
+            <div className="grid grid-cols-7 gap-2 mb-2" role="row">
+              {['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'].map((day, index) => (
+                <div
+                  key={day}
+                  className="text-center text-xs font-semibold text-[#2A2A33] py-1"
+                  role="columnheader"
+                  aria-label={day}
+                >
+                  {['D', 'S', 'T', 'Q', 'Q', 'S', 'S'][index]}
                 </div>
               ))}
             </div>
             
             {/* Calendar grid */}
-            <div className={`grid grid-cols-7 gap-2 ${isCalendarExpanded ? 'mb-3' : ''}`}>
-              {(isCalendarExpanded ? days : getCurrentWeekDays()).map((day) => (
-                <button
-                  key={day.date}
-                  onClick={() => handleDayClick(day)}
-                  className={`
-                    relative flex items-center justify-center h-10 rounded-lg text-sm font-medium transition-colors
-                    ${day.isSelected
-                      ? 'bg-primary text-white'
-                      : day.isWeekend
-                        ? 'text-foreground/70'
-                        : 'text-[#2A2A33] hover:bg-gray-100'
-                    }
-                    ${!day.isCurrentMonth ? 'opacity-40' : ''}
-                  `}
-                >
-                  {day.day}
-                  {/* Indicators */}
-                  <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 flex gap-0.5">
-                    {day.isHoliday && (
-                      <div className="w-1 h-1 rounded-full bg-primary"></div>
-                    )}
-                    {day.hasException && (
-                      <div className="w-1 h-1 rounded-full bg-destructive"></div>
-                    )}
-                  </div>
-                </button>
-              ))}
+            <div
+              ref={calendarGridRef}
+              className={`grid grid-cols-7 gap-2 ${isCalendarExpanded ? 'mb-3' : ''}`}
+              role="grid"
+              aria-label={`Calendário do mês de ${selectedMonth}`}
+            >
+              {(isCalendarExpanded ? days : getCurrentWeekDays()).map((day, index) => {
+                const dayName = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'][day.dayOfWeek];
+                const indicators = [];
+                if (day.isHoliday) indicators.push('feriado');
+                if (day.hasException) indicators.push('exceção');
+                
+                const ariaLabel = `${day.day} de ${selectedMonth.split(' - ')[0]}, ${dayName}${indicators.length > 0 ? `, ${indicators.join(', ')}` : ''}${day.isCurrentMonth ? '' : ' (não pertence ao mês atual)'}`;
+                
+                return (
+                  <button
+                    key={day.date}
+                    onClick={() => handleDayClick(day)}
+                    className={`
+                      relative flex items-center justify-center h-10 rounded-lg text-sm font-medium transition-colors
+                      focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
+                      ${day.isSelected
+                        ? 'bg-primary text-white'
+                        : day.isWeekend
+                          ? 'text-[#5a5a6b]'
+                          : 'text-[#2A2A33] hover:bg-gray-100'
+                      }
+                      ${!day.isCurrentMonth ? 'opacity-40' : ''}
+                    `}
+                    aria-label={ariaLabel}
+                    aria-selected={day.isSelected}
+                    role="gridcell"
+                    onKeyDown={(e) => handleCalendarKeyDown(e, index)}
+                    tabIndex={focusedDayIndex === index ? 0 : -1}
+                  >
+                    {day.day}
+                    {/* Indicators with screen reader text */}
+                    <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 flex gap-0.5">
+                      {day.isHoliday && (
+                        <>
+                          <div className="w-1 h-1 rounded-full bg-primary" aria-hidden="true"></div>
+                          <span className="sr-only">Feriado</span>
+                        </>
+                      )}
+                      {day.hasException && (
+                        <>
+                          <div className="w-1 h-1 rounded-full bg-destructive" aria-hidden="true"></div>
+                          <span className="sr-only">Exceção</span>
+                        </>
+                      )}
+                    </div>
+                  </button>
+                );
+              })}
             </div>
             
             {/* Expand/Collapse button */}
@@ -381,12 +492,12 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
               >
                 {isCalendarExpanded ? (
                   <>
-                    <ExpandLessIcon className="w-4 h-4" />
+                    <ExpandLessIcon className="w-4 h-4" aria-hidden="true" />
                     <span>Recolher</span>
                   </>
                 ) : (
                   <>
-                    <ExpandMoreIcon className="w-4 h-4" />
+                    <ExpandMoreIcon className="w-4 h-4" aria-hidden="true" />
                     <span>Expandir</span>
                   </>
                 )}
@@ -395,14 +506,14 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
             
             {/* Schedule */}
             {dayDetail.schedule && (
-              <div className={`text-center text-sm ${dayDetail.isHoliday ? 'text-destructive' : 'text-muted-foreground'} mt-2 mb-3`}>
+              <div className={`text-center text-sm ${dayDetail.isHoliday ? 'text-destructive' : 'text-[#5a5a6b]'} mt-2 mb-3`}>
                 {dayDetail.schedule}
               </div>
             )}
           </div>
 
           {/* Selected Day Details */}
-          <div className={`mb-6 border rounded-[4px] p-4 border-muted`}>
+          <div className={`mb-6 border rounded-[4px] p-4 border-muted`} role="region" aria-label="Detalhes do dia selecionado">
             <div className="mb-4">
               <h3 className="text-base font-semibold text-[#2A2A33] tracking-[0.024px]">{dayDetail.date}</h3>
             </div>
@@ -467,7 +578,7 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
           </div>
 
           {/* Monthly Summary */}
-          <div className="mb-6">
+          <div className="mb-6" role="region" aria-label="Resumo mensal">
             <h3 className="text-base font-semibold text-[#2A2A33] mb-4 tracking-[0.024px]">Resumo mensal, Abril, 2026</h3>
             <div className="space-y-3">
               <div className="flex justify-between items-center">
@@ -517,7 +628,7 @@ export function DetailedMirrorScreen({ onBack }: DetailedMirrorScreenProps) {
               </div>
             </div>
           </div>
-        </div>
+        </main>
       </div>
       
       {/* Month/Year Selection Bottom Sheet */}
