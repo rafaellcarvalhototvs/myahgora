@@ -362,7 +362,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
       
       <div className="w-full max-w-md bg-white min-h-screen relative shadow-2xl pb-20">
         {/* Header */}
-        <div className="sticky top-0 z-10 bg-primary px-4 py-3 flex items-center gap-2 shrink-0 shadow-sm h-[62px] relative">
+        <div className="sticky top-0 z-10 bg-primary px-4 py-3 flex items-center justify-between shrink-0 shadow-sm h-[62px] relative">
           <button
             onClick={onBack}
             className="text-white p-1 mr-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary rounded"
@@ -372,9 +372,27 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
               <path d="M16 7H3.83L9.42 1.41L8 0L0 8L8 16L9.41 14.59L3.83 9H16V7Z" />
             </svg>
           </button>
-          <h1 className="text-white font-semibold text-[18px] leading-[28px] tracking-[0.027px]">
-            Espelho detalhado
-          </h1>
+          
+          <div className="flex-1 flex justify-center">
+            <h1 className="text-white font-semibold text-[18px] leading-[28px] tracking-[0.027px]">
+              Espelho detalhado
+            </h1>
+          </div>
+          
+          <div>
+            {onAccessibilityReport && (
+              <AhgoraButton
+                size="sm"
+                variant="ghost"
+                onClick={onAccessibilityReport}
+                aria-label="Ver relatório de acessibilidade desta tela"
+                className="text-white hover:bg-white/20"
+              >
+                <AccessibilityIcon className="w-4 h-4" />
+                <span className="sr-only sm:not-sr-only sm:ml-1">Acessibilidade</span>
+              </AhgoraButton>
+            )}
+          </div>
         </div>
 
         <main id="main-content" className="px-4 py-6">
@@ -382,18 +400,6 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
           <div className="mb-6">
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-base font-semibold text-[#2A2A33] tracking-[0.024px]">Competência</h2>
-              {onAccessibilityReport && (
-                <AhgoraButton
-                  size="sm"
-                  variant="ghost"
-                  onClick={onAccessibilityReport}
-                  aria-label="Ver relatório de acessibilidade desta tela"
-                  className="text-primary hover:bg-primary/10"
-                >
-                  <AccessibilityIcon className="w-4 h-4" />
-                  <span className="sr-only sm:not-sr-only sm:ml-1">Acessibilidade</span>
-                </AhgoraButton>
-              )}
             </div>
             <div className="flex items-center justify-between">
               <AhgoraButton
