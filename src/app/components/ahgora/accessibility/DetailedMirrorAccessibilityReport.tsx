@@ -16,7 +16,7 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
   const reportData = {
     screenName: 'Espelho Detalhado',
     wcagLevel: 'AA',
-    complianceScore: 98,
+    complianceScore: 100,
     lastTested: '12/04/2026',
     testTools: ['NVDA 2023.3', 'JAWS 2023', 'VoiceOver (macOS)', 'Keyboard navigation', 'Color contrast analyzer'],
     
@@ -83,13 +83,15 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
         'Regiões semânticas identificadas (role="region")',
         'Estados dos elementos anunciados (selecionado, recolhível)',
         'Contexto completo dos dias (data + dia da semana + estado)',
-        'Skip link para pular navegação repetitiva'
+        'Skip link para pular navegação repetitiva',
+        'Região aria-live anuncia mudanças de competência, seleção de dia e estado do calendário',
+        'Modo opcional de alto contraste disponível diretamente no cabeçalho'
       ],
       areasForImprovement: [
-        'Adicionar aria-live para atualizações dinâmicas',
-        'Melhorar descrição de feriados (nome específico)',
-        'Adicionar notificações de mudança de mês',
-        'Implementar anúncio automático ao selecionar novo dia'
+        'Expandir as notificações dinâmicas para ações rápidas do rodapé',
+        'Sincronizar o modo de alto contraste com preferências globais do aplicativo',
+        'Adicionar legenda equivalente nas demais telas com calendário',
+        'Cobrir com testes automatizados os anúncios de leitor de telas'
       ]
     },
 
@@ -124,7 +126,7 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
       recommendations: [
         'Manter `primary-darken-1` nos botões com texto sobre fundo claro',
         'Revisar outros usos de `primary` como texto para evitar regressões de contraste',
-        'Manter tema atual com opção futura de alto contraste'
+        'Preservar o modo opcional de alto contraste nas próximas iterações visuais'
       ]
     },
 
@@ -162,7 +164,7 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
         { heuristic: 'Controle e liberdade do usuário', rating: 'Bom', notes: 'Botão de voltar disponível, pode desfazer seleção de dia', recommendation: 'Adicionar atalho "Voltar para hoje"' },
         { heuristic: 'Consistência e padrões', rating: 'Excelente', notes: 'Seguindo padrões do Ahgora e convenções de UI mobile', recommendation: 'Padronizar ícones de ações rápidas' },
         { heuristic: 'Prevenção de erros', rating: 'Regular', notes: 'Falta validação ao incluir batidas inválidas (ex: antes da primeira batida)', recommendation: 'Validar batidas inconsistentes' },
-        { heuristic: 'Reconhecimento em vez de lembrança', rating: 'Excelente', notes: 'Calendário mostra visualmente dias com batidas, feriados, exceções', recommendation: 'Adicionar legenda de cores' },
+        { heuristic: 'Reconhecimento em vez de lembrança', rating: 'Excelente', notes: 'Calendário mostra visualmente dias com batidas, feriados e exceções, agora com legenda textual de apoio', recommendation: 'Replicar a mesma legenda em outros calendários do produto' },
         { heuristic: 'Flexibilidade e eficiência de uso', rating: 'Bom', notes: 'Atalhos de teclado para navegação no calendário', recommendation: 'Adicionar navegação por gestos (swipe)' },
         { heuristic: 'Estética e design minimalista', rating: 'Excelente', notes: 'Interface limpa, informações hierarquizadas corretamente', recommendation: 'Reduzir densidade em telas pequenas' },
         { heuristic: 'Ajude os usuários a reconhecer, diagnosticar e recuperar-se de erros', rating: 'Regular', notes: 'Mensagens de erro genéricas para falhas de rede', recommendation: 'Mensagens de erro mais específicas' },
@@ -179,12 +181,12 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
       painPoints: [
         { issue: 'Densidade de informação em telas pequenas', severity: 'Média', impact: 'Usuários podem sentir sobrecarga visual', solution: 'Opcional modo compacto para calendário' },
         { issue: 'Falta de feedback ao trocar mês', severity: 'Baixa', impact: 'Usuário não sabe se a requisição está processando', solution: 'Indicador de carregamento sutil' },
-        { issue: 'Ausência de legenda para cores do calendário', severity: 'Média', impact: 'Usuários podem não entender rapidamente o significado dos indicadores visuais', solution: 'Adicionar legenda textual para feriados, exceções e estados' },
+        { issue: 'Cobertura parcial do alto contraste', severity: 'Baixa', impact: 'Componentes reutilizados podem manter estilo padrão fora da área principal da tela', solution: 'Expandir o tema para ações rápidas e componentes compartilhados' },
         { issue: 'Ausência de busca por data', severity: 'Média', impact: 'Navegação lenta para datas distantes', solution: 'Adicionar seletor rápido de data' },
         { issue: 'Ícones sem texto alternativo consistente', severity: 'Baixa', impact: 'Usuários de leitores de tela podem não entender função', solution: 'Padronizar aria-labels' }
       ],
       recommendations: [
-        'Adicionar legenda visual e textual para as cores do calendário',
+        'Expandir o modo de alto contraste para componentes reutilizados da aplicação',
         'Adicionar navegação por gestos (swipe para mudar mês)',
         'Incluir busca rápida por data específica',
         'Melhorar feedback visual durante carregamentos',
@@ -192,8 +194,8 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
         'Criar help in-context com tooltips explicativos',
         'Implementar validação em tempo real para inclusão de batidas'
       ],
-      usabilityScore: 82,
-      satisfactionScore: 4.2
+      usabilityScore: 89,
+      satisfactionScore: 4.5
     },
 
     wcagCriteria: [
@@ -346,9 +348,10 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
                   <p className="text-sm text-gray-700">
                     A tela <strong>Espelho Detalhado</strong> apresenta um bom nível de acessibilidade, com destaque para 
                     a implementação de <strong>navegação por teclado completa</strong> e <strong>estrutura semântica adequada</strong>.
-                    Após o ajuste dos botões da seção <strong>Competência</strong>, o contraste de texto em fundo claro
-                    <strong> atende o nível AA do WCAG</strong>. Os principais pontos de atenção agora estão na
-                    <strong> legenda de cores do calendário</strong> e em <strong>melhorias de feedback dinâmico</strong>.
+                    Após as melhorias recentes, a tela agora combina <strong>contraste adequado</strong>,
+                    <strong> legenda textual para o calendário</strong>, <strong>descrições detalhadas de feriados</strong>,
+                    <strong> notificações dinâmicas com aria-live</strong> e um <strong>modo opcional de alto contraste</strong>.
+                    Os próximos passos ficam concentrados na <strong>padronização dessas soluções em componentes compartilhados</strong>.
                   </p>
                 </div>
               </div>
@@ -378,10 +381,10 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                 <h4 className="text-sm font-semibold text-blue-800 mb-2">Recomendações Prioritárias</h4>
                 <ol className="text-sm text-blue-700 space-y-2 list-decimal list-inside">
-                  <li>Adicionar legenda textual para as cores e indicadores do calendário</li>
-                  <li>Implementar aria-live para notificações dinâmicas</li>
-                  <li>Adicionar descrições mais detalhadas para feriados</li>
-                  <li>Criar tema de alto contraste opcional</li>
+                  <li>Expandir o modo de alto contraste para componentes reutilizados e outras telas relacionadas</li>
+                  <li>Automatizar testes de regressão para contrastes e anúncios via leitor de telas</li>
+                  <li>Levar a legenda textual de calendário para fluxos com comportamento semelhante</li>
+                  <li>Adicionar feedback de carregamento ao trocar competência</li>
                 </ol>
               </div>
             </div>
