@@ -784,7 +784,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
                 variant="ghost"
                 size="md"
                 onClick={toggleCalendarExpand}
-                className={`px-3 ${highContrastClasses.ghostButton}`}
+                className={`px-3 border ${isHighContrast ? 'border-yellow-300 bg-black text-yellow-300 hover:bg-neutral-900' : 'border-primary bg-[#eaf8ff] text-[#0c6d9e] hover:bg-[#d7f0ff]'}`}
                 aria-expanded={isCalendarExpanded}
                 aria-controls="calendar-grid"
                 aria-label={isCalendarExpanded ? "Recolher calendário" : "Expandir calendário"}
