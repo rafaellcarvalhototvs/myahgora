@@ -33,6 +33,8 @@
   --popover-foreground: rgba(244, 244, 246, 1.00);
   /* The primary color used for buttons, links, and other interactive elements. */
   --primary: rgba(17, 153, 221, 1.00);
+  /* Darker primary shade for higher-emphasis text states. */
+  --primary-darken-1: rgba(12, 109, 158, 1.00);
   /* The default color for text or elements that appear on top of primary colored elements. */
   --primary-foreground: rgba(244, 244, 246, 1.00);
   /* The secondary color used for secondary(but NOT-DESTRUCTIVE) buttons and interactive elements. */
@@ -101,6 +103,7 @@
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
+  --color-primary-darken-1: var(--primary-darken-1);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);

@@ -540,7 +540,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
                 onClick={handleOpenMonthYearBottomSheet}
                 aria-expanded={showMonthYearBottomSheet}
                 aria-label={`Trocar mês e ano da competência, atual: ${selectedMonth}`}
-                className="flex items-center gap-2 font-medium"
+                className="flex items-center gap-2 font-medium text-primary-darken-1"
               >
                 <span aria-live="polite" aria-atomic="true">{selectedMonth}</span>
                 <SwapHorizIcon className="w-4 h-4" aria-hidden="true" />
@@ -549,7 +549,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
                 size="md"
                 variant="outline"
                 aria-label="Baixar espelho de ponto"
-                className="flex items-center gap-2 font-medium"
+                className="flex items-center gap-2 font-medium text-primary-darken-1"
               >
                 <span>Baixar espelho</span>
               </AhgoraButton>
@@ -660,7 +660,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
             
             {/* Schedule */}
             {dayDetail.schedule && (
-              <div className={`text-center text-sm ${dayDetail.isHoliday ? 'text-destructive' : 'text-[#5a5a6b]'} mt-2 mb-3`}>
+              <div className={`text-center text-sm ${dayDetail.isHoliday ? 'text-primary-darken-1' : 'text-[#5a5a6b]'} mt-2 mb-3`}>
                 {dayDetail.isHoliday ? dayDetail.schedule : (
                   <>
                     <span className="font-semibold">Escala:</span> {dayDetail.schedule}

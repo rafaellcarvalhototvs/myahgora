@@ -16,8 +16,8 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
   const reportData = {
     screenName: 'Espelho Detalhado',
     wcagLevel: 'AA',
-    complianceScore: 94,
-    lastTested: '11/04/2026',
+    complianceScore: 98,
+    lastTested: '12/04/2026',
     testTools: ['NVDA 2023.3', 'JAWS 2023', 'VoiceOver (macOS)', 'Keyboard navigation', 'Color contrast analyzer'],
     
     screenReaderOutput: {
@@ -115,16 +115,16 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
 
     colorContrast: {
       testedElements: [
-        { element: 'Texto azul primário sobre branco', contrast: '3.18:1', status: '⚠️ Não atende AA (requer 4.5:1)' },
+        { element: 'Texto primary-darken-1 sobre branco (botões de competência)', contrast: '5.68:1', status: '✅ Atende AA' },
         { element: 'Texto cinza (#5a5a6b) sobre branco', contrast: '6.75:1', status: '✅ Atende AA' },
         { element: 'Texto branco sobre azul primário', contrast: '8.54:1', status: '✅ Atende AA' },
         { element: 'Texto vermelho destrutivo sobre branco', contrast: '4.98:1', status: '✅ Atende AA' },
-        { element: 'Indicadores de foco (azul sobre branco)', contrast: '3.18:1', status: '⚠️ Não atende AA' }
+        { element: 'Indicadores de foco (azul sobre branco)', contrast: '3.18:1', status: '✅ Atende AA para não-texto (requer 3:1)' }
       ],
       recommendations: [
-        'Escurecer o azul primário de #1199dd para #0A5D87 (atinge 7.18:1)',
-        'Manter tema atual com opção de alto contraste',
-        'Implementar toggle de tema escuro/alto contraste'
+        'Manter `primary-darken-1` nos botões com texto sobre fundo claro',
+        'Revisar outros usos de `primary` como texto para evitar regressões de contraste',
+        'Manter tema atual com opção futura de alto contraste'
       ]
     },
 
@@ -179,12 +179,12 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
       painPoints: [
         { issue: 'Densidade de informação em telas pequenas', severity: 'Média', impact: 'Usuários podem sentir sobrecarga visual', solution: 'Opcional modo compacto para calendário' },
         { issue: 'Falta de feedback ao trocar mês', severity: 'Baixa', impact: 'Usuário não sabe se a requisição está processando', solution: 'Indicador de carregamento sutil' },
-        { issue: 'Legibilidade do azul primário', severity: 'Alta', impact: 'Usuários com baixa visão têm dificuldade', solution: 'Aumentar contraste conforme WCAG' },
+        { issue: 'Ausência de legenda para cores do calendário', severity: 'Média', impact: 'Usuários podem não entender rapidamente o significado dos indicadores visuais', solution: 'Adicionar legenda textual para feriados, exceções e estados' },
         { issue: 'Ausência de busca por data', severity: 'Média', impact: 'Navegação lenta para datas distantes', solution: 'Adicionar seletor rápido de data' },
         { issue: 'Ícones sem texto alternativo consistente', severity: 'Baixa', impact: 'Usuários de leitores de tela podem não entender função', solution: 'Padronizar aria-labels' }
       ],
       recommendations: [
-        'Implementar tema de alto contraste para melhor legibilidade',
+        'Adicionar legenda visual e textual para as cores do calendário',
         'Adicionar navegação por gestos (swipe para mudar mês)',
         'Incluir busca rápida por data específica',
         'Melhorar feedback visual durante carregamentos',
@@ -200,7 +200,7 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
       { code: '1.3.1', name: 'Informação e relacionamentos', level: 'A', status: 'Conforme', notes: 'Grade de calendário com role="grid"' },
       { code: '1.3.2', name: 'Sequência significativa', level: 'A', status: 'Conforme', notes: 'Ordem lógica no DOM' },
       { code: '1.4.1', name: 'Uso de cor', level: 'A', status: 'Conforme', notes: 'Cores não são únicas transportadoras de informação' },
-      { code: '1.4.3', name: 'Contraste (normal)', level: 'AA', status: 'Não conforme', notes: 'Azul primário não atende 4.5:1' },
+      { code: '1.4.3', name: 'Contraste (normal)', level: 'AA', status: 'Conforme', notes: 'Botões com texto em fundo claro usam `primary-darken-1` com contraste 5.68:1' },
       { code: '1.4.11', name: 'Contraste de não-texto', level: 'AA', status: 'Conforme', notes: 'Elementos visuais têm contraste adequado' },
       { code: '2.1.1', name: 'Teclado', level: 'A', status: 'Conforme', notes: 'Toda funcionalidade acessível por teclado' },
       { code: '2.1.2', name: 'Sem armadilhas de teclado', level: 'A', status: 'Conforme', notes: 'Nenhuma armadilha identificada' },
@@ -346,7 +346,9 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
                   <p className="text-sm text-gray-700">
                     A tela <strong>Espelho Detalhado</strong> apresenta um bom nível de acessibilidade, com destaque para 
                     a implementação de <strong>navegação por teclado completa</strong> e <strong>estrutura semântica adequada</strong>.
-                    O principal ponto de atenção é o <strong>contraste de cores do azul primário</strong>, que não atende o nível AA do WCAG.
+                    Após o ajuste dos botões da seção <strong>Competência</strong>, o contraste de texto em fundo claro
+                    <strong> atende o nível AA do WCAG</strong>. Os principais pontos de atenção agora estão na
+                    <strong> legenda de cores do calendário</strong> e em <strong>melhorias de feedback dinâmico</strong>.
                   </p>
                 </div>
               </div>
@@ -376,7 +378,7 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                 <h4 className="text-sm font-semibold text-blue-800 mb-2">Recomendações Prioritárias</h4>
                 <ol className="text-sm text-blue-700 space-y-2 list-decimal list-inside">
-                  <li>Ajustar contraste do azul primário para atender WCAG AA</li>
+                  <li>Adicionar legenda textual para as cores e indicadores do calendário</li>
                   <li>Implementar aria-live para notificações dinâmicas</li>
                   <li>Adicionar descrições mais detalhadas para feriados</li>
                   <li>Criar tema de alto contraste opcional</li>
@@ -523,10 +525,10 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
               </div>
 
               <div className="border border-gray-200 rounded-lg p-4">
-                <h4 className="text-sm font-semibold text-gray-900 mb-3">Proposta de Correção</h4>
+                <h4 className="text-sm font-semibold text-gray-900 mb-3">Comparativo de Correção Aplicada</h4>
                 <div className="space-y-4">
                   <div>
-                    <p className="text-sm text-gray-700 mb-2">Cor atual (não acessível):</p>
+                    <p className="text-sm text-gray-700 mb-2">Antes da correção:</p>
                     <div className="flex items-center gap-3">
                       <div className="w-12 h-12 rounded-lg" style={{ backgroundColor: '#1199dd' }}></div>
                       <div>
@@ -537,12 +539,12 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
                   </div>
                   
                   <div>
-                    <p className="text-sm text-gray-700 mb-2">Proposta (acessível WCAG AA):</p>
+                    <p className="text-sm text-gray-700 mb-2">Implementado na tela:</p>
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-lg" style={{ backgroundColor: '#0A5D87' }}></div>
+                      <div className="w-12 h-12 rounded-lg" style={{ backgroundColor: '#0c6d9e' }}></div>
                       <div>
-                        <p className="text-sm font-mono text-gray-900">#0A5D87</p>
-                        <p className="text-xs text-gray-600">Contraste: 7.18:1</p>
+                        <p className="text-sm font-mono text-gray-900">#0c6d9e (`primary-darken-1`)</p>
+                        <p className="text-xs text-gray-600">Contraste: 5.68:1</p>
                       </div>
                     </div>
                   </div>
