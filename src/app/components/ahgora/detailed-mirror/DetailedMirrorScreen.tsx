@@ -157,7 +157,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
     border: isHighContrast ? 'border-yellow-300' : 'border-muted',
     panel: isHighContrast ? 'border-yellow-300 bg-neutral-950' : 'border-muted bg-white',
     calendarButton: isHighContrast
-      ? 'border border-transparent text-white hover:bg-white/10'
+      ? 'border border-transparent hover:bg-white/10'
       : '',
     statusPositive: isHighContrast ? 'text-lime-300' : 'text-chart-2',
     statusNegative: isHighContrast ? 'text-red-300' : 'text-destructive',
@@ -866,7 +866,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
           {/* Quick Actions - Reusing the same component from home screen */}
           {isCurrentMonthSelected && (
             <div className="-mx-6">
-              <ActionButtons onAction={handleAction} />
+              <ActionButtons onAction={handleAction} isHighContrast={isHighContrast} />
             </div>
           )}
 
