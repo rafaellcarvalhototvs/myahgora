@@ -63,7 +63,7 @@ export function SelectReasonScreen({ onBack, onSelect }: SelectReasonScreenProps
                 <button
                   key={reason.id}
                   onClick={() => onSelect(reason)}
-                  className="px-4 py-4 border-b border-border/60 flex justify-between items-center active:bg-muted/20 transition-colors group"
+                  className="px-4 py-4 border-b border-text-lighten-3 flex justify-between items-center active:bg-muted/20 transition-colors group"
                 >
                   <span className="text-sm text-foreground">{reason.label}</span>
                   <KeyboardArrowRightIcon className="text-muted-foreground group-hover:text-primary" sx={{ fontSize: 20 }} />

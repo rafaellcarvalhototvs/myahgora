@@ -153,7 +153,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
     heading: 'text-foreground',
     bodyText: 'text-foreground',
     mutedText: 'text-muted-foreground',
-    border: 'border-border',
+    border: 'border-text-lighten-3',
     panel: 'border-border bg-card',
     calendarButton: 'focus:ring-ring dark:focus:ring-primary dark:focus:ring-offset-[var(--surface-elevated)]',
     statusPositive: 'text-chart-2',

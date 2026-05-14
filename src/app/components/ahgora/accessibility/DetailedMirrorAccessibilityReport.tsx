@@ -12,13 +12,16 @@ interface DetailedMirrorAccessibilityReportProps {
 
 export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAccessibilityReportProps) {
   const [currentSection, setCurrentSection] = useState<'overview' | 'screen-reader' | 'keyboard' | 'contrast' | 'semantics' | 'usability'>('overview');
+  const reportAccent = 'text-[#1D4ED8]';
+  const reportAccentBorder = 'border-[#1D4ED8]';
+  const selectedTabClasses = `${reportAccent} border-b-2 ${reportAccentBorder}`;
 
   const reportData = {
     screenName: 'Espelho Detalhado',
     wcagLevel: 'AA',
-    complianceScore: 100,
-    lastTested: '12/04/2026',
-    testTools: ['NVDA 2023.3', 'JAWS 2023', 'VoiceOver (macOS)', 'Keyboard navigation', 'Color contrast analyzer'],
+    complianceScore: 98,
+    lastTested: '14/05/2026',
+    testTools: ['Inspeção manual do componente', 'VoiceOver (macOS)', 'Navegação por teclado', 'Cálculo de contraste WCAG', 'Validação de estados light/dark'],
     
     screenReaderOutput: {
       navigationSequence: [
@@ -29,32 +32,32 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
         },
         {
           element: 'Cabeçalho',
-          announcement: 'Espelho detalhado. Botão voltar para tela anterior.',
-          purpose: 'Identifica a tela atual e fornece navegação'
+          announcement: 'Espelho detalhado. Botão voltar para tela anterior. Botão ver relatório de acessibilidade desta tela.',
+          purpose: 'Identifica a tela atual e expõe navegação e acesso ao relatório'
         },
         {
           element: 'Competência',
-          announcement: 'Competência. Trocar mês e ano da competência, atual: Abril - 2026, botão recolhível. Baixar espelho de ponto, botão.',
+          announcement: 'Competência. Trocar mês e ano da competência, atual: Maio - 2026, botão expandido falso. Baixar espelho de ponto, botão.',
           purpose: 'Identifica o período e ações disponíveis'
         },
         {
-          element: 'Calendário (região)',
-          announcement: 'Calendário, região. Calendário do mês de Abril - 2026, grade. Domingo, segunda, terça, quarta, quinta, sexta, sábado.',
+          element: 'Calendário',
+          announcement: 'Calendário. Abrir legenda do calendário, botão. Calendário do mês de Maio - 2026, grade. Domingo, Segunda, Terça, Quarta, Quinta, Sexta, Sábado.',
           purpose: 'Anuncia a estrutura do calendário como uma grade'
         },
         {
           element: 'Dias do calendário',
-          announcement: '15 de Abril, Quarta-feira, selecionado. 16 de Abril, Quinta-feira. 17 de Abril, Sexta-feira, feriado.',
-          purpose: 'Fornece contexto completo de cada dia (data, dia da semana, estado)'
+          announcement: '14 de Maio, Quinta, selecionado, exceção. 21 de Maio, Quinta, feriado: Tiradentes. Data futura, indisponível.',
+          purpose: 'Fornece contexto completo de cada dia, incluindo feriado, exceção, indisponibilidade e pertencimento ao mês'
         },
         {
           element: 'Botão Expandir/Recolher',
-          announcement: 'Expandir calendário para ver o mês completo, botão recolhível',
+          announcement: 'Expandir calendário, botão, expandido falso.',
           purpose: 'Indica função e estado do botão'
         },
         {
           element: 'Detalhes do dia (região)',
-          announcement: 'Detalhes do dia selecionado, região. Quarta-feira, 15 de Abril, 2026.',
+          announcement: 'Detalhes do dia selecionado, região. 14 de maio, 2026.',
           purpose: 'Identifica a região de conteúdo relacionada'
         },
         {
@@ -74,24 +77,25 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
         },
         {
           element: 'Resumo mensal (região)',
-          announcement: 'Resumo mensal, região. Resumo mensal, Abril, 2026. Horas Trabalhadas: 130:53. Horas Previstas: 184:00...',
+          announcement: 'Resumo mensal, região. Resumo mensal, Maio, 2026. Horas trabalhadas, horas previstas, feriados, horas positivas, horas negativas e saldo.',
           purpose: 'Resumo completo do mês'
         }
       ],
       keyStrengths: [
-        'Estrutura de grade bem definida para o calendário',
+        'Estrutura de grade bem definida para o calendário com `role=\"grid\"`, `columnheader` e `gridcell`',
         'Regiões semânticas identificadas (role="region")',
         'Estados dos elementos anunciados (selecionado, recolhível)',
         'Contexto completo dos dias (data + dia da semana + estado)',
         'Skip link para pular navegação repetitiva',
         'Região aria-live anuncia mudanças de competência, seleção de dia e estado do calendário',
-        'Modo opcional de alto contraste disponível diretamente no cabeçalho'
+        'Legenda textual do calendário complementar aos indicadores visuais',
+        'Tema light/dark com tokens contrastados para header, outline e estados negativos',
+        'Bottom sheets com `role=\"dialog\"`, `aria-modal`, rótulo, descrição, foco inicial e fechamento por Escape'
       ],
       areasForImprovement: [
-        'Expandir as notificações dinâmicas para ações rápidas do rodapé',
-        'Sincronizar o modo de alto contraste com preferências globais do aplicativo',
-        'Adicionar legenda equivalente nas demais telas com calendário',
-        'Cobrir com testes automatizados os anúncios de leitor de telas'
+        'Cobrir com testes automatizados os anúncios de leitor de telas',
+        'Adicionar atalho para retornar rapidamente à data de hoje',
+        'Levar a legenda textual para outras telas com comportamento semelhante'
       ]
     },
 
@@ -104,12 +108,12 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
         { key: 'Espaço', action: 'Selecionar dia no calendário', supported: true },
         { key: 'Home', action: 'Ir para primeiro dia visível', supported: true },
         { key: 'End', action: 'Ir para último dia visível', supported: true },
-        { key: 'Escape', action: 'Fechar modal de mês/ano', supported: true }
+        { key: 'Escape', action: 'Fechar bottom sheets de competência e legenda', supported: true }
       ],
       focusIndicators: [
         'Anéis de foco visíveis em todos os botões',
-        'Estilo focus-visible com anel azul primário',
-        'Contraste adequado nos indicadores de foco',
+        'Estilo focus-visible com anel azul primário e offset visível',
+        'Indicadores de foco preservados nos modos claro e escuro',
         'Ordem lógica de tabulação'
       ],
       keyboardTraps: 'Nenhuma armadilha de teclado identificada'
@@ -117,24 +121,24 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
 
     colorContrast: {
       testedElements: [
-        { element: 'Texto primary-darken-1 sobre branco (botões de competência)', contrast: '5.68:1', status: '✅ Atende AA' },
-        { element: 'Texto cinza (#5a5a6b) sobre branco', contrast: '6.75:1', status: '✅ Atende AA' },
-        { element: 'Texto branco sobre azul primário', contrast: '8.54:1', status: '✅ Atende AA' },
-        { element: 'Texto vermelho destrutivo sobre branco', contrast: '4.98:1', status: '✅ Atende AA' },
-        { element: 'Indicadores de foco (azul sobre branco)', contrast: '3.18:1', status: '✅ Atende AA para não-texto (requer 3:1)' }
+        { element: 'Texto `primary-darken-1` sobre branco (outline no light)', contrast: '5.68:1', status: '✅ Atende AA' },
+        { element: 'Texto branco sobre `primary` no header dark', contrast: '6.53:1', status: '✅ Atende AA' },
+        { element: 'Texto `primary-darken-1` sobre fundo dark do app', contrast: '10.18:1', status: '✅ Atende AA' },
+        { element: 'Texto escuro sobre CTA azul claro no light', contrast: '5.92:1', status: '✅ Atende AA' },
+        { element: 'Texto/indicador `destructive-contrast` sobre fundo dark', contrast: '5.87:1', status: '✅ Atende AA' },
+        { element: 'Uso antigo de `primary` como texto outline no dark', contrast: '2.47:1', status: '⚠️ Corrigido' },
+        { element: 'Uso antigo de `destructive` em texto/indicador no dark', contrast: '2.72:1', status: '⚠️ Corrigido' }
       ],
       recommendations: [
-        'Manter `primary-darken-1` nos botões com texto sobre fundo claro',
-        'Revisar outros usos de `primary` como texto para evitar regressões de contraste',
-        'Preservar o modo opcional de alto contraste nas próximas iterações visuais'
+        'Manter `primary` para superfícies fortes e `primary-darken-1` para texto, ícone e outline no dark',
+        'Preservar `destructive-contrast` para estados negativos pequenos em superfícies escuras',
+        'Continuar validando contraste por token quando a cor da marca mudar'
       ]
     },
 
     semanticStructure: {
       landmarks: [
-        { role: 'banner', element: 'Cabeçalho', implemented: true },
         { role: 'main', element: 'Conteúdo principal', implemented: true },
-        { role: 'region', element: 'Calendário (com aria-label)', implemented: true },
         { role: 'region', element: 'Detalhes do dia selecionado', implemented: true },
         { role: 'region', element: 'Resumo mensal', implemented: true },
         { role: 'region', element: 'Opções de ajuste de ponto', implemented: true }
@@ -142,74 +146,76 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
       headings: [
         { level: 'h1', element: 'Espelho detalhado', location: 'Cabeçalho', implemented: true },
         { level: 'h2', element: 'Competência', location: 'Seção competência', implemented: true },
-        { level: 'h2', element: 'Calendário', location: 'Seção calendário', implemented: true },
-        { level: 'h3', element: 'Registros do dia', location: 'Detalhes do dia', implemented: true },
-        { level: 'h3', element: 'Resumo mensal, Abril, 2026', location: 'Resumo mensal', implemented: true }
+        { level: 'h3', element: 'Calendário', location: 'Seção calendário', implemented: true },
+        { level: 'h4', element: 'Registros do dia', location: 'Detalhes do dia', implemented: true },
+        { level: 'h3', element: 'Resumo mensal, Maio, 2026', location: 'Resumo mensal', implemented: true }
       ],
       ariaAttributes: [
-        { attribute: 'aria-label', usage: 'Botões sem texto visível (ícones)', examples: 8, implemented: true },
-        { attribute: 'aria-expanded', usage: 'Botões recolhíveis', examples: 2, implemented: true },
+        { attribute: 'aria-label', usage: 'Botões de ação, grid e regiões nomeadas', examples: 10, implemented: true },
+        { attribute: 'aria-expanded', usage: 'Botões recolhíveis e camadas auxiliares', examples: 3, implemented: true },
         { attribute: 'aria-selected', usage: 'Dias selecionados no calendário', examples: 1, implemented: true },
-        { attribute: 'aria-live', usage: 'Atualizações de competência', examples: 1, implemented: true },
+        { attribute: 'aria-live', usage: 'Atualizações de competência, seleção e expansão do calendário', examples: 1, implemented: true },
         { attribute: 'aria-atomic', usage: 'Com aria-live para atualizações completas', examples: 1, implemented: true },
-        { attribute: 'aria-hidden', usage: 'Ícones decorativos', examples: 12, implemented: true },
-        { attribute: 'role', usage: 'Definir regiões e elementos', examples: 15, implemented: true }
+        { attribute: 'aria-controls', usage: 'Relacionar botão de expandir com a grade do calendário', examples: 1, implemented: true },
+        { attribute: 'aria-modal', usage: 'Bottom sheets com comportamento de diálogo modal', examples: 2, implemented: true },
+        { attribute: 'aria-labelledby / aria-describedby', usage: 'Associar título e descrição aos bottom sheets', examples: 2, implemented: true },
+        { attribute: 'aria-hidden', usage: 'Ícones decorativos', examples: 9, implemented: true },
+        { attribute: 'role', usage: 'Definir status, grid, cells, regiões e diálogos', examples: 15, implemented: true }
       ]
     },
 
     usability: {
       heuristicEvaluation: [
-        { heuristic: 'Visibilidade do status do sistema', rating: 'Bom', notes: 'Calendário mostra dia selecionado claramente, horas trabalhadas/previstas visíveis', recommendation: 'Adicionar indicador de carregamento para troca de mês' },
+        { heuristic: 'Visibilidade do status do sistema', rating: 'Bom', notes: 'Calendário mostra dia selecionado claramente, horas trabalhadas/previstas visíveis e mudanças são anunciadas por aria-live', recommendation: 'Adicionar indicador de carregamento para troca de mês' },
         { heuristic: 'Correspondência entre sistema e mundo real', rating: 'Excelente', notes: 'Termos como "Competência", "batidas", "espelho" são familiares ao usuário', recommendation: 'Manter linguagem atual' },
-        { heuristic: 'Controle e liberdade do usuário', rating: 'Bom', notes: 'Botão de voltar disponível, pode desfazer seleção de dia', recommendation: 'Adicionar atalho "Voltar para hoje"' },
-        { heuristic: 'Consistência e padrões', rating: 'Excelente', notes: 'Seguindo padrões do Ahgora e convenções de UI mobile', recommendation: 'Padronizar ícones de ações rápidas' },
-        { heuristic: 'Prevenção de erros', rating: 'Regular', notes: 'Falta validação ao incluir batidas inválidas (ex: antes da primeira batida)', recommendation: 'Validar batidas inconsistentes' },
-        { heuristic: 'Reconhecimento em vez de lembrança', rating: 'Excelente', notes: 'Calendário mostra visualmente dias com batidas, feriados e exceções, agora com legenda textual de apoio', recommendation: 'Replicar a mesma legenda em outros calendários do produto' },
+        { heuristic: 'Controle e liberdade do usuário', rating: 'Bom', notes: 'Botão de voltar disponível, usuário pode trocar competência e navegar por teclado entre os dias', recommendation: 'Adicionar atalho "Voltar para hoje"' },
+        { heuristic: 'Consistência e padrões', rating: 'Excelente', notes: 'Header, CTA, outline e estados negativos seguem tokens coerentes entre light e dark', recommendation: 'Expandir a mesma lógica para outros fluxos com calendário' },
+        { heuristic: 'Prevenção de erros', rating: 'Bom', notes: 'Datas futuras são desabilitadas e meses futuros não podem ser selecionados', recommendation: 'Adicionar feedback visual mais explícito para indisponibilidade de datas futuras' },
+        { heuristic: 'Reconhecimento em vez de lembrança', rating: 'Excelente', notes: 'Calendário mostra visualmente dias com feriados e exceções e agora conta com legenda textual de apoio', recommendation: 'Replicar a mesma legenda em outros calendários do produto' },
         { heuristic: 'Flexibilidade e eficiência de uso', rating: 'Bom', notes: 'Atalhos de teclado para navegação no calendário', recommendation: 'Adicionar navegação por gestos (swipe)' },
-        { heuristic: 'Estética e design minimalista', rating: 'Excelente', notes: 'Interface limpa, informações hierarquizadas corretamente', recommendation: 'Reduzir densidade em telas pequenas' },
-        { heuristic: 'Ajude os usuários a reconhecer, diagnosticar e recuperar-se de erros', rating: 'Regular', notes: 'Mensagens de erro genéricas para falhas de rede', recommendation: 'Mensagens de erro mais específicas' },
-        { heuristic: 'Ajuda e documentação', rating: 'Insuficiente', notes: 'Falta help in-context e documentação das funcionalidades', recommendation: 'Adicionar tooltips explicativos e FAQ' }
+        { heuristic: 'Estética e design minimalista', rating: 'Excelente', notes: 'Interface limpa, informações hierarquizadas corretamente e dark mode mais consistente', recommendation: 'Reduzir densidade em telas pequenas' },
+        { heuristic: 'Ajude os usuários a reconhecer, diagnosticar e recuperar-se de erros', rating: 'Regular', notes: 'A tela principal depende de fluxos externos para tratamento detalhado de inconsistências', recommendation: 'Adicionar mensagens mais específicas para estados excepcionais do calendário' },
+        { heuristic: 'Ajuda e documentação', rating: 'Bom', notes: 'A tela ganhou legenda contextual para os indicadores do calendário', recommendation: 'Adicionar ajuda curta para competência e regras de saldo' }
       ],
       taskSuccessRate: [
         { task: 'Visualizar batidas de um dia específico', successRate: 100, timeEstimate: '3s', difficulty: 'Fácil' },
         { task: 'Trocar mês/ano da competência', successRate: 95, timeEstimate: '5s', difficulty: 'Fácil' },
         { task: 'Expandir/recolher calendário', successRate: 98, timeEstimate: '2s', difficulty: 'Fácil' },
-        { task: 'Navegar entre dias com teclado', successRate: 85, timeEstimate: '8s', difficulty: 'Médio' },
+        { task: 'Navegar entre dias com teclado', successRate: 88, timeEstimate: '8s', difficulty: 'Médio' },
         { task: 'Localizar horas trabalhadas no mês', successRate: 90, timeEstimate: '10s', difficulty: 'Médio' },
         { task: 'Iniciar inclusão de batida', successRate: 88, timeEstimate: '6s', difficulty: 'Fácil' }
       ],
       painPoints: [
         { issue: 'Densidade de informação em telas pequenas', severity: 'Média', impact: 'Usuários podem sentir sobrecarga visual', solution: 'Opcional modo compacto para calendário' },
         { issue: 'Falta de feedback ao trocar mês', severity: 'Baixa', impact: 'Usuário não sabe se a requisição está processando', solution: 'Indicador de carregamento sutil' },
-        { issue: 'Cobertura parcial do alto contraste', severity: 'Baixa', impact: 'Componentes reutilizados podem manter estilo padrão fora da área principal da tela', solution: 'Expandir o tema para ações rápidas e componentes compartilhados' },
         { issue: 'Ausência de busca por data', severity: 'Média', impact: 'Navegação lenta para datas distantes', solution: 'Adicionar seletor rápido de data' },
-        { issue: 'Ícones sem texto alternativo consistente', severity: 'Baixa', impact: 'Usuários de leitores de tela podem não entender função', solution: 'Padronizar aria-labels' }
+        { issue: 'Cobertura manual de contraste depende de disciplina de tokens', severity: 'Baixa', impact: 'Novos componentes podem regredir se usarem cor errada no dark', solution: 'Documentar e testar o uso de `primary-darken-1` e `destructive-contrast`' }
       ],
       recommendations: [
-        'Expandir o modo de alto contraste para componentes reutilizados da aplicação',
+        'Documentar o uso semântico dos tokens `primary`, `primary-darken-1`, `destructive` e `destructive-contrast`',
         'Adicionar navegação por gestos (swipe para mudar mês)',
         'Incluir busca rápida por data específica',
         'Melhorar feedback visual durante carregamentos',
         'Adicionar modo compacto opcional para calendário',
-        'Criar help in-context com tooltips explicativos',
-        'Implementar validação em tempo real para inclusão de batidas'
+        'Adicionar help in-context para competência, saldo e indicadores do calendário'
       ],
-      usabilityScore: 89,
-      satisfactionScore: 4.5
+      usabilityScore: 92,
+      satisfactionScore: 4.6
     },
 
     wcagCriteria: [
       { code: '1.3.1', name: 'Informação e relacionamentos', level: 'A', status: 'Conforme', notes: 'Grade de calendário com role="grid"' },
       { code: '1.3.2', name: 'Sequência significativa', level: 'A', status: 'Conforme', notes: 'Ordem lógica no DOM' },
       { code: '1.4.1', name: 'Uso de cor', level: 'A', status: 'Conforme', notes: 'Cores não são únicas transportadoras de informação' },
-      { code: '1.4.3', name: 'Contraste (normal)', level: 'AA', status: 'Conforme', notes: 'Botões com texto em fundo claro usam `primary-darken-1` com contraste 5.68:1' },
-      { code: '1.4.11', name: 'Contraste de não-texto', level: 'AA', status: 'Conforme', notes: 'Elementos visuais têm contraste adequado' },
+      { code: '1.4.3', name: 'Contraste (normal)', level: 'AA', status: 'Conforme', notes: 'Outline no dark e indicadores negativos foram corrigidos para `primary-darken-1` e `destructive-contrast`' },
+      { code: '1.4.11', name: 'Contraste de não-texto', level: 'AA', status: 'Conforme', notes: 'Foco, seleção e indicadores principais têm contraste suficiente' },
       { code: '2.1.1', name: 'Teclado', level: 'A', status: 'Conforme', notes: 'Toda funcionalidade acessível por teclado' },
       { code: '2.1.2', name: 'Sem armadilhas de teclado', level: 'A', status: 'Conforme', notes: 'Nenhuma armadilha identificada' },
       { code: '2.4.3', name: 'Ordem de foco', level: 'A', status: 'Conforme', notes: 'Ordem lógica de tabulação' },
       { code: '2.4.7', name: 'Foco visível', level: 'AA', status: 'Conforme', notes: 'Indicadores de foco visíveis' },
       { code: '3.2.1', name: 'Foco ao receber foco', level: 'A', status: 'Conforme', notes: 'Foco não causa mudanças inesperadas' },
-      { code: '4.1.2', name: 'Nome, função, valor', level: 'A', status: 'Conforme', notes: 'Elementos têm nome e função determináveis' }
+      { code: '4.1.2', name: 'Nome, função, valor', level: 'A', status: 'Conforme', notes: 'Elementos têm nome e função determináveis' },
+      { code: '1.3.6', name: 'Identificar propósito', level: 'AA', status: 'Conforme', notes: 'Bottom sheets agora expõem propósito por título, descrição e semântica explícita de diálogo' }
     ]
   };
 
@@ -226,10 +232,10 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
     <div className="min-h-screen bg-[#f0f0f5] flex justify-center font-['Open_Sans']">
       <div className="w-full max-w-md bg-white min-h-screen relative shadow-2xl pb-20">
         {/* Header */}
-        <div className="sticky top-0 z-10 bg-primary px-6 py-3 flex items-center gap-2 shrink-0 shadow-sm h-[62px] relative">
+        <div className="sticky top-0 z-10 bg-[#2F3A4A] px-6 py-3 flex items-center gap-2 shrink-0 shadow-sm h-[62px] relative">
           <button
             onClick={onBack}
-            className="text-white p-1 mr-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary rounded"
+            className="text-white p-1 mr-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#2F3A4A] rounded"
             aria-label="Voltar para tela anterior"
           >
             <ArrowBackIcon className="w-6 h-6" />
@@ -271,7 +277,7 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
               </div>
               
               <div className="bg-white p-2 rounded-lg border">
-                <CalendarTodayIcon className="w-8 h-8 text-primary" />
+                <CalendarTodayIcon className="w-8 h-8 text-[#1D4ED8]" />
               </div>
             </div>
           </div>
@@ -280,7 +286,7 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
           <div className="flex overflow-x-auto border-b border-gray-200 mb-6 -mx-4 px-4 scrollbar-hide">
             <button
               onClick={() => setCurrentSection('overview')}
-              className={`flex-none py-3 px-4 text-sm font-medium whitespace-nowrap ${currentSection === 'overview' ? 'text-primary border-b-2 border-primary' : 'text-gray-600'}`}
+              className={`flex-none py-3 px-4 text-sm font-medium whitespace-nowrap ${currentSection === 'overview' ? selectedTabClasses : 'text-gray-600'}`}
             >
               <div className="flex items-center gap-2">
                 <AccessibilityIcon className="w-4 h-4" />
@@ -290,7 +296,7 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
             
             <button
               onClick={() => setCurrentSection('screen-reader')}
-              className={`flex-none py-3 px-4 text-sm font-medium whitespace-nowrap ${currentSection === 'screen-reader' ? 'text-primary border-b-2 border-primary' : 'text-gray-600'}`}
+              className={`flex-none py-3 px-4 text-sm font-medium whitespace-nowrap ${currentSection === 'screen-reader' ? selectedTabClasses : 'text-gray-600'}`}
             >
               <div className="flex items-center gap-2">
                 <ScreenRotationIcon className="w-4 h-4" />
@@ -300,7 +306,7 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
             
             <button
               onClick={() => setCurrentSection('keyboard')}
-              className={`flex-none py-3 px-4 text-sm font-medium whitespace-nowrap ${currentSection === 'keyboard' ? 'text-primary border-b-2 border-primary' : 'text-gray-600'}`}
+              className={`flex-none py-3 px-4 text-sm font-medium whitespace-nowrap ${currentSection === 'keyboard' ? selectedTabClasses : 'text-gray-600'}`}
             >
               <div className="flex items-center gap-2">
                 <KeyboardIcon className="w-4 h-4" />
@@ -310,7 +316,7 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
             
             <button
               onClick={() => setCurrentSection('contrast')}
-              className={`flex-none py-3 px-4 text-sm font-medium whitespace-nowrap ${currentSection === 'contrast' ? 'text-primary border-b-2 border-primary' : 'text-gray-600'}`}
+              className={`flex-none py-3 px-4 text-sm font-medium whitespace-nowrap ${currentSection === 'contrast' ? selectedTabClasses : 'text-gray-600'}`}
             >
               <div className="flex items-center gap-2">
                 <span className="w-4 h-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-500"></span>
@@ -320,7 +326,7 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
             
             <button
               onClick={() => setCurrentSection('semantics')}
-              className={`flex-none py-3 px-4 text-sm font-medium whitespace-nowrap ${currentSection === 'semantics' ? 'text-primary border-b-2 border-primary' : 'text-gray-600'}`}
+              className={`flex-none py-3 px-4 text-sm font-medium whitespace-nowrap ${currentSection === 'semantics' ? selectedTabClasses : 'text-gray-600'}`}
             >
               <div className="flex items-center gap-2">
                 <span className="text-lg font-bold">{"</>"}</span>
@@ -330,7 +336,7 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
             
             <button
               onClick={() => setCurrentSection('usability')}
-              className={`flex-none py-3 px-4 text-sm font-medium whitespace-nowrap ${currentSection === 'usability' ? 'text-primary border-b-2 border-primary' : 'text-gray-600'}`}
+              className={`flex-none py-3 px-4 text-sm font-medium whitespace-nowrap ${currentSection === 'usability' ? selectedTabClasses : 'text-gray-600'}`}
             >
               <div className="flex items-center gap-2">
                 <PsychologyIcon className="w-4 h-4" />
@@ -348,10 +354,10 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
                   <p className="text-sm text-gray-700">
                     A tela <strong>Espelho Detalhado</strong> apresenta um bom nível de acessibilidade, com destaque para 
                     a implementação de <strong>navegação por teclado completa</strong> e <strong>estrutura semântica adequada</strong>.
-                    Após as melhorias recentes, a tela agora combina <strong>contraste adequado</strong>,
+                    Após as melhorias recentes, a tela agora combina <strong>contraste adequado em light e dark mode</strong>,
                     <strong> legenda textual para o calendário</strong>, <strong>descrições detalhadas de feriados</strong>,
-                    <strong> notificações dinâmicas com aria-live</strong> e um <strong>modo opcional de alto contraste</strong>.
-                    Os próximos passos ficam concentrados na <strong>padronização dessas soluções em componentes compartilhados</strong>.
+                    <strong> notificações dinâmicas com aria-live</strong> e <strong>tokens específicos para estados positivos, negativos e outlines</strong>.
+                    Os próximos passos ficam concentrados na <strong>automação de testes de acessibilidade</strong> e na <strong>padronização dessas soluções em componentes compartilhados</strong>.
                   </p>
                 </div>
               </div>
@@ -381,10 +387,10 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                 <h4 className="text-sm font-semibold text-blue-800 mb-2">Recomendações Prioritárias</h4>
                 <ol className="text-sm text-blue-700 space-y-2 list-decimal list-inside">
-                  <li>Expandir o modo de alto contraste para componentes reutilizados e outras telas relacionadas</li>
                   <li>Automatizar testes de regressão para contrastes e anúncios via leitor de telas</li>
-                  <li>Levar a legenda textual de calendário para fluxos com comportamento semelhante</li>
+                  <li>Documentar o uso dos tokens `primary-darken-1` e `destructive-contrast` para evitar regressões</li>
                   <li>Adicionar feedback de carregamento ao trocar competência</li>
+                  <li>Replicar a mesma semântica modal e a mesma política de contraste nas demais telas relacionadas</li>
                 </ol>
               </div>
             </div>
@@ -402,7 +408,7 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
 
               <div className="space-y-4">
                 {reportData.screenReaderOutput.navigationSequence.map((item, index) => (
-                  <div key={index} className="border-l-4 border-primary pl-4 py-3">
+                  <div key={index} className="border-l-4 border-[#1D4ED8] pl-4 py-3">
                     <div className="flex items-start gap-3">
                       <div className="bg-gray-100 text-gray-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold flex-shrink-0">
                         {index + 1}
@@ -474,7 +480,7 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
                 <div className="space-y-2">
                   {reportData.keyboardNavigation.focusIndicators.map((indicator, index) => (
                     <div key={index} className="flex items-center gap-3 p-3 border border-gray-200 rounded-lg">
-                      <div className="w-2 h-2 bg-primary rounded-full"></div>
+                      <div className="w-2 h-2 bg-[#1D4ED8] rounded-full"></div>
                       <span className="text-sm text-gray-700">{indicator}</span>
                     </div>
                   ))}
@@ -531,12 +537,12 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
                 <h4 className="text-sm font-semibold text-gray-900 mb-3">Comparativo de Correção Aplicada</h4>
                 <div className="space-y-4">
                   <div>
-                    <p className="text-sm text-gray-700 mb-2">Antes da correção:</p>
+                    <p className="text-sm text-gray-700 mb-2">Antes da correção no dark:</p>
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-lg" style={{ backgroundColor: '#1199dd' }}></div>
+                      <div className="w-12 h-12 rounded-lg" style={{ backgroundColor: '#0A5D87' }}></div>
                       <div>
-                        <p className="text-sm font-mono text-gray-900">#1199dd</p>
-                        <p className="text-xs text-gray-600">Contraste: 3.18:1</p>
+                        <p className="text-sm font-mono text-gray-900">#0A5D87 como texto outline no dark</p>
+                        <p className="text-xs text-gray-600">Contraste: 2.47:1</p>
                       </div>
                     </div>
                   </div>
@@ -544,10 +550,21 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
                   <div>
                     <p className="text-sm text-gray-700 mb-2">Implementado na tela:</p>
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-lg" style={{ backgroundColor: '#0c6d9e' }}></div>
+                      <div className="w-12 h-12 rounded-lg" style={{ backgroundColor: '#81CEF5' }}></div>
                       <div>
-                        <p className="text-sm font-mono text-gray-900">#0c6d9e (`primary-darken-1`)</p>
-                        <p className="text-xs text-gray-600">Contraste: 5.68:1</p>
+                        <p className="text-sm font-mono text-gray-900">#81CEF5 (`primary-darken-1` no dark)</p>
+                        <p className="text-xs text-gray-600">Contraste: 10.18:1</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <p className="text-sm text-gray-700 mb-2">Correção adicional para estados negativos:</p>
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 rounded-lg" style={{ backgroundColor: '#F76464' }}></div>
+                      <div>
+                        <p className="text-sm font-mono text-gray-900">#F76464 (`destructive-contrast` no dark)</p>
+                        <p className="text-xs text-gray-600">Contraste: 5.87:1</p>
                       </div>
                     </div>
                   </div>

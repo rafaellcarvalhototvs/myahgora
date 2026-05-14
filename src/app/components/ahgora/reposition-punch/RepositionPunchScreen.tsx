@@ -85,7 +85,7 @@ export function RepositionPunchScreen({ onBack }: RepositionPunchScreenProps) {
           <p className="text-sm text-muted-foreground m-[0px]">Todos os campos são obrigatórios, exceto quando indicado como opcional.</p>
         </div>
 
-        <div className="h-px bg-border/60 w-full shrink-0" />
+        <div className="h-px bg-text-lighten-3 w-full shrink-0" />
 
         {/* Punch Selection */}
         <div className={`border rounded-[4px] p-4 ${errors.punch ? 'border-destructive border-2' : 'border-muted'}`}>
@@ -151,7 +151,7 @@ export function RepositionPunchScreen({ onBack }: RepositionPunchScreenProps) {
                 <button
                   key={d.id}
                   onClick={() => handleSelectDate(d.id)}
-                  className="w-full text-left px-4 py-3 hover:bg-muted/20 text-sm text-foreground border-b border-gray-50 last:border-0"
+                  className="w-full text-left px-4 py-3 hover:bg-muted/20 text-sm text-foreground border-b border-text-lighten-3 last:border-0"
                 >
                   {d.label}
                 </button>
@@ -202,7 +202,7 @@ export function RepositionPunchScreen({ onBack }: RepositionPunchScreenProps) {
       </div>
 
       {/* Footer - Fixed Action Button */}
-      <div className="shrink-0 px-6 pt-[16px] pb-[24px] bg-[var(--surface-elevated)] border-t border-border/70 transition-colors z-20">
+      <div className="shrink-0 px-6 pt-[16px] pb-[24px] bg-[var(--surface-elevated)] border-t border-text-lighten-3 transition-colors z-20">
         <button
           onClick={handleSubmit}
           className="w-full bg-primary text-primary-foreground rounded-[4px] h-[40px] font-semibold text-[14px] leading-[24px] tracking-[0.4px] hover:bg-primary/90 transition-colors shadow-sm flex items-center justify-center"
@@ -224,7 +224,7 @@ export function RepositionPunchScreen({ onBack }: RepositionPunchScreenProps) {
                <p className="text-[14px] text-muted-foreground mb-6">Aguarde a aprovação do gestor. Acompanhe o status no espelho detalhado.</p>
              </div>
              
-             <div className="p-4 pt-0 border-t border-border/60 bg-muted/20 dark:bg-muted/10 flex gap-3">
+             <div className="p-4 pt-0 border-t border-text-lighten-3 bg-muted/20 dark:bg-muted/10 flex gap-3">
                <button 
                  onClick={onBack}
                  className="flex-1 border-2 border-primary text-primary py-2 rounded-[4px] font-semibold text-[14px] leading-[24px] tracking-[0.4px] hover:bg-primary/5 flex items-center justify-center"

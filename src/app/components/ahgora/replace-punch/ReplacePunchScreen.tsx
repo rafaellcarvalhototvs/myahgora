@@ -72,7 +72,7 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
           <p className="text-sm text-muted-foreground m-[0px]">Todos os campos são obrigatórios, exceto quando indicado como opcional.</p>
         </div>
 
-        <div className="h-px bg-border/60 w-full shrink-0" />
+        <div className="h-px bg-text-lighten-3 w-full shrink-0" />
 
         {/* Date Field (Read-only) */}
         <div className="border border-border/60 rounded-[4px] px-4 py-3 bg-card">
@@ -124,7 +124,7 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
         </div>
 
         {/* Next Button */}
-        <div className="fixed bottom-0 left-0 right-0 px-6 py-4 bg-[var(--surface-elevated)] border-t border-border/70 transition-colors z-20 w-full max-w-md mx-auto space-y-3">
+        <div className="fixed bottom-0 left-0 right-0 px-6 py-4 bg-[var(--surface-elevated)] border-t border-text-lighten-3 transition-colors z-20 w-full max-w-md mx-auto space-y-3">
           <button
             onClick={handleStep1Submit}
             className="w-full bg-primary text-primary-foreground rounded-[4px] py-2 font-semibold text-[14px] leading-[24px] tracking-[0.4px] hover:bg-primary/90 transition-colors shadow-sm flex items-center justify-center"
@@ -170,7 +170,7 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
         </div>
 
         {/* Next Button */}
-        <div className="fixed bottom-0 left-0 right-0 px-6 py-4 bg-[var(--surface-elevated)] border-t border-border/70 transition-colors z-20 w-full max-w-md mx-auto space-y-3">
+        <div className="fixed bottom-0 left-0 right-0 px-6 py-4 bg-[var(--surface-elevated)] border-t border-text-lighten-3 transition-colors z-20 w-full max-w-md mx-auto space-y-3">
           <button
             onClick={handleStep2Submit}
             className="w-full bg-primary text-primary-foreground rounded-[4px] py-2 font-semibold text-[14px] leading-[24px] tracking-[0.4px] hover:bg-primary/90 transition-colors shadow-sm flex items-center justify-center"
@@ -231,7 +231,7 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
 
             {/* Footer */}
             <div className="bg-white relative shrink-0 w-full">
-              <div aria-hidden="true" className="absolute border-[rgba(42,42,51,0.12)] border-solid border-t inset-0 pointer-events-none" />
+              <div aria-hidden="true" className="absolute border-text-lighten-3 border-solid border-t inset-0 pointer-events-none" />
               <div className="content-stretch flex items-center justify-end p-[24px] relative w-full gap-3">
                  <button 
                    onClick={() => {
@@ -307,7 +307,7 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
 
         {/* Actions */}
         <div className="h-[70px]" />
-        <div className="fixed bottom-0 left-0 right-0 px-6 py-4 bg-[var(--surface-elevated)] border-t border-border/70 transition-colors z-20 w-full max-w-md mx-auto space-y-3">
+        <div className="fixed bottom-0 left-0 right-0 px-6 py-4 bg-[var(--surface-elevated)] border-t border-text-lighten-3 transition-colors z-20 w-full max-w-md mx-auto space-y-3">
           <button
             onClick={handleFinalSubmit}
             className="w-full bg-primary text-primary-foreground rounded-[4px] py-2 font-semibold text-[14px] leading-[24px] tracking-[0.4px] hover:bg-primary/90 transition-colors shadow-sm flex items-center justify-center"
@@ -346,7 +346,7 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
         </p>
 
         <div className="h-[70px]" />
-        <div className="fixed bottom-0 left-0 right-0 px-6 py-4 bg-[var(--surface-elevated)] border-t border-border/70 transition-colors z-20 w-full max-w-md mx-auto space-y-3">
+        <div className="fixed bottom-0 left-0 right-0 px-6 py-4 bg-[var(--surface-elevated)] border-t border-text-lighten-3 transition-colors z-20 w-full max-w-md mx-auto space-y-3">
            <button
             onClick={onBack}
             className="w-full bg-primary text-primary-foreground rounded-[4px] py-2 font-semibold text-[14px] leading-[24px] tracking-[0.4px] hover:bg-primary/90 transition-colors shadow-sm flex items-center justify-center"

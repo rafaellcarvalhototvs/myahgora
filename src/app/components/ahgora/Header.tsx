@@ -1,5 +1,6 @@
-import { Moon, Sun } from "lucide-react";
+import { Moon, Pipette, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useInspectMode } from "../ui/inspect-mode-provider";
 import svgPaths from "../../../imports/svg-xrhe7qzgal";
 
 interface HeaderProps {
@@ -11,6 +12,7 @@ interface HeaderProps {
 
 export function Header({ userName, avatarUrl, onNotificationClick, onAvatarClick }: HeaderProps) {
   const { resolvedTheme, setTheme } = useTheme();
+  const { enabled: inspectModeEnabled, toggle: toggleInspectMode } = useInspectMode();
   const isDark = resolvedTheme === "dark";
 
   return (
@@ -45,6 +47,20 @@ export function Header({ userName, avatarUrl, onNotificationClick, onAvatarClick
               <span className="text-xs font-semibold leading-none">
                 {isDark ? "Light" : "Dark"}
               </span>
+            </button>
+
+            <button
+              onClick={toggleInspectMode}
+              className={`flex items-center gap-2 rounded-full border px-3 h-10 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary ${
+                inspectModeEnabled
+                  ? "border-white/30 bg-white/20 text-white"
+                  : "border-white/20 bg-white/10 text-white/90 hover:bg-white/15"
+              }`}
+              aria-label={inspectModeEnabled ? "Desativar modo lupa" : "Ativar modo lupa"}
+              type="button"
+            >
+              <Pipette className="w-4 h-4" />
+              <span className="text-xs font-semibold leading-none">Lupa</span>
             </button>
 
             {/* Megaphone Icon */}

@@ -57,7 +57,7 @@ export function PunchReminderScreen({ onBack }: PunchReminderScreenProps) {
                     </p>
                 </div>
 
-                <div className="h-px bg-[#DDDDDD] w-full mb-6 shrink-0" />
+                <div className="h-px bg-text-lighten-3 w-full mb-6 shrink-0" />
 
                 <div 
                     className="flex items-center gap-2 cursor-pointer select-none mb-8 shrink-0 group"
@@ -138,7 +138,7 @@ export function PunchReminderScreen({ onBack }: PunchReminderScreenProps) {
                         </div>
 
                         <div className="mt-auto pb-0">
-                            <div className="fixed bottom-0 left-0 right-0 px-6 py-4 bg-[var(--surface-elevated)] border-t border-border/70 transition-colors z-20 w-full max-w-md mx-auto">
+                            <div className="fixed bottom-0 left-0 right-0 px-6 py-4 bg-[var(--surface-elevated)] border-t border-text-lighten-3 transition-colors z-20 w-full max-w-md mx-auto">
                                 <AhgoraButton
                                     variant="primary"
                                     size="lg"

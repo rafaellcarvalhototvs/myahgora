@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 
 interface CalendarLegendBottomSheetProps {
@@ -9,20 +10,50 @@ export function CalendarLegendBottomSheet({
   isVisible,
   onClose,
 }: CalendarLegendBottomSheetProps) {
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (isVisible) {
+      closeButtonRef.current?.focus();
+    }
+  }, [isVisible]);
+
   if (!isVisible) return null;
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      onClose();
+    }
+  };
+
   return (
-    <div className="fixed inset-0 bg-black/50 z-[60] flex items-end justify-center animate-in fade-in duration-200 font-['Open_Sans']">
-      <div className="bg-card border border-border/70 relative rounded-t-[8px] w-full max-w-md overflow-hidden animate-in slide-in-from-bottom-full fade-in duration-300 shadow-xl dark:shadow-[0px_16px_32px_0px_rgba(0,0,0,0.35)] transition-colors">
+    <div
+      className="fixed inset-0 bg-black/50 z-[60] flex items-end justify-center animate-in fade-in duration-200 font-['Open_Sans']"
+      onClick={onClose}
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="calendar-legend-title"
+        aria-describedby="calendar-legend-description"
+        onKeyDown={handleKeyDown}
+        onClick={(event) => event.stopPropagation()}
+        className="bg-card border border-border/70 relative rounded-t-[8px] w-full max-w-md overflow-hidden animate-in slide-in-from-bottom-full fade-in duration-300 shadow-xl dark:shadow-[0px_16px_32px_0px_rgba(0,0,0,0.35)] transition-colors"
+      >
         <div className="content-stretch flex flex-col gap-[24px] items-start p-[24px] relative w-full">
           <div className="content-stretch flex flex-col gap-[12px] items-start relative shrink-0 w-full">
             <div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
               <div className="content-stretch flex flex-col items-start relative shrink-0">
-                <p className="font-['Open_Sans'] font-semibold leading-[30px] relative shrink-0 text-[20px] tracking-[0.03px] whitespace-pre-wrap text-foreground">
+                <p
+                  id="calendar-legend-title"
+                  className="font-['Open_Sans'] font-semibold leading-[30px] relative shrink-0 text-[20px] tracking-[0.03px] whitespace-pre-wrap text-foreground"
+                >
                   Legenda do calendário
                 </p>
               </div>
               <button
+                ref={closeButtonRef}
                 onClick={onClose}
                 className="content-stretch flex flex-col items-center relative shrink-0 p-1 rounded-full hover:bg-muted/30"
                 aria-label="Fechar legenda do calendário"
@@ -31,7 +62,10 @@ export function CalendarLegendBottomSheet({
               </button>
             </div>
             <div className="content-stretch flex flex-col items-start relative shrink-0 w-full">
-              <p className="font-['Open_Sans'] leading-[20px] not-italic relative shrink-0 text-[14px] tracking-[0.028px] w-full whitespace-pre-wrap text-foreground">
+              <p
+                id="calendar-legend-description"
+                className="font-['Open_Sans'] leading-[20px] not-italic relative shrink-0 text-[14px] tracking-[0.028px] w-full whitespace-pre-wrap text-foreground"
+              >
                 Entenda o significado visual dos indicadores exibidos no calendário do espelho detalhado.
               </p>
             </div>

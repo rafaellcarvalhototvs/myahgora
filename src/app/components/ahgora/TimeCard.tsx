@@ -70,7 +70,7 @@ export function TimeCard() {
   const hasPunches = punches.length > 0;
 
   return (
-    <div className="bg-card rounded-lg p-4 shadow-sm border border-muted dark:border-border mx-6 mt-6 relative z-10 flex flex-col gap-4 transition-colors">
+    <div className="bg-card rounded-lg p-4 border border-muted dark:border-border mx-6 mt-6 relative z-10 flex flex-col gap-4 transition-colors">
       {/* Header */}
       <div className="flex justify-between items-center w-full">
         <h2 className="font-semibold text-foreground text-base">Registrar o ponto</h2>
@@ -109,7 +109,7 @@ export function TimeCard() {
       </div>
 
       {/* Divider */}
-      <div className="h-px w-full bg-border/60 my-1 relative"></div>
+      <div className="h-px w-full bg-text-lighten-3 my-1 relative"></div>
 
       {/* Footer Info */}
       <div className="flex justify-between items-center w-full">

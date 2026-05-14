@@ -125,7 +125,7 @@ export function DailyExceptionScreen({ onBack }: DailyExceptionScreenProps) {
                   <p className="text-sm text-muted-foreground m-[0px]">Escolha uma das opções abaixo:</p>
                 </div>
 
-                <div className="h-px bg-border/60 w-full shrink-0" />
+                <div className="h-px bg-text-lighten-3 w-full shrink-0" />
 
                 {/* Exception Type Selection */}
                 <div className="flex flex-col gap-4">
@@ -187,7 +187,7 @@ export function DailyExceptionScreen({ onBack }: DailyExceptionScreenProps) {
                   <p className="text-sm text-muted-foreground m-[0px]">Todos os campos são obrigatórios.</p>
                 </div>
 
-                <div className="h-px bg-border/60 w-full shrink-0" />
+                <div className="h-px bg-text-lighten-3 w-full shrink-0" />
 
                 {/* Date Input */}
                 <AhgoraInput
@@ -272,7 +272,7 @@ export function DailyExceptionScreen({ onBack }: DailyExceptionScreenProps) {
                   <p className="text-sm text-muted-foreground m-[0px]">Todos os campos são obrigatórios.</p>
                 </div>
 
-                <div className="h-px bg-border/60 w-full shrink-0" />
+                <div className="h-px bg-text-lighten-3 w-full shrink-0" />
 
                 {/* Current Limit Info */}
                 <div className="bg-[#f5f5fa] border border-muted rounded-[4px] p-4">
@@ -345,7 +345,7 @@ export function DailyExceptionScreen({ onBack }: DailyExceptionScreenProps) {
                   <p className="text-sm text-muted-foreground m-[0px]">Todos os campos são obrigatórios.</p>
                 </div>
 
-                <div className="h-px bg-border/60 w-full shrink-0" />
+                <div className="h-px bg-text-lighten-3 w-full shrink-0" />
 
                 {/* Date Input */}
                 <AhgoraInput
@@ -398,7 +398,7 @@ export function DailyExceptionScreen({ onBack }: DailyExceptionScreenProps) {
 
         {/* Footer - Fixed Action Buttons */}
         {exceptionType && (
-          <div className="shrink-0 px-6 pt-[16px] pb-[24px] bg-[var(--surface-elevated)] border-t border-border/70 transition-colors z-20 space-y-3">
+          <div className="shrink-0 px-6 pt-[16px] pb-[24px] bg-[var(--surface-elevated)] border-t border-text-lighten-3 transition-colors z-20 space-y-3">
             <button
               onClick={handleSubmit}
               className="w-full bg-primary text-primary-foreground rounded-[4px] h-[40px] font-semibold text-[14px] leading-[24px] tracking-[0.4px] hover:bg-primary/90 transition-colors shadow-sm flex items-center justify-center"
@@ -431,7 +431,7 @@ export function DailyExceptionScreen({ onBack }: DailyExceptionScreenProps) {
                 </p>
               </div>
               
-              <div className="p-4 pt-0 border-t border-border/60 bg-muted/20 dark:bg-muted/10 flex gap-3">
+              <div className="p-4 pt-0 border-t border-text-lighten-3 bg-muted/20 dark:bg-muted/10 flex gap-3">
                 <button 
                   onClick={() => {
                     setShowSuccessModal(false);

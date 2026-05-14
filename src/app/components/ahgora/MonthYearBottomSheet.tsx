@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -27,6 +27,7 @@ export function MonthYearBottomSheet({
 
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [selectedMonth, setSelectedMonth] = useState<number | null>(currentMonth);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   // Get current date for comparison
   const today = new Date();
@@ -62,9 +63,31 @@ export function MonthYearBottomSheet({
     onClose();
   };
 
+  useEffect(() => {
+    closeButtonRef.current?.focus();
+  }, []);
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      onClose();
+    }
+  };
+
   return (
-    <div className="fixed inset-0 bg-black/50 z-[60] flex items-end justify-center animate-in fade-in duration-200 font-['Open_Sans']">
-      <div className="bg-card border border-border/70 relative rounded-t-[8px] w-full max-w-md overflow-hidden animate-in slide-in-from-bottom-full fade-in duration-300 shadow-xl dark:shadow-[0px_16px_32px_0px_rgba(0,0,0,0.35)] transition-colors">
+    <div
+      className="fixed inset-0 bg-black/50 z-[60] flex items-end justify-center animate-in fade-in duration-200 font-['Open_Sans']"
+      onClick={onClose}
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="month-year-sheet-title"
+        aria-describedby="month-year-sheet-description"
+        onKeyDown={handleKeyDown}
+        onClick={(event) => event.stopPropagation()}
+        className="bg-card border border-border/70 relative rounded-t-[8px] w-full max-w-md overflow-hidden animate-in slide-in-from-bottom-full fade-in duration-300 shadow-xl dark:shadow-[0px_16px_32px_0px_rgba(0,0,0,0.35)] transition-colors"
+      >
         {/* Header + Body */}
         <div className="content-stretch flex flex-col gap-[24px] items-start p-[24px] relative w-full">
           {/* Header */}
@@ -73,13 +96,18 @@ export function MonthYearBottomSheet({
               <div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
                 {/* Title */}
                 <div className="content-stretch flex flex-col items-start relative shrink-0">
-                  <p className="font-['Open_Sans'] font-semibold leading-[30px] relative shrink-0 text-foreground text-[20px] tracking-[0.03px] whitespace-pre-wrap">
+                  <p
+                    id="month-year-sheet-title"
+                    className="font-['Open_Sans'] font-semibold leading-[30px] relative shrink-0 text-foreground text-[20px] tracking-[0.03px] whitespace-pre-wrap"
+                  >
                     Selecionar competência
                   </p>
                 </div>
                 {/* Close Button */}
                 <button 
+                  ref={closeButtonRef}
                   onClick={onClose}
+                  aria-label="Fechar seleção de competência"
                   className="content-stretch flex flex-col items-center relative shrink-0 p-1 hover:bg-muted/40 rounded-full text-foreground"
                 >
                   <CloseIcon sx={{ fontSize: 20 }} />
@@ -88,7 +116,10 @@ export function MonthYearBottomSheet({
             </div>
             {/* Description */}
             <div className="content-stretch flex flex-col items-start relative shrink-0 w-full">
-              <p className="font-['Open_Sans'] leading-[20px] not-italic relative shrink-0 text-muted-foreground text-[14px] tracking-[0.028px] w-full whitespace-pre-wrap">
+              <p
+                id="month-year-sheet-description"
+                className="font-['Open_Sans'] leading-[20px] not-italic relative shrink-0 text-muted-foreground text-[14px] tracking-[0.028px] w-full whitespace-pre-wrap"
+              >
                 Selecione o ano e o mês desejado para visualizar o espelho.
               </p>
             </div>

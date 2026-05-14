@@ -43,6 +43,8 @@
   --secondary-foreground: rgba(17, 153, 221, 1.00);
   /* The muted color used for less prominent elements, such as disabled buttons or disabled text. */
   --muted: rgba(213, 213, 220, 1.00);
+  /* Lighter text/support color used for subtle separators and low-emphasis UI lines. */
+  --text-lighten-3: rgba(213, 213, 220, 1.00);
   /* The default color for text or elements that appear on top of muted colored elements. */
   --muted-foreground: rgba(120, 120, 143, 1.00);
   /* The accent color used for highlights, links, and other interactive elements. */
@@ -114,6 +116,7 @@
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
+  --color-text-lighten-3: var(--text-lighten-3);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
@@ -158,6 +161,7 @@
   --secondary: rgba(49, 53, 66, 1.00);
   --secondary-foreground: rgba(236, 238, 244, 1.00);
   --muted: rgba(66, 71, 87, 1.00);
+  --text-lighten-3: rgba(71, 76, 93, 1.00);
   --muted-foreground: rgba(155, 163, 179, 1.00);
   --accent: rgba(59, 130, 246, 1.00);
   --accent-foreground: rgba(244, 248, 255, 1.00);

@@ -119,8 +119,8 @@ export function ActionButtons({ onAction }: ActionButtonsProps) {
             }}
           >
             {/* Icon Container */}
-            <div className="w-[48px] h-[48px] rounded-full flex items-center justify-center shrink-0 transition-colors pointer-events-none bg-[var(--surface-elevated)] border border-border/50 group-hover:bg-muted/60 dark:group-hover:bg-muted/80">
-              <div className="w-6 h-6 flex items-center justify-center">
+            <div className="size-12 rounded-full flex items-center justify-center shrink-0 transition-colors pointer-events-none bg-[#F4F4F6] p-2 dark:bg-[var(--surface-elevated)] group-hover:bg-[#E8EAF0] dark:group-hover:bg-muted/80">
+              <div className="size-6 flex items-center justify-center">
                 <svg 
                   viewBox={action.viewBox} 
                   fill="none" 

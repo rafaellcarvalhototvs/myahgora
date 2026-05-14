@@ -65,7 +65,7 @@ export function RequestOvertimeScreen({ onBack }: RequestOvertimeScreenProps) {
           <p className="text-sm text-muted-foreground m-[0px]">Todos os campos são obrigatórios, exceto quando indicado como opcional.</p>
         </div>
 
-        <div className="h-px bg-border/60 w-full shrink-0" />
+        <div className="h-px bg-text-lighten-3 w-full shrink-0" />
 
         {/* Date Field (Read-only for prototype) */}
         <div className="border border-muted rounded-[4px] px-4 py-3 bg-card">
@@ -121,7 +121,7 @@ export function RequestOvertimeScreen({ onBack }: RequestOvertimeScreenProps) {
       </div>
 
       {/* Footer - Fixed Action Button */}
-      <div className="shrink-0 px-6 pt-[16px] pb-[24px] bg-[var(--surface-elevated)] border-t border-border/70 transition-colors z-20">
+      <div className="shrink-0 px-6 pt-[16px] pb-[24px] bg-[var(--surface-elevated)] border-t border-text-lighten-3 transition-colors z-20">
         <button
           onClick={handleSubmit}
           className="w-full bg-primary text-primary-foreground rounded-[4px] h-[40px] font-semibold text-[14px] leading-[24px] tracking-[0.4px] hover:bg-primary/90 transition-colors shadow-sm flex items-center justify-center"
@@ -143,7 +143,7 @@ export function RequestOvertimeScreen({ onBack }: RequestOvertimeScreenProps) {
                <p className="text-[14px] text-muted-foreground mb-6">As horas aparecerão como "N.A." no espelho até a aprovação do gestor.</p>
              </div>
              
-             <div className="p-4 pt-0 border-t border-border/60 bg-muted/20 dark:bg-muted/10 flex gap-3">
+             <div className="p-4 pt-0 border-t border-text-lighten-3 bg-muted/20 dark:bg-muted/10 flex gap-3">
                <button 
                  onClick={() => {
                    setShowSuccessModal(false);

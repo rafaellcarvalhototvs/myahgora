@@ -69,7 +69,7 @@ export function SendMessageScreen({ onBack }: SendMessageScreenProps) {
           <p className="text-sm text-muted-foreground m-[0px]">Todos os campos são obrigatórios, exceto quando indicado como opcional.</p>
         </div>
 
-        <div className="h-px bg-border/60 w-full shrink-0" />
+        <div className="h-px bg-text-lighten-3 w-full shrink-0" />
 
         {/* Date Field (Read-only) */}
         <div className="space-y-2">
@@ -116,7 +116,7 @@ export function SendMessageScreen({ onBack }: SendMessageScreenProps) {
               Adicionar anexo (Opcional)
             </button>
           ) : (
-            <div className="border-b border-border/60 py-2 flex justify-between items-center">
+            <div className="border-b border-text-lighten-3 py-2 flex justify-between items-center">
               <span className="text-sm text-foreground">{attachment.name} ({attachment.size})</span>
               <button onClick={handleRemoveAttachment} className="text-muted-foreground hover:text-destructive p-1">
                 <CloseIcon fontSize="small" />
@@ -132,7 +132,7 @@ export function SendMessageScreen({ onBack }: SendMessageScreenProps) {
       </div>
 
         {/* Submit Button */}
-        <div className="shrink-0 px-6 pt-[16px] pb-[24px] bg-[var(--surface-elevated)] border-t border-border/70 transition-colors space-y-[16px] z-20">
+        <div className="shrink-0 px-6 pt-[16px] pb-[24px] bg-[var(--surface-elevated)] border-t border-text-lighten-3 transition-colors space-y-[16px] z-20">
           <button
             onClick={handleSendMessage}
             className="w-full bg-primary text-primary-foreground rounded-[4px] py-2 font-semibold text-[14px] leading-[24px] tracking-[0.4px] hover:bg-primary/90 transition-colors shadow-sm flex items-center justify-center h-[40px]"
@@ -174,7 +174,7 @@ export function SendMessageScreen({ onBack }: SendMessageScreenProps) {
                </div>
              </div>
              
-             <div className="p-4 pt-2 flex gap-4 border-t border-border/40">
+             <div className="p-4 pt-2 flex gap-4 border-t border-text-lighten-3">
                <button 
                  onClick={() => {
                    setShowSuccessModal(false);
