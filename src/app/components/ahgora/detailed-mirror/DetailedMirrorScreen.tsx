@@ -157,9 +157,9 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
     panel: 'border-border bg-card',
     calendarButton: 'focus:ring-ring dark:focus:ring-primary dark:focus:ring-offset-[var(--surface-elevated)]',
     statusPositive: 'text-chart-2',
-    statusNegative: 'text-destructive',
+    statusNegative: 'text-destructive dark:text-destructive-contrast',
     emphasis: 'text-primary-darken-1',
-    outlineButton: 'border-primary text-primary-darken-1 dark:text-primary hover:bg-primary/10 dark:hover:bg-primary/15',
+    outlineButton: 'border-primary text-primary-darken-1 dark:border-primary-darken-1 dark:text-primary-darken-1 hover:bg-primary/10 dark:hover:bg-primary/15',
     ghostButton: 'text-white hover:bg-white/20',
   };
   
@@ -670,7 +670,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
                 onClick={handleOpenCalendarLegendBottomSheet}
                 aria-expanded={showCalendarLegendBottomSheet}
                 aria-label="Abrir legenda do calendário"
-                className="text-primary-darken-1 dark:text-primary hover:bg-primary/10 dark:hover:bg-primary/15"
+                className="text-primary-darken-1 dark:text-primary-darken-1 hover:bg-primary/10 dark:hover:bg-primary/15"
               >
                 <span>Ver legenda</span>
               </AhgoraButton>
@@ -745,7 +745,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
                       )}
                       {day.hasException && (
                         <>
-                          <div className="w-1 h-1 rounded-full bg-destructive" aria-hidden="true"></div>
+                          <div className="w-1 h-1 rounded-full bg-destructive dark:bg-destructive-contrast" aria-hidden="true"></div>
                           <span className="sr-only">Exceção</span>
                         </>
                       )}
@@ -761,7 +761,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
                 variant="ghost"
                 size="md"
                 onClick={toggleCalendarExpand}
-                className="px-3 border border-primary bg-[#eaf8ff] dark:bg-primary/15 text-[#0c6d9e] dark:text-primary hover:bg-[#d7f0ff] dark:hover:bg-primary/20"
+                className="px-3 border border-primary bg-[#eaf8ff] dark:border-primary-darken-1 dark:bg-primary/15 text-[#0c6d9e] dark:text-primary-darken-1 hover:bg-[#d7f0ff] dark:hover:bg-primary/20"
                 aria-expanded={isCalendarExpanded}
                 aria-controls="calendar-grid"
                 aria-label={isCalendarExpanded ? "Recolher calendário" : "Expandir calendário"}

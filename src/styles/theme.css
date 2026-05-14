@@ -51,6 +51,8 @@
   --accent-foreground: rgba(244, 244, 246, 1.00);
   /* The color used for background in destructive actions, such as delete buttons or error messages. */
   --destructive: rgba(221, 24, 24, 1.00);
+  /* Higher-contrast destructive shade for text and small indicators. */
+  --destructive-contrast: rgba(184, 29, 29, 1.00);
   /* The default color for text or elements that appear on top of destructive colored elements. */
   --destructive-foreground: rgba(255, 255, 255, 1.00);
   /* The default border color for elements such as inputs, buttons, and other containers. */
@@ -116,6 +118,7 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
+  --color-destructive-contrast: var(--destructive-contrast);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
@@ -159,6 +162,7 @@
   --accent: rgba(59, 130, 246, 1.00);
   --accent-foreground: rgba(244, 248, 255, 1.00);
   --destructive: rgba(184, 29, 29, 1.00);
+  --destructive-contrast: rgba(247, 100, 100, 1.00);
   --destructive-foreground: rgba(255, 244, 244, 1.00);
   --border: rgba(71, 76, 93, 1.00);
   --input: rgba(42, 45, 56, 1.00);

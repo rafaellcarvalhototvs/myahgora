@@ -48,9 +48,9 @@ export function CalendarLegendBottomSheet({
               </div>
             </div>
 
-            <div className="rounded-[4px] border p-3 border-[#f3c2c2] bg-[#fff7f7] dark:border-destructive/30 dark:bg-destructive/10">
+            <div className="rounded-[4px] border p-3 border-[#f3c2c2] bg-[#fff7f7] dark:border-destructive-contrast/35 dark:bg-destructive/10">
               <div className="flex items-start gap-3">
-                <span className="mt-1 inline-block h-2.5 w-2.5 rounded-full bg-destructive" aria-hidden="true"></span>
+                <span className="mt-1 inline-block h-2.5 w-2.5 rounded-full bg-destructive dark:bg-destructive-contrast" aria-hidden="true"></span>
                 <div>
                   <p className="text-sm font-semibold text-foreground">Excecao</p>
                   <p className="text-sm text-foreground">Indica ocorrencias como ajuste, inconsistencia ou pendencia relacionada ao dia.</p>
