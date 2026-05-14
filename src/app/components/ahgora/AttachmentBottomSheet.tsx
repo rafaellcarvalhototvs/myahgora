@@ -15,7 +15,7 @@ export function AttachmentBottomSheet({ onClose, onSelect, isVisible }: Attachme
 
   return (
     <div className="fixed inset-0 bg-black/50 z-[60] flex items-end justify-center animate-in fade-in duration-200 font-['Open_Sans']">
-      <div className="bg-white relative rounded-t-[8px] w-full sm:max-w-md overflow-hidden animate-in slide-in-from-bottom-full fade-in duration-300 shadow-xl">
+      <div className="bg-card border border-border/70 relative rounded-t-[8px] w-full sm:max-w-md overflow-hidden animate-in slide-in-from-bottom-full fade-in duration-300 shadow-xl dark:shadow-[0px_16px_32px_0px_rgba(0,0,0,0.35)] transition-colors">
         {/* Header + Body */}
         <div className="content-stretch flex flex-col gap-[24px] items-start p-[24px] relative w-full">
           {/* Header */}
@@ -29,21 +29,21 @@ export function AttachmentBottomSheet({ onClose, onSelect, isVisible }: Attachme
                 {/* Close Button */}
                 <button 
                   onClick={onClose}
-                  className="content-stretch flex flex-col items-center relative shrink-0 p-1 hover:bg-gray-100 rounded-full"
+                  className="content-stretch flex flex-col items-center relative shrink-0 p-1 hover:bg-muted/40 rounded-full text-foreground"
                 >
-                  <CloseIcon sx={{ color: '#3A3A45', fontSize: 20 }} />
+                  <CloseIcon sx={{ fontSize: 20 }} />
                 </button>
               </div>
             </div>
             {/* Title */}
             <div className="content-stretch flex flex-col items-start relative shrink-0 w-full">
-              <p className="font-['Open_Sans'] font-semibold leading-[30px] relative shrink-0 text-[#3a3a45] text-[20px] tracking-[0.03px] w-full whitespace-pre-wrap">
+              <p className="font-['Open_Sans'] font-semibold leading-[30px] relative shrink-0 text-foreground text-[20px] tracking-[0.03px] w-full whitespace-pre-wrap">
                 Adicionar anexo
               </p>
             </div>
             {/* Description */}
             <div className="content-stretch flex flex-col items-start relative shrink-0 w-full">
-              <p className="font-['Open_Sans'] leading-[20px] not-italic relative shrink-0 text-[#3a3a45] text-[14px] tracking-[0.028px] w-full whitespace-pre-wrap">
+              <p className="font-['Open_Sans'] leading-[20px] not-italic relative shrink-0 text-muted-foreground text-[14px] tracking-[0.028px] w-full whitespace-pre-wrap">
                 Escolha uma opção abaixo para adicionar seu anexo.
               </p>
             </div>
@@ -105,8 +105,8 @@ export function AttachmentBottomSheet({ onClose, onSelect, isVisible }: Attachme
         </div>
 
         {/* Footer */}
-        <div className="bg-white relative shrink-0 w-full">
-          <div aria-hidden="true" className="absolute border-[rgba(42,42,51,0.12)] border-solid border-t inset-0 pointer-events-none" />
+        <div className="bg-[var(--surface-elevated)] relative shrink-0 w-full transition-colors">
+          <div aria-hidden="true" className="absolute border-border/70 border-solid border-t inset-0 pointer-events-none" />
           <div className="content-stretch flex items-center justify-end p-[24px] relative w-full">
              <button 
                onClick={onClose}

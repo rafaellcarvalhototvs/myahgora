@@ -16,17 +16,17 @@ function Batida({ time, type }: BatidaProps) {
     <div
       className={`
         relative w-12 h-12 rounded-full flex items-center justify-center shrink-0
-        ${isCompleted ? "bg-[#eaf8ff] border border-primary" : "bg-transparent border border-[#c2c2cd]"}
+        ${isCompleted ? "bg-[#eaf8ff] dark:bg-primary/15 border border-primary" : "bg-transparent border border-[#c2c2cd] dark:border-border"}
       `}
     >
       {/* Badge */}
-      <div className={`absolute -top-1 -right-1 w-4 h-4 rounded-full overflow-hidden flex items-center justify-center ${isCompleted ? "bg-primary" : "bg-white"} z-10`}>
+      <div className={`absolute -top-1 -right-1 w-4 h-4 rounded-full overflow-hidden flex items-center justify-center ${isCompleted ? "bg-primary" : "bg-white dark:bg-card"} z-10`}>
         {/* The badge background needs to mask the border of the main circle below it, which z-10 handles if bg is opaque */}
         
         {isCompleted ? (
           <CheckIcon sx={{ fontSize: 10, color: 'white' }} />
         ) : (
-          <InfoOutlinedIcon sx={{ fontSize: 14, color: '#3A3A45' }} />
+          <InfoOutlinedIcon sx={{ fontSize: 14, color: 'currentColor' }} className="text-foreground" />
         )}
       </div>
 
@@ -70,7 +70,7 @@ export function TimeCard() {
   const hasPunches = punches.length > 0;
 
   return (
-    <div className="bg-card rounded-lg p-4 shadow-sm border border-muted mx-6 mt-6 relative z-10 flex flex-col gap-4">
+    <div className="bg-card rounded-lg p-4 shadow-sm border border-muted dark:border-border mx-6 mt-6 relative z-10 flex flex-col gap-4 transition-colors">
       {/* Header */}
       <div className="flex justify-between items-center w-full">
         <h2 className="font-semibold text-foreground text-base">Registrar o ponto</h2>
@@ -109,14 +109,14 @@ export function TimeCard() {
       </div>
 
       {/* Divider */}
-      <div className="h-px w-full bg-[#DDDDDD]/70 my-1 relative"></div>
+      <div className="h-px w-full bg-border/60 my-1 relative"></div>
 
       {/* Footer Info */}
       <div className="flex justify-between items-center w-full">
         <div className="flex items-center gap-2">
            <div className="w-4 h-5 flex items-center justify-center">
              <svg width="8" height="14" viewBox="0 0 8 13.3333" fill="none" xmlns="http://www.w3.org/2000/svg">
-               <path d={svgPaths.p1bedd480} fill="#3A3A45" />
+               <path d={svgPaths.p1bedd480} fill="var(--foreground)" />
              </svg>
            </div>
            <span className="text-sm text-foreground">Saldo total banco de horas</span>

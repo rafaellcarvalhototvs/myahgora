@@ -72,16 +72,16 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
           <p className="text-sm text-muted-foreground m-[0px]">Todos os campos são obrigatórios, exceto quando indicado como opcional.</p>
         </div>
 
-        <div className="h-px bg-gray-200 w-full shrink-0" />
+        <div className="h-px bg-border/60 w-full shrink-0" />
 
         {/* Date Field (Read-only) */}
-        <div className="border border-[#d5d5dc] rounded-[4px] px-4 py-3 bg-white">
-          <p className="text-base font-semibold text-[#2a2a33]">06 de Set, 2025</p>
+        <div className="border border-border/60 rounded-[4px] px-4 py-3 bg-card">
+          <p className="text-base font-semibold text-foreground">06 de Set, 2025</p>
         </div>
 
         {/* Punch Selection */}
-        <div className="border border-[#d5d5dc] rounded-[4px] p-4 bg-white space-y-4">
-          <label className="text-sm font-semibold text-[#2a2a33] block">Selecione a batida pré-existente</label>
+        <div className="border border-border/60 rounded-[4px] p-4 bg-card space-y-4">
+          <label className="text-sm font-semibold text-foreground block">Selecione a batida pré-existente</label>
           <div className="flex gap-3 flex-wrap">
             {['12:00', '13:00', '18:01'].map((time) => (
               <button
@@ -93,7 +93,7 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
                 className={`w-12 h-12 rounded-full flex items-center justify-center text-sm border transition-colors ${
                   selectedPunch === time
                     ? 'bg-[#eaf8ff] border-primary text-primary font-semibold'
-                    : 'bg-white border-[#c2c2cd] text-[#3a3a45] hover:bg-gray-50'
+                    : 'bg-white border-[#c2c2cd] text-foreground hover:bg-muted/20'
                 }`}
               >
                 {time}
@@ -119,12 +119,12 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
               helperText={errors.reason}
            />
            <div className="flex justify-end">
-             <span className="text-xs text-[#2a2a33]">Máx. 250 caracteres</span>
+             <span className="text-xs text-foreground">Máx. 250 caracteres</span>
            </div>
         </div>
 
         {/* Next Button */}
-        <div className="fixed bottom-0 left-0 right-0 px-6 py-4 bg-white border-t border-[#DDDDDD] z-20 w-full max-w-md mx-auto space-y-3">
+        <div className="fixed bottom-0 left-0 right-0 px-6 py-4 bg-[var(--surface-elevated)] border-t border-border/70 transition-colors z-20 w-full max-w-md mx-auto space-y-3">
           <button
             onClick={handleStep1Submit}
             className="w-full bg-primary text-primary-foreground rounded-[4px] py-2 font-semibold text-[14px] leading-[24px] tracking-[0.4px] hover:bg-primary/90 transition-colors shadow-sm flex items-center justify-center"
@@ -156,13 +156,13 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
 
         {/* Time Input */}
         <div className="space-y-2 mt-4">
-          <label className="text-sm font-semibold text-[#3a3a45] block">Horário</label>
+          <label className="text-sm font-semibold text-foreground block">Horário</label>
           <div 
             onClick={() => setShowTimePicker(true)}
-            className={`border rounded-[4px] px-4 py-3 flex items-center gap-2 bg-white cursor-pointer hover:border-primary transition-colors ${errors.newTime ? 'border-destructive border-2' : 'border-[#78788f]'}`}
+            className={`border rounded-[4px] px-4 py-3 flex items-center gap-2 bg-white cursor-pointer hover:border-primary transition-colors ${errors.newTime ? 'border-destructive border-2' : 'border-border'}`}
           >
-            <AccessTimeIcon className="text-[#78788f]" />
-            <span className={`text-sm flex-1 ${newTime ? 'text-[#3a3a45]' : 'text-[#58586b]'}`}>
+            <AccessTimeIcon className="text-muted-foreground" />
+            <span className={`text-sm flex-1 ${newTime ? 'text-foreground' : 'text-muted-foreground'}`}>
               {newTime || 'Selecione um horário'}
             </span>
           </div>
@@ -170,7 +170,7 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
         </div>
 
         {/* Next Button */}
-        <div className="fixed bottom-0 left-0 right-0 px-6 py-4 bg-white border-t border-[#DDDDDD] z-20 w-full max-w-md mx-auto space-y-3">
+        <div className="fixed bottom-0 left-0 right-0 px-6 py-4 bg-[var(--surface-elevated)] border-t border-border/70 transition-colors z-20 w-full max-w-md mx-auto space-y-3">
           <button
             onClick={handleStep2Submit}
             className="w-full bg-primary text-primary-foreground rounded-[4px] py-2 font-semibold text-[14px] leading-[24px] tracking-[0.4px] hover:bg-primary/90 transition-colors shadow-sm flex items-center justify-center"
@@ -198,7 +198,7 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
                     {/* Close Button */}
                     <button 
                       onClick={() => setShowTimePicker(false)}
-                      className="content-stretch flex flex-col items-center relative shrink-0 p-1 hover:bg-gray-100 rounded-full"
+                      className="content-stretch flex flex-col items-center relative shrink-0 p-1 hover:bg-muted/30 rounded-full"
                     >
                       <CloseIcon sx={{ color: '#3A3A45', fontSize: 20 }} />
                     </button>
@@ -206,13 +206,13 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
                 </div>
                 {/* Title */}
                 <div className="content-stretch flex flex-col items-start relative shrink-0 w-full">
-                  <p className="font-['Open_Sans'] font-semibold leading-[30px] relative shrink-0 text-[#3a3a45] text-[20px] tracking-[0.03px] w-full whitespace-pre-wrap">
+                  <p className="font-['Open_Sans'] font-semibold leading-[30px] relative shrink-0 text-foreground text-[20px] tracking-[0.03px] w-full whitespace-pre-wrap">
                     Selecionar Horário
                   </p>
                 </div>
                 {/* Description */}
                 <div className="content-stretch flex flex-col items-start relative shrink-0 w-full">
-                  <p className="font-['Open_Sans'] leading-[20px] not-italic relative shrink-0 text-[#3a3a45] text-[14px] tracking-[0.028px] w-full whitespace-pre-wrap">
+                  <p className="font-['Open_Sans'] leading-[20px] not-italic relative shrink-0 text-foreground text-[14px] tracking-[0.028px] w-full whitespace-pre-wrap">
                     Defina o horário da nova batida.
                   </p>
                 </div>
@@ -280,9 +280,9 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
             
             {/* Old Punch */}
             <div className="flex flex-col items-center gap-3 flex-1">
-              <span className="text-[12px] font-semibold text-[#78788f] tracking-[0.5px]">Anterior</span>
+              <span className="text-[12px] font-semibold text-muted-foreground tracking-[0.5px]">Anterior</span>
               <div className="w-[64px] h-[64px] rounded-full border border-[#e7e7eb] flex items-center justify-center bg-[#f9f9fb]">
-                <span className="text-[16px] text-[#78788f] font-medium line-through decoration-[#ef4444]/40">{selectedPunch}</span>
+                <span className="text-[16px] text-muted-foreground font-medium line-through decoration-[#ef4444]/40">{selectedPunch}</span>
               </div>
             </div>
 
@@ -298,7 +298,7 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
                 <div className="absolute -top-1.5 -right-1.5 bg-primary rounded-full w-[22px] h-[22px] flex items-center justify-center text-white border-2 border-white shadow-sm">
                   <CheckIcon style={{ fontSize: 12 }} />
                 </div>
-                <span className="text-[16px] font-bold text-[#2a2a33]">{newTime}</span>
+                <span className="text-[16px] font-bold text-foreground">{newTime}</span>
               </div>
             </div>
 
@@ -307,7 +307,7 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
 
         {/* Actions */}
         <div className="h-[70px]" />
-        <div className="fixed bottom-0 left-0 right-0 px-6 py-4 bg-white border-t border-[#DDDDDD] z-20 w-full max-w-md mx-auto space-y-3">
+        <div className="fixed bottom-0 left-0 right-0 px-6 py-4 bg-[var(--surface-elevated)] border-t border-border/70 transition-colors z-20 w-full max-w-md mx-auto space-y-3">
           <button
             onClick={handleFinalSubmit}
             className="w-full bg-primary text-primary-foreground rounded-[4px] py-2 font-semibold text-[14px] leading-[24px] tracking-[0.4px] hover:bg-primary/90 transition-colors shadow-sm flex items-center justify-center"
@@ -339,14 +339,14 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
           </div>
         </div>
 
-        <h2 className="text-xl font-semibold text-[#2a2a33] mb-2">Substituição solicitada com sucesso!</h2>
+        <h2 className="text-xl font-semibold text-foreground mb-2">Substituição solicitada com sucesso!</h2>
         
-        <p className="text-sm text-[#78788f] max-w-[280px]">
+        <p className="text-sm text-muted-foreground max-w-[280px]">
           Aguardando aprovação do responsável. O status da solicitação será atualizado assim que houver uma resposta.
         </p>
 
         <div className="h-[70px]" />
-        <div className="fixed bottom-0 left-0 right-0 px-6 py-4 bg-white border-t border-[#DDDDDD] z-20 w-full max-w-md mx-auto space-y-3">
+        <div className="fixed bottom-0 left-0 right-0 px-6 py-4 bg-[var(--surface-elevated)] border-t border-border/70 transition-colors z-20 w-full max-w-md mx-auto space-y-3">
            <button
             onClick={onBack}
             className="w-full bg-primary text-primary-foreground rounded-[4px] py-2 font-semibold text-[14px] leading-[24px] tracking-[0.4px] hover:bg-primary/90 transition-colors shadow-sm flex items-center justify-center"
@@ -366,8 +366,8 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
   );
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-[#f0f0f5] flex justify-center font-['Open_Sans']">
-      <div className="w-full max-w-md bg-white min-h-screen relative shadow-2xl pb-20 flex flex-col h-full">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-background flex justify-center font-['Open_Sans']">
+      <div className="w-full max-w-md bg-background min-h-screen relative shadow-2xl dark:shadow-none transition-colors pb-20 flex flex-col h-full">
         {viewState === 1 && renderStep1()}
         {viewState === 2 && renderStep2()}
         {viewState === 3 && renderStep3()}

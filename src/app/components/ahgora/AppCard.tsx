@@ -4,7 +4,7 @@ import svgPaths from "../../../imports/svg-e87qwrkf8p";
 export function AppCard() {
   return (
     <div 
-      className="bg-white rounded-[4px] shadow-[0px_1px_2px_0px_rgba(0,0,0,0.16)] p-4 flex flex-col gap-6 mx-6 mt-6"
+      className="bg-card rounded-[4px] border border-border/60 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.16)] dark:shadow-[0px_16px_32px_0px_rgba(0,0,0,0.22)] p-4 flex flex-col gap-6 mx-6 mt-6 transition-colors"
       data-name="MyAhgora Card"
     >
       {/* Header Section */}
@@ -26,7 +26,7 @@ export function AppCard() {
               </g>
             </svg>
           </div>
-          <span className="text-[#78788f] text-[16px] font-extrabold leading-normal">
+          <span className="text-muted-foreground text-[16px] font-extrabold leading-normal">
             Multi
           </span>
         </div>
@@ -45,9 +45,9 @@ export function AppCard() {
       </div>
 
       {/* Description and Action */}
-      <p className="text-[14px] text-[#78788f] leading-normal font-normal">
+      <p className="text-[14px] text-muted-foreground leading-normal font-normal">
         Seu aplicativo para registro de ponto por reconhecimento facial.{" "}
-        <a href="#" className="text-[#19d] hover:underline font-normal">
+        <a href="#" className="text-primary-darken-1 hover:underline font-normal">
           Acesse!
         </a>
       </p>

@@ -63,6 +63,10 @@
   --ring: rgba(17, 153, 221, 1.00);
   /* Shadow for small elevations, such as cards or modals. */
   --elevation-sm: 0px 1px 5px 0px rgba(0, 0, 0, 0.25);
+  /* Elevated surface for cards and sticky UI. */
+  --surface-elevated: rgba(255, 255, 255, 1.00);
+  /* Stronger surface for headers, navigation, and emphasis blocks. */
+  --surface-strong: rgba(10, 93, 135, 1.00);
   /* The color for chart elements, such as a bar or line in a chart. */
   --chart-1: rgba(17, 153, 221, 1.00);
   /* The color for another chart element, such as a bar or line in a chart. */
@@ -117,6 +121,8 @@
   --color-input: var(--input);
   --color-input-background: var(--input-background);
   --color-ring: var(--ring);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-surface-strong: var(--surface-strong);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -134,6 +140,46 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+}
+
+.dark {
+  --background: rgba(23, 24, 31, 1.00);
+  --foreground: rgba(236, 238, 244, 1.00);
+  --card: rgba(35, 38, 48, 1.00);
+  --card-foreground: rgba(236, 238, 244, 1.00);
+  --popover: rgba(42, 45, 56, 1.00);
+  --popover-foreground: rgba(236, 238, 244, 1.00);
+  --primary: rgba(10, 93, 135, 1.00);
+  --primary-darken-1: rgba(129, 206, 245, 1.00);
+  --primary-foreground: rgba(244, 244, 246, 1.00);
+  --secondary: rgba(49, 53, 66, 1.00);
+  --secondary-foreground: rgba(236, 238, 244, 1.00);
+  --muted: rgba(66, 71, 87, 1.00);
+  --muted-foreground: rgba(155, 163, 179, 1.00);
+  --accent: rgba(59, 130, 246, 1.00);
+  --accent-foreground: rgba(244, 248, 255, 1.00);
+  --destructive: rgba(184, 29, 29, 1.00);
+  --destructive-foreground: rgba(255, 244, 244, 1.00);
+  --border: rgba(71, 76, 93, 1.00);
+  --input: rgba(42, 45, 56, 1.00);
+  --input-background: rgba(42, 45, 56, 1.00);
+  --ring: rgba(129, 206, 245, 1.00);
+  --elevation-sm: 0px 16px 32px 0px rgba(0, 0, 0, 0.35);
+  --surface-elevated: rgba(31, 34, 43, 1.00);
+  --surface-strong: rgba(10, 93, 135, 1.00);
+  --chart-1: rgba(129, 206, 245, 1.00);
+  --chart-2: rgba(34, 170, 68, 1.00);
+  --chart-3: rgba(184, 29, 29, 1.00);
+  --chart-4: rgba(209, 150, 18, 1.00);
+  --chart-5: rgba(205, 96, 138, 1.00);
+  --sidebar: rgba(26, 29, 39, 1.00);
+  --sidebar-foreground: rgba(236, 238, 244, 1.00);
+  --sidebar-primary: rgba(10, 93, 135, 1.00);
+  --sidebar-primary-foreground: rgba(244, 244, 246, 1.00);
+  --sidebar-accent: rgba(37, 99, 235, 1.00);
+  --sidebar-accent-foreground: rgba(244, 248, 255, 1.00);
+  --sidebar-border: rgba(71, 76, 93, 1.00);
+  --sidebar-ring: rgba(129, 206, 245, 1.00);
 }
 
 @layer base {

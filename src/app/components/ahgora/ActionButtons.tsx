@@ -55,10 +55,9 @@ const actions = [
 
 interface ActionButtonsProps {
   onAction?: (action: string) => void;
-  isHighContrast?: boolean;
 }
 
-export function ActionButtons({ onAction, isHighContrast = false }: ActionButtonsProps) {
+export function ActionButtons({ onAction }: ActionButtonsProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -89,7 +88,7 @@ export function ActionButtons({ onAction, isHighContrast = false }: ActionButton
 
   return (
     <div className="mt-6 px-6">
-      <h3 className={`font-semibold text-base mb-4 tracking-[0.024px] ${isHighContrast ? 'text-white' : 'text-[#2a2a33]'}`}>Solicitar ajustes</h3>
+      <h3 className="font-semibold text-base mb-4 tracking-[0.024px] text-foreground">Solicitar ajustes</h3>
       
       {/* Native App-like Carousel with Scroll Snap & Drag Support */}
       <div 
@@ -107,7 +106,7 @@ export function ActionButtons({ onAction, isHighContrast = false }: ActionButton
             key={index} 
             type="button"
             aria-label={action.label}
-            className={`flex flex-col items-center gap-[10px] shrink-0 w-[84px] cursor-pointer group snap-start focus:outline-none focus-visible:ring-2 rounded-[8px] ${isHighContrast ? 'focus-visible:ring-yellow-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black' : 'focus-visible:ring-primary focus-visible:ring-offset-2'}`}
+            className="flex flex-col items-center gap-[10px] shrink-0 w-[84px] cursor-pointer group snap-start focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-[8px]"
             onClick={(e) => {
               // Prevent click if we were dragging
               if (isDragging) {
@@ -120,7 +119,7 @@ export function ActionButtons({ onAction, isHighContrast = false }: ActionButton
             }}
           >
             {/* Icon Container */}
-            <div className={`w-[48px] h-[48px] rounded-full flex items-center justify-center shrink-0 transition-colors pointer-events-none ${isHighContrast ? 'bg-black border border-yellow-300 group-hover:bg-neutral-900' : 'bg-[#f4f4f6] group-hover:bg-[#eaeaec]'}`}>
+            <div className="w-[48px] h-[48px] rounded-full flex items-center justify-center shrink-0 transition-colors pointer-events-none bg-[var(--surface-elevated)] border border-border/50 group-hover:bg-muted/60 dark:group-hover:bg-muted/80">
               <div className="w-6 h-6 flex items-center justify-center">
                 <svg 
                   viewBox={action.viewBox} 
@@ -130,7 +129,7 @@ export function ActionButtons({ onAction, isHighContrast = false }: ActionButton
                 >
                   <path 
                     d={action.path} 
-                    fill={isHighContrast ? "#FDE047" : "#2A2A33"} 
+                    fill="var(--foreground)" 
                     fillRule={action.label === "Solicitar abono" ? "evenodd" : "nonzero"}
                     clipRule={action.label === "Solicitar abono" ? "evenodd" : undefined}
                   />
@@ -139,7 +138,7 @@ export function ActionButtons({ onAction, isHighContrast = false }: ActionButton
             </div>
             
             {/* Label */}
-            <span className={`text-sm text-center font-normal leading-[20px] tracking-[0.035px] whitespace-pre-wrap pointer-events-none select-none ${isHighContrast ? 'text-white' : 'text-foreground'}`}>
+            <span className="text-sm text-center font-normal leading-[20px] tracking-[0.035px] whitespace-pre-wrap pointer-events-none select-none text-foreground">
               {action.label.replace(' ', '\n')}
             </span>
           </button>

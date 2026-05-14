@@ -77,8 +77,8 @@ export function RequestAllowanceScreen({ onBack }: RequestAllowanceScreenProps) 
 
   if (currentView === 'reason-selection') {
     return (
-      <div className="fixed inset-0 z-50 overflow-hidden bg-[#f0f0f5] flex justify-center items-stretch font-['Open_Sans'] h-[100dvh] w-screen">
-        <div className="w-full max-w-md bg-white h-full relative shadow-2xl flex flex-col">
+      <div className="fixed inset-0 z-50 overflow-hidden bg-background flex justify-center items-stretch font-['Open_Sans'] h-[100dvh] w-screen">
+        <div className="w-full max-w-md bg-background h-full relative shadow-2xl dark:shadow-none flex flex-col transition-colors">
           <SelectReasonScreen onBack={handleBackFromReason} onSelect={handleReasonSelect} />
         </div>
       </div>
@@ -86,8 +86,8 @@ export function RequestAllowanceScreen({ onBack }: RequestAllowanceScreenProps) 
   }
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden bg-[#f0f0f5] flex justify-center items-stretch font-['Open_Sans'] h-[100dvh] w-screen">
-      <div className="w-full max-w-md bg-white h-full relative shadow-2xl flex flex-col">
+    <div className="fixed inset-0 z-50 overflow-hidden bg-background flex justify-center items-stretch font-['Open_Sans'] h-[100dvh] w-screen">
+      <div className="w-full max-w-md bg-background h-full relative shadow-2xl dark:shadow-none flex flex-col transition-colors">
         {/* Header */}
         <div className="bg-primary px-6 py-3 flex items-center gap-2 shrink-0 shadow-sm h-[62px] z-10 relative">
         <button onClick={onBack} className="text-white p-1 mr-2">
@@ -98,27 +98,27 @@ export function RequestAllowanceScreen({ onBack }: RequestAllowanceScreenProps) 
         <h1 className="text-white font-semibold text-[18px] leading-[28px] tracking-[0.027px]">Solicitar abono</h1>
       </div>
 
-      <div className="flex-1 min-h-0 overflow-y-auto w-full bg-white relative scroll-smooth">
-        <div className="p-6 pb-[40px] flex flex-col gap-6 w-full min-h-full bg-white">
+      <div className="flex-1 min-h-0 overflow-y-auto w-full bg-background relative scroll-smooth transition-colors">
+        <div className="p-6 pb-[40px] flex flex-col gap-6 w-full min-h-full bg-background transition-colors">
         {/* Info Text */}
         <div className="flex flex-col">
           <p className="text-sm font-semibold text-foreground mb-6">Use esta tela para solicitar abono de ausências, atrasos ou saídas antecipadas. A solicitação será enviada para aprovação do seu gestor.</p>
           <p className="text-sm text-muted-foreground m-[0px]">Todos os campos são obrigatórios, exceto quando indicado como opcional.</p>
         </div>
 
-        <div className="h-px bg-gray-200 w-full shrink-0" />
+        <div className="h-px bg-border/60 w-full shrink-0" />
 
         {/* Reason Selector */}
         <div className="space-y-2">
-          <label className="text-sm font-semibold text-[#2a2a33] block">Motivo</label>
+          <label className="text-sm font-semibold text-foreground block">Motivo</label>
           <button
             onClick={() => setCurrentView('reason-selection')}
-            className={`w-full border rounded-md px-4 py-3 flex justify-between items-center bg-white ${errors.reason ? 'border-destructive' : 'border-[#78788f]'}`}
+            className={`w-full border rounded-md px-4 py-3 flex justify-between items-center bg-card ${errors.reason ? 'border-destructive' : 'border-border'}`}
           >
-            <span className={`text-sm ${selectedReason ? 'text-[#2a2a33]' : 'text-[#58586b]'}`}>
+            <span className={`text-sm ${selectedReason ? 'text-foreground' : 'text-muted-foreground'}`}>
               {selectedReason?.label || 'Selecione o motivo'}
             </span>
-            <KeyboardArrowDownIcon className="text-[#58586b]" />
+            <KeyboardArrowDownIcon className="text-muted-foreground" />
           </button>
           {errors.reason && <p className="text-xs text-destructive mt-1">{errors.reason}</p>}
         </div>
@@ -126,7 +126,7 @@ export function RequestAllowanceScreen({ onBack }: RequestAllowanceScreenProps) 
         {/* Dynamic Fields based on Reason */}
         {selectedReason?.id === 'med' && (
           <div className="space-y-4 animate-in fade-in slide-in-from-top-4 duration-300">
-            <h3 className="text-sm font-bold text-[#2a2a33]">Dados médicos (opcional)</h3>
+            <h3 className="text-sm font-bold text-foreground">Dados médicos (opcional)</h3>
             
             <AhgoraInput
               label="CRM"
@@ -148,10 +148,10 @@ export function RequestAllowanceScreen({ onBack }: RequestAllowanceScreenProps) 
 
         {/* Period Selection (Visible if reason selected) */}
         {selectedReason && (
-          <div className="border border-[#e7e7eb] rounded-[4px] p-6 space-y-6 animate-in fade-in duration-500">
+          <div className="border border-border/60 rounded-[4px] bg-card p-6 space-y-6 animate-in fade-in duration-500">
             {/* Period Type Radio */}
             <div className="space-y-2">
-              <h3 className="text-base font-semibold text-[#58586b]">Período do abono</h3>
+              <h3 className="text-base font-semibold text-muted-foreground">Período do abono</h3>
               <div className="flex gap-4 items-center mt-2">
                 <button 
                   className="flex items-center gap-2"
@@ -159,9 +159,9 @@ export function RequestAllowanceScreen({ onBack }: RequestAllowanceScreenProps) 
                 >
                   {periodType === 'current-day' ? 
                     <RadioButtonCheckedIcon className="text-primary" sx={{ fontSize: 24 }} /> : 
-                    <RadioButtonUncheckedIcon className="text-[#3a3a45]" sx={{ fontSize: 24 }} />
+                    <RadioButtonUncheckedIcon className="text-foreground" sx={{ fontSize: 24 }} />
                   }
-                  <span className="text-sm text-[#2a2a33]">Dia atual ({new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })})</span>
+                  <span className="text-sm text-foreground">Dia atual ({new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })})</span>
                 </button>
                 
                 <button 
@@ -170,9 +170,9 @@ export function RequestAllowanceScreen({ onBack }: RequestAllowanceScreenProps) 
                 >
                   {periodType === 'range' ? 
                     <RadioButtonCheckedIcon className="text-primary" sx={{ fontSize: 24 }} /> : 
-                    <RadioButtonUncheckedIcon className="text-[#3a3a45]" sx={{ fontSize: 24 }} />
+                    <RadioButtonUncheckedIcon className="text-foreground" sx={{ fontSize: 24 }} />
                   }
-                  <span className="text-sm text-[#2a2a33]">Período de dias</span>
+                  <span className="text-sm text-foreground">Período de dias</span>
                 </button>
               </div>
             </div>
@@ -184,7 +184,7 @@ export function RequestAllowanceScreen({ onBack }: RequestAllowanceScreenProps) 
                 checked={isFullDay}
                 onCheckedChange={(checked) => setIsFullDay(!!checked)}
               />
-              <label htmlFor="is-full-day" className="text-sm text-[#2a2a33] cursor-pointer select-none">
+              <label htmlFor="is-full-day" className="text-sm text-foreground cursor-pointer select-none">
                 Solicitar o abono por dia completo
               </label>
             </div>
@@ -198,7 +198,7 @@ export function RequestAllowanceScreen({ onBack }: RequestAllowanceScreenProps) 
                 value={formData.startDate}
                 onChange={(e) => setFormData({...formData, startDate: e.target.value})}
                 placeholder="Selecione"
-                startIcon={periodType === 'range' ? <CalendarTodayIcon className="text-[#3a3a45]" fontSize="small" /> : <AccessTimeIcon className="text-[#3a3a45]" fontSize="small" />}
+                startIcon={periodType === 'range' ? <CalendarTodayIcon className="text-foreground" fontSize="small" /> : <AccessTimeIcon className="text-foreground" fontSize="small" />}
                 endIcon={errors.startDate ? <ErrorOutlineIcon className="text-destructive" fontSize="small" /> : null}
                 error={!!errors.startDate}
               />
@@ -210,7 +210,7 @@ export function RequestAllowanceScreen({ onBack }: RequestAllowanceScreenProps) 
                 value={formData.endDate}
                 onChange={(e) => setFormData({...formData, endDate: e.target.value})}
                 placeholder="Selecione"
-                startIcon={periodType === 'range' ? <CalendarTodayIcon className="text-[#3a3a45]" fontSize="small" /> : <AccessTimeIcon className="text-[#3a3a45]" fontSize="small" />}
+                startIcon={periodType === 'range' ? <CalendarTodayIcon className="text-foreground" fontSize="small" /> : <AccessTimeIcon className="text-foreground" fontSize="small" />}
                 endIcon={errors.endDate ? <ErrorOutlineIcon className="text-destructive" fontSize="small" /> : null}
                 error={!!errors.endDate}
               />
@@ -225,7 +225,7 @@ export function RequestAllowanceScreen({ onBack }: RequestAllowanceScreenProps) 
                   </svg>
                 </div>
               </div>
-              <div className="content-stretch flex flex-[1_0_0] flex-col gap-[4px] items-start min-h-px min-w-px overflow-clip relative text-[#3a3a45] whitespace-pre-wrap" data-name="Text">
+              <div className="content-stretch flex flex-[1_0_0] flex-col gap-[4px] items-start min-h-px min-w-px overflow-clip relative text-foreground whitespace-pre-wrap" data-name="Text">
                 <p className="leading-[20px] not-italic relative shrink-0 text-[14px] tracking-[0.105px] w-full">
                   Você estará solicitando <span className="font-semibold">3 horas</span> de abono.
                 </p>
@@ -247,7 +247,7 @@ export function RequestAllowanceScreen({ onBack }: RequestAllowanceScreenProps) 
               helperText={errors.observation}
            />
            <div className="flex justify-end">
-             <span className="text-xs text-[#2a2a33]">Máx. 250 caracteres</span>
+             <span className="text-xs text-foreground">Máx. 250 caracteres</span>
            </div>
         </div>
 
@@ -260,7 +260,7 @@ export function RequestAllowanceScreen({ onBack }: RequestAllowanceScreenProps) 
             <AttachFileIcon fontSize="small" className="transform rotate-45" />
             Adicionar anexo (Opcional)
           </button>
-          <p className="text-xs text-center text-[#2a2a33]">Arquivos: PDF, JPG, PNG (máx. 5MB).</p>
+          <p className="text-xs text-center text-foreground">Arquivos: PDF, JPG, PNG (máx. 5MB).</p>
         </div>
 
         {/* File List */}
@@ -268,13 +268,13 @@ export function RequestAllowanceScreen({ onBack }: RequestAllowanceScreenProps) 
           <div className="flex flex-col w-full mb-4">
             {attachments.map((file, index) => (
               <div key={index} className="relative w-full">
-                <div className="flex items-center justify-between pb-[16px] pt-[8px] px-[16px] border-b border-[#d5d5dc] w-full">
-                  <span className="text-[#3a3a45] text-[14px] leading-[20px] font-['Open_Sans'] tracking-[0.028px] truncate pr-4">
+                <div className="flex items-center justify-between pb-[16px] pt-[8px] px-[16px] border-b border-border/60 w-full">
+                  <span className="text-foreground text-[14px] leading-[20px] font-['Open_Sans'] tracking-[0.028px] truncate pr-4">
                     {file.name} ({Math.max(1, Math.round(file.size / 1024))}KB)
                   </span>
                   <button 
                     onClick={() => setAttachments(attachments.filter((_, i) => i !== index))}
-                    className="text-[#3a3a45] hover:text-destructive shrink-0"
+                    className="text-foreground hover:text-destructive shrink-0"
                   >
                     <CloseIcon sx={{ fontSize: 20 }} />
                   </button>
@@ -290,7 +290,7 @@ export function RequestAllowanceScreen({ onBack }: RequestAllowanceScreenProps) 
       </div>
 
       {/* Submit Button */}
-      <div className="shrink-0 px-6 pt-[16px] pb-[24px] bg-white border-t border-[#DDDDDD] space-y-[16px] z-20">
+      <div className="shrink-0 px-6 pt-[16px] pb-[24px] bg-[var(--surface-elevated)] border-t border-border/70 transition-colors space-y-[16px] z-20">
           <button 
             onClick={handleSubmit}
             className="w-full bg-primary text-primary-foreground rounded-[4px] py-2 font-semibold text-[14px] leading-[24px] tracking-[0.4px] hover:bg-primary/90 transition-colors shadow-sm flex items-center justify-center h-[40px]"
@@ -308,7 +308,7 @@ export function RequestAllowanceScreen({ onBack }: RequestAllowanceScreenProps) 
       {/* Success Modal */}
       {showSuccessModal && (
         <div className="fixed inset-0 bg-black/50 z-[60] flex items-center justify-center p-4 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-white w-full max-w-xs rounded-[16px] overflow-hidden shadow-2xl animate-in zoom-in-95 duration-200">
+          <div className="bg-card border border-border/70 w-full max-w-xs rounded-[16px] overflow-hidden shadow-2xl animate-in zoom-in-95 duration-200">
              <div className="p-6 pb-0 flex flex-col items-center text-center">
                <div className="w-[64px] h-[64px] bg-green-100 rounded-full flex items-center justify-center mb-4">
                   <CheckCircleIcon sx={{ color: '#22aa44', fontSize: 32 }} />
@@ -318,7 +318,7 @@ export function RequestAllowanceScreen({ onBack }: RequestAllowanceScreenProps) 
                <p className="text-[14px] text-muted-foreground mb-6">Acompanhe o status da sua solicitação no espelho detalhado.</p>
              </div>
              
-             <div className="p-4 pt-0 border-t border-gray-100 bg-gray-50/50 flex gap-3">
+             <div className="p-4 pt-0 border-t border-border/60 bg-muted/20 dark:bg-muted/10 flex gap-3">
                <button 
                  onClick={onBack}
                  className="flex-1 border-2 border-primary text-primary py-2 rounded-[4px] font-semibold text-[14px] leading-[24px] tracking-[0.4px] hover:bg-primary/5 flex items-center justify-center"

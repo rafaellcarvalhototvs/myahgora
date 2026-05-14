@@ -96,7 +96,6 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
   const [showCalendarLegendBottomSheet, setShowCalendarLegendBottomSheet] = useState(false);
   const [isCalendarExpanded, setIsCalendarExpanded] = useState(false);
   const [focusedDayIndex, setFocusedDayIndex] = useState<number>(-1);
-  const [isHighContrast, setIsHighContrast] = useState(false);
   const [liveMessage, setLiveMessage] = useState('');
   const calendarGridRef = useRef<HTMLDivElement>(null);
   const isInitialRenderRef = useRef(true);
@@ -146,28 +145,22 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
     return holidayMap[key] ?? null;
   }, [holidayMap]);
 
-  const highContrastClasses = {
-    app: isHighContrast ? 'bg-black text-white' : 'bg-[#f0f0f5]',
-    card: isHighContrast ? 'bg-black text-white border border-yellow-300' : 'bg-white',
-    header: isHighContrast ? 'bg-black border-b border-yellow-300' : 'bg-primary',
-    headerText: isHighContrast ? 'text-yellow-300' : 'text-white',
-    heading: isHighContrast ? 'text-white' : 'text-[#2A2A33]',
-    bodyText: isHighContrast ? 'text-white' : 'text-foreground',
-    mutedText: isHighContrast ? 'text-gray-200' : 'text-[#5a5a6b]',
-    border: isHighContrast ? 'border-yellow-300' : 'border-muted',
-    panel: isHighContrast ? 'border-yellow-300 bg-neutral-950' : 'border-muted bg-white',
-    calendarButton: isHighContrast
-      ? 'border border-transparent hover:bg-white/10'
-      : '',
-    statusPositive: isHighContrast ? 'text-lime-300' : 'text-chart-2',
-    statusNegative: isHighContrast ? 'text-red-300' : 'text-destructive',
-    emphasis: isHighContrast ? 'text-yellow-300' : 'text-primary-darken-1',
-    outlineButton: isHighContrast
-      ? 'border-yellow-300 text-yellow-300 hover:bg-white/10 active:bg-white/15 active:text-yellow-200 active:border-yellow-200'
-      : 'text-primary-darken-1',
-    ghostButton: isHighContrast
-      ? 'text-yellow-300 hover:bg-white/10'
-      : 'text-white hover:bg-white/20',
+  const themeClasses = {
+    app: 'bg-background text-foreground',
+    card: 'bg-background border-border',
+    header: 'bg-primary dark:bg-[var(--surface-strong)] border-b border-transparent dark:border-border/70',
+    headerText: 'text-white',
+    heading: 'text-foreground',
+    bodyText: 'text-foreground',
+    mutedText: 'text-muted-foreground',
+    border: 'border-border',
+    panel: 'border-border bg-card',
+    calendarButton: 'focus:ring-ring dark:focus:ring-primary dark:focus:ring-offset-[var(--surface-elevated)]',
+    statusPositive: 'text-chart-2',
+    statusNegative: 'text-destructive',
+    emphasis: 'text-primary-darken-1',
+    outlineButton: 'border-primary text-primary-darken-1 dark:text-primary hover:bg-primary/10 dark:hover:bg-primary/15',
+    ghostButton: 'text-white hover:bg-white/20',
   };
   
   // Effect to adjust selectedDay when month changes
@@ -284,12 +277,6 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
     const nextExpanded = !isCalendarExpanded;
     setIsCalendarExpanded(nextExpanded);
     announce(nextExpanded ? 'Calendário expandido para o mês completo.' : 'Calendário recolhido para a semana atual.');
-  };
-
-  const toggleHighContrast = () => {
-    const nextValue = !isHighContrast;
-    setIsHighContrast(nextValue);
-    announce(nextValue ? 'Modo de alto contraste ativado.' : 'Modo de alto contraste desativado.');
   };
 
   // Generate calendar days for the selected month/year
@@ -597,7 +584,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
   };
 
   return (
-    <div className={`min-h-screen flex justify-center font-['Open_Sans'] ${highContrastClasses.app}`}>
+    <div className={`min-h-screen flex justify-center font-['Open_Sans'] ${themeClasses.app}`}>
       {/* Skip to main content link for keyboard users */}
       <a
         href="#main-content"
@@ -610,12 +597,12 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
         {liveMessage}
       </div>
       
-      <div className={`w-full max-w-md min-h-screen relative shadow-2xl pb-20 ${highContrastClasses.card}`}>
+      <div className={`w-full max-w-md min-h-screen relative shadow-2xl dark:shadow-none pb-20 transition-colors ${themeClasses.card}`}>
         {/* Header */}
-        <div className={`sticky top-0 z-10 px-6 py-3 flex items-center justify-between shrink-0 shadow-sm h-[62px] relative ${highContrastClasses.header}`}>
+        <div className={`sticky top-0 z-10 px-6 py-3 flex items-center justify-between shrink-0 shadow-sm h-[62px] relative ${themeClasses.header}`}>
           <button
             onClick={onBack}
-            className={`p-1 mr-2 focus:outline-none focus:ring-2 rounded ${isHighContrast ? 'text-yellow-300 focus:ring-yellow-300 focus:ring-offset-2 focus:ring-offset-black' : 'text-white focus:ring-white focus:ring-offset-2 focus:ring-offset-primary'}`}
+            className="p-1 mr-2 focus:outline-none focus:ring-2 rounded text-white focus:ring-white focus:ring-offset-2 focus:ring-offset-primary"
             aria-label="Voltar para tela anterior"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -624,29 +611,19 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
           </button>
           
           <div className="flex-1 flex justify-start">
-            <h1 className={`font-semibold text-[18px] leading-[28px] tracking-[0.027px] ${highContrastClasses.headerText}`}>
+            <h1 className={`font-semibold text-[18px] leading-[28px] tracking-[0.027px] ${themeClasses.headerText}`}>
               Espelho detalhado
             </h1>
           </div>
           
           <div className="flex items-center gap-2">
-            <AhgoraButton
-              size="sm"
-              variant="ghost"
-              onClick={toggleHighContrast}
-              aria-pressed={isHighContrast}
-              aria-label={isHighContrast ? 'Desativar modo de alto contraste' : 'Ativar modo de alto contraste'}
-              className={highContrastClasses.ghostButton}
-            >
-              <span className="text-xs font-semibold">Contraste</span>
-            </AhgoraButton>
             {onAccessibilityReport && (
               <AhgoraButton
                 size="sm"
                 variant="ghost"
                 onClick={onAccessibilityReport}
                 aria-label="Ver relatório de acessibilidade desta tela"
-                className={isHighContrast ? 'text-yellow-300 hover:bg-white/10' : 'text-white hover:bg-white/20'}
+                className={themeClasses.ghostButton}
               >
                 <AccessibilityIcon className="w-4 h-4" />
               </AhgoraButton>
@@ -658,7 +635,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
           {/* Competência Block */}
           <div className="mb-6">
             <div className="flex items-center justify-between mb-3">
-              <h2 className={`text-base font-semibold tracking-[0.024px] ${highContrastClasses.heading}`}>Competência</h2>
+              <h2 className={`text-base font-semibold tracking-[0.024px] ${themeClasses.heading}`}>Competência</h2>
             </div>
             <div className="flex items-center justify-between">
               <AhgoraButton
@@ -667,7 +644,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
                 onClick={handleOpenMonthYearBottomSheet}
                 aria-expanded={showMonthYearBottomSheet}
                 aria-label={`Trocar mês e ano da competência, atual: ${selectedMonth}`}
-                className={`flex items-center gap-2 font-medium ${highContrastClasses.outlineButton}`}
+                className={`flex items-center gap-2 font-medium ${themeClasses.outlineButton}`}
               >
                 <span>{selectedMonth}</span>
                 <SwapHorizIcon className="w-4 h-4" aria-hidden="true" />
@@ -676,7 +653,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
                 size="md"
                 variant="outline"
                 aria-label="Baixar espelho de ponto"
-                className={`flex items-center gap-2 font-medium ${highContrastClasses.outlineButton}`}
+                className={`flex items-center gap-2 font-medium ${themeClasses.outlineButton}`}
               >
                 <span>Baixar espelho</span>
               </AhgoraButton>
@@ -686,14 +663,14 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
           {/* Calendar */}
           <div className="mb-6">
             <div className="flex items-center justify-between mb-3">
-              <h3 className={`text-base font-semibold tracking-[0.024px] ${highContrastClasses.heading}`}>Calendário</h3>
+              <h3 className={`text-base font-semibold tracking-[0.024px] ${themeClasses.heading}`}>Calendário</h3>
               <AhgoraButton
                 variant="ghost"
                 size="sm"
                 onClick={handleOpenCalendarLegendBottomSheet}
                 aria-expanded={showCalendarLegendBottomSheet}
                 aria-label="Abrir legenda do calendário"
-                className={`${isHighContrast ? 'text-yellow-300 hover:bg-white/10' : 'text-primary-darken-1 hover:bg-[#eaf8ff]'}`}
+                className="text-primary-darken-1 dark:text-primary hover:bg-primary/10 dark:hover:bg-primary/15"
               >
                 <span>Ver legenda</span>
               </AhgoraButton>
@@ -704,7 +681,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
               {['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'].map((day, index) => (
                 <div
                   key={day}
-                  className={`text-center text-xs font-semibold py-1 ${highContrastClasses.heading}`}
+                  className={`text-center text-xs font-semibold py-1 ${themeClasses.heading}`}
                   role="columnheader"
                   aria-label={day}
                 >
@@ -740,13 +717,13 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
                     className={`
                       relative flex items-center justify-center h-10 rounded-lg text-sm font-medium transition-colors
                       focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
-                      ${highContrastClasses.calendarButton}
+                      ${themeClasses.calendarButton}
                       ${future ? 'cursor-not-allowed opacity-50' : ''}
                       ${day.isSelected
-                        ? isHighContrast ? 'bg-yellow-300 text-black border border-yellow-300' : 'bg-primary text-white'
+                        ? 'bg-primary text-white'
                         : day.isWeekend
-                          ? isHighContrast ? 'text-gray-200' : 'text-[#5a5a6b]'
-                          : isHighContrast ? 'text-white hover:bg-white/10' : 'text-[#2A2A33] hover:bg-gray-100'
+                          ? 'text-muted-foreground'
+                          : 'text-foreground hover:bg-muted/40 dark:hover:bg-muted/20'
                       }
                       ${!day.isCurrentMonth ? 'opacity-40' : ''}
                     `}
@@ -762,7 +739,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
                     <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 flex gap-0.5">
                       {day.isHoliday && (
                         <>
-                          <div className={`w-1 h-1 rounded-full ${isHighContrast ? 'bg-yellow-300' : 'bg-primary'}`} aria-hidden="true"></div>
+                          <div className="w-1 h-1 rounded-full bg-primary" aria-hidden="true"></div>
                           <span className="sr-only">{holidayInfo?.name ?? 'Feriado'}</span>
                         </>
                       )}
@@ -784,7 +761,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
                 variant="ghost"
                 size="md"
                 onClick={toggleCalendarExpand}
-                className={`px-3 border ${isHighContrast ? 'border-yellow-300 bg-black text-yellow-300 hover:bg-neutral-900' : 'border-primary bg-[#eaf8ff] text-[#0c6d9e] hover:bg-[#d7f0ff]'}`}
+                className="px-3 border border-primary bg-[#eaf8ff] dark:bg-primary/15 text-[#0c6d9e] dark:text-primary hover:bg-[#d7f0ff] dark:hover:bg-primary/20"
                 aria-expanded={isCalendarExpanded}
                 aria-controls="calendar-grid"
                 aria-label={isCalendarExpanded ? "Recolher calendário" : "Expandir calendário"}
@@ -799,7 +776,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
 
             {/* Schedule */}
             {dayDetail.schedule && (
-              <div className={`text-center text-sm mt-2 mb-3 ${dayDetail.isHoliday ? highContrastClasses.emphasis : highContrastClasses.mutedText}`}>
+              <div className={`text-center text-sm mt-2 mb-3 ${dayDetail.isHoliday ? themeClasses.emphasis : themeClasses.mutedText}`}>
                 {dayDetail.isHoliday ? dayDetail.schedule : (
                   <>
                     <span className="font-semibold">Escala:</span> {dayDetail.schedule}
@@ -810,54 +787,54 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
           </div>
 
           {/* Selected Day Details */}
-          <div className={`mb-6 border rounded-[4px] p-4 ${highContrastClasses.panel}`} role="region" aria-label="Detalhes do dia selecionado">
+          <div className={`mb-6 border rounded-[4px] p-4 ${themeClasses.panel}`} role="region" aria-label="Detalhes do dia selecionado">
             <div className="mb-4">
-              <h3 className={`text-base font-semibold tracking-[0.024px] ${highContrastClasses.heading}`}>{dayDetail.date}</h3>
+              <h3 className={`text-base font-semibold tracking-[0.024px] ${themeClasses.heading}`}>{dayDetail.date}</h3>
             </div>
             
             <div className="space-y-4">
               {dayDetail.isHoliday && dayDetail.holidayName && (
-                <div className={`rounded-[4px] border p-3 ${isHighContrast ? 'border-yellow-300 bg-black' : 'border-[#bfe6fa] bg-[#f7fbff]'}`}>
-                  <h4 className={`text-sm font-semibold ${highContrastClasses.heading}`}>{dayDetail.holidayName}</h4>
+                <div className="rounded-[4px] border p-3 border-[#bfe6fa] bg-[#f7fbff] dark:border-primary/30 dark:bg-primary/10">
+                  <h4 className={`text-sm font-semibold ${themeClasses.heading}`}>{dayDetail.holidayName}</h4>
                   {dayDetail.holidayDescription && (
-                    <p className={`mt-1 text-sm ${highContrastClasses.bodyText}`}>{dayDetail.holidayDescription}</p>
+                    <p className={`mt-1 text-sm ${themeClasses.bodyText}`}>{dayDetail.holidayDescription}</p>
                   )}
                 </div>
               )}
               <div>
-                <h4 className={`text-sm font-semibold mb-3 ${highContrastClasses.bodyText}`}>Registros do dia:</h4>
+                <h4 className={`text-sm font-semibold mb-3 ${themeClasses.bodyText}`}>Registros do dia:</h4>
                 <div className="flex flex-wrap gap-3">
                   {dayDetail.punches.length > 0 ? (
                     dayDetail.punches.map((punch, index) => (
                       <div
                         key={index}
-                        className={`relative w-12 h-12 rounded-full flex items-center justify-center shrink-0 border ${isHighContrast ? 'bg-black border-yellow-300' : 'bg-[#eaf8ff] border-primary'}`}
+                        className="relative w-12 h-12 rounded-full flex items-center justify-center shrink-0 border bg-[#eaf8ff] dark:bg-primary/15 border-primary"
                       >
-                        <p className={`text-sm font-semibold ${highContrastClasses.bodyText}`}>
+                        <p className={`text-sm font-semibold ${themeClasses.bodyText}`}>
                           {punch}
                         </p>
                       </div>
                     ))
                   ) : (
-                    <p className={`text-sm italic ${isHighContrast ? 'text-gray-300' : 'text-muted-foreground'}`}>Não há registros de batidas</p>
+                    <p className="text-sm italic text-muted-foreground">Não há registros de batidas</p>
                   )}
                 </div>
               </div>
               
               <div className="flex items-center justify-between pt-3">
-                <span className={`text-sm font-medium ${highContrastClasses.bodyText}`}>Horas trabalhadas:</span>
+                <span className={`text-sm font-medium ${themeClasses.bodyText}`}>Horas trabalhadas:</span>
                 {dayDetail.hasWorkedHours ? (
-                  <span className={`text-sm font-semibold ${highContrastClasses.bodyText}`}>{dayDetail.workedHours}</span>
+                  <span className={`text-sm font-semibold ${themeClasses.bodyText}`}>{dayDetail.workedHours}</span>
                 ) : (
-                  <span className={`text-sm font-medium italic ${highContrastClasses.bodyText}`}>Não há horas trabalhadas</span>
+                  <span className={`text-sm font-medium italic ${themeClasses.bodyText}`}>Não há horas trabalhadas</span>
                 )}
               </div>
-              <div className={`flex items-center justify-between pt-3 border-t ${highContrastClasses.border}`}>
-                <span className={`text-sm font-medium ${highContrastClasses.bodyText}`}>Horas previstas:</span>
+              <div className={`flex items-center justify-between pt-3 border-t ${themeClasses.border}`}>
+                <span className={`text-sm font-medium ${themeClasses.bodyText}`}>Horas previstas:</span>
                 {dayDetail.hasExpectedHours ? (
-                  <span className={`text-sm font-semibold ${highContrastClasses.bodyText}`}>{dayDetail.expectedHours}</span>
+                  <span className={`text-sm font-semibold ${themeClasses.bodyText}`}>{dayDetail.expectedHours}</span>
                 ) : (
-                  <span className={`text-sm font-medium italic ${highContrastClasses.bodyText}`}>Não há horas previstas</span>
+                  <span className={`text-sm font-medium italic ${themeClasses.bodyText}`}>Não há horas previstas</span>
                 )}
               </div>
             </div>
@@ -866,71 +843,71 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
           {/* Quick Actions - Reusing the same component from home screen */}
           {isCurrentMonthSelected && (
             <div className="-mx-6">
-              <ActionButtons onAction={handleAction} isHighContrast={isHighContrast} />
+              <ActionButtons onAction={handleAction} />
             </div>
           )}
 
           {/* Bank Hours Summary - Same as home screen */}
-          <div className={`flex justify-between items-center w-full mb-6 py-4 border-t border-b ${highContrastClasses.border}`}>
+          <div className={`flex justify-between items-center w-full mb-6 py-4 border-t border-b ${themeClasses.border}`}>
             <div className="flex items-center gap-2">
                <div className="w-4 h-5 flex items-center justify-center">
                  <svg width="8" height="14" viewBox="0 0 8 13.3333" fill="none" xmlns="http://www.w3.org/2000/svg">
-                   <path d="M0 0V4H0.00666682L0 4.00667L2.66667 6.66667L0 9.33333L0.00666682 9.34H0V13.3333H8V9.34H7.99333L8 9.33333L5.33333 6.66667L8 4.00667L7.99333 4H8V0H0ZM6.66667 9.66667V12H1.33333V9.66667L4 7L6.66667 9.66667ZM4 6.33333L1.33333 3.66667V1.33333H6.66667V3.66667L4 6.33333Z" fill={isHighContrast ? '#fde047' : '#3A3A45'} />
+                   <path d="M0 0V4H0.00666682L0 4.00667L2.66667 6.66667L0 9.33333L0.00666682 9.34H0V13.3333H8V9.34H7.99333L8 9.33333L5.33333 6.66667L8 4.00667L7.99333 4H8V0H0ZM6.66667 9.66667V12H1.33333V9.66667L4 7L6.66667 9.66667ZM4 6.33333L1.33333 3.66667V1.33333H6.66667V3.66667L4 6.33333Z" fill="var(--foreground)" />
                  </svg>
                </div>
-               <span className={`text-sm ${highContrastClasses.bodyText}`}>Saldo total banco de horas</span>
+               <span className={`text-sm ${themeClasses.bodyText}`}>Saldo total banco de horas</span>
             </div>
-            <span className={`text-sm font-bold ${monthlySummary.totalBalance.startsWith('-') ? highContrastClasses.statusNegative : highContrastClasses.statusPositive}`}>
+            <span className={`text-sm font-bold ${monthlySummary.totalBalance.startsWith('-') ? themeClasses.statusNegative : themeClasses.statusPositive}`}>
               {monthlySummary.totalBalance}
             </span>
           </div>
 
           {/* Monthly Summary */}
           <div className="mb-6" role="region" aria-label="Resumo mensal">
-            <h3 className={`text-base font-semibold mb-4 tracking-[0.024px] ${highContrastClasses.heading}`}>Resumo mensal, {formatMonthYear(currentMonthIndex, currentYear).replace(' - ', ', ')}</h3>
+            <h3 className={`text-base font-semibold mb-4 tracking-[0.024px] ${themeClasses.heading}`}>Resumo mensal, {formatMonthYear(currentMonthIndex, currentYear).replace(' - ', ', ')}</h3>
             <div className="space-y-3">
               <div className="flex justify-between items-center">
-                <span className={`text-sm ${highContrastClasses.bodyText}`}>Horas Trabalhadas</span>
-                <span className={`text-sm font-medium ${highContrastClasses.bodyText}`}>{monthlySummary.hoursWorked}</span>
+                <span className={`text-sm ${themeClasses.bodyText}`}>Horas Trabalhadas</span>
+                <span className={`text-sm font-medium ${themeClasses.bodyText}`}>{monthlySummary.hoursWorked}</span>
               </div>
               
               <div className="flex justify-between items-center">
-                <span className={`text-sm ${highContrastClasses.bodyText}`}>Horas Previstas</span>
-                <span className={`text-sm font-medium ${highContrastClasses.bodyText}`}>{monthlySummary.hoursExpected}</span>
+                <span className={`text-sm ${themeClasses.bodyText}`}>Horas Previstas</span>
+                <span className={`text-sm font-medium ${themeClasses.bodyText}`}>{monthlySummary.hoursExpected}</span>
               </div>
               
               {monthlySummary.holidays.map((holiday, index) => (
                 <div key={index} className="flex justify-between items-center">
-                  <span className={`text-sm ${highContrastClasses.bodyText}`}>{holiday.name}</span>
-                  <span className={`text-sm font-medium ${highContrastClasses.bodyText}`}>{holiday.hours}</span>
+                  <span className={`text-sm ${themeClasses.bodyText}`}>{holiday.name}</span>
+                  <span className={`text-sm font-medium ${themeClasses.bodyText}`}>{holiday.hours}</span>
                 </div>
               ))}
               
               <div className="flex justify-between items-center">
-                <span className={`text-sm ${highContrastClasses.bodyText}`}>Horas mensais positivas</span>
-                <span className={`text-sm font-bold ${highContrastClasses.statusPositive}`}>{monthlySummary.monthlyPositive}</span>
+                <span className={`text-sm ${themeClasses.bodyText}`}>Horas mensais positivas</span>
+                <span className={`text-sm font-bold ${themeClasses.statusPositive}`}>{monthlySummary.monthlyPositive}</span>
               </div>
               
               <div className="flex justify-between items-center">
-                <span className={`text-sm ${highContrastClasses.bodyText}`}>Horas mensais negativas</span>
-                <span className={`text-sm font-bold ${highContrastClasses.statusNegative}`}>{monthlySummary.monthlyNegative}</span>
+                <span className={`text-sm ${themeClasses.bodyText}`}>Horas mensais negativas</span>
+                <span className={`text-sm font-bold ${themeClasses.statusNegative}`}>{monthlySummary.monthlyNegative}</span>
               </div>
               
               <div className="flex justify-between items-center">
-                <span className={`text-sm ${highContrastClasses.bodyText}`}>Banco de horas acumulado até {getPreviousMonthName(currentMonthIndex, currentYear)}</span>
-                <span className={`text-sm font-medium ${highContrastClasses.bodyText}`}>{monthlySummary.bankAccumulated}</span>
+                <span className={`text-sm ${themeClasses.bodyText}`}>Banco de horas acumulado até {getPreviousMonthName(currentMonthIndex, currentYear)}</span>
+                <span className={`text-sm font-medium ${themeClasses.bodyText}`}>{monthlySummary.bankAccumulated}</span>
               </div>
               
-              <div className={`flex justify-between items-center pt-3 border-t ${highContrastClasses.border}`}>
-                <span className={`text-sm font-medium ${highContrastClasses.bodyText}`}>SALDO</span>
-                <span className={`text-base font-bold ${monthlySummary.totalBalance.startsWith('-') ? highContrastClasses.statusNegative : highContrastClasses.statusPositive}`}>
+              <div className={`flex justify-between items-center pt-3 border-t ${themeClasses.border}`}>
+                <span className={`text-sm font-medium ${themeClasses.bodyText}`}>SALDO</span>
+                <span className={`text-base font-bold ${monthlySummary.totalBalance.startsWith('-') ? themeClasses.statusNegative : themeClasses.statusPositive}`}>
                   {monthlySummary.totalBalance}
                 </span>
               </div>
               
               <div className="flex justify-between items-center">
-                <span className={`text-sm ${highContrastClasses.bodyText}`}>Banco de horas no mês</span>
-                <span className={`text-sm font-bold ${monthlySummary.bankThisMonth.startsWith('-') ? highContrastClasses.statusNegative : highContrastClasses.statusPositive}`}>
+                <span className={`text-sm ${themeClasses.bodyText}`}>Banco de horas no mês</span>
+                <span className={`text-sm font-bold ${monthlySummary.bankThisMonth.startsWith('-') ? themeClasses.statusNegative : themeClasses.statusPositive}`}>
                   {monthlySummary.bankThisMonth}
                 </span>
               </div>
@@ -950,7 +927,6 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
       <CalendarLegendBottomSheet
         isVisible={showCalendarLegendBottomSheet}
         onClose={handleCloseCalendarLegendBottomSheet}
-        isHighContrast={isHighContrast}
       />
     </div>
   );

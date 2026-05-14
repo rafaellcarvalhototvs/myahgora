@@ -63,8 +63,8 @@ export function CancelPunchScreen({ onBack }: CancelPunchScreenProps) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden bg-[#f0f0f5] flex justify-center items-stretch font-['Open_Sans'] h-[100dvh] w-screen">
-      <div className="w-full max-w-md bg-white h-full relative shadow-2xl flex flex-col">
+    <div className="fixed inset-0 z-50 overflow-hidden bg-background flex justify-center items-stretch font-['Open_Sans'] h-[100dvh] w-screen">
+      <div className="w-full max-w-md bg-background h-full relative shadow-2xl dark:shadow-none flex flex-col transition-colors">
         {/* Header */}
         <div className="bg-primary px-6 py-3 flex items-center gap-2 shrink-0 shadow-sm h-[62px] z-10 relative">
         <button onClick={onBack} className="text-white p-1 mr-2">
@@ -75,15 +75,15 @@ export function CancelPunchScreen({ onBack }: CancelPunchScreenProps) {
         <h1 className="text-white font-semibold text-[18px] leading-[28px] tracking-[0.027px]">Desconsiderar batida</h1>
       </div>
 
-      <div className="flex-1 min-h-0 overflow-y-auto w-full bg-white relative scroll-smooth">
-        <div className="p-6 pb-[40px] flex flex-col gap-6 w-full min-h-full bg-white">
+      <div className="flex-1 min-h-0 overflow-y-auto w-full bg-background relative scroll-smooth transition-colors">
+        <div className="p-6 pb-[40px] flex flex-col gap-6 w-full min-h-full bg-background transition-colors">
         {/* Info Text */}
         <div className="flex flex-col">
           <p className="text-sm font-semibold text-foreground mb-6">Solicite a desconsideração de uma batida registrada incorretamente. A batida não será apagada, mas marcada para ser desconsiderada no cálculo após aprovação do gestor.</p>
           <p className="text-sm text-muted-foreground m-[0px]">Todos os campos são obrigatórios, exceto quando indicado como opcional.</p>
         </div>
 
-        <div className="h-px bg-gray-200 w-full shrink-0" />
+        <div className="h-px bg-border/60 w-full shrink-0" />
 
         {/* Punch Selection */}
         <div className={`border rounded-[4px] p-4 ${errors.punch ? 'border-destructive border-2' : 'border-muted'}`}>
@@ -104,12 +104,12 @@ export function CancelPunchScreen({ onBack }: CancelPunchScreenProps) {
                     onClick={() => handleSelectPunch(punch.id)}
                     className={`
                       relative w-[48px] h-[48px] rounded-full flex items-center justify-center shrink-0 transition-all duration-200
-                      ${isSelected ? 'bg-[#eaf8ff] border border-primary' : 'bg-transparent border border-muted hover:bg-gray-50'}
+                      ${isSelected ? 'bg-[#eaf8ff] border border-primary' : 'bg-transparent border border-muted hover:bg-muted/20'}
                     `}
                   >
                     {isSelected && (
-                      <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-white flex items-center justify-center border border-gray-100 shadow-sm z-10 overflow-hidden">
-                        <div className="w-full h-full bg-white flex items-center justify-center">
+                      <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-card flex items-center justify-center border border-border/60 shadow-sm z-10 overflow-hidden">
+                        <div className="w-full h-full bg-card flex items-center justify-center">
                            <CheckIcon sx={{ fontSize: 12, color: '#78788F' }} />
                         </div>
                       </div>
@@ -130,7 +130,7 @@ export function CancelPunchScreen({ onBack }: CancelPunchScreenProps) {
           <label className="text-sm font-semibold text-foreground block">Motivo</label>
           <button
             onClick={() => setShowReasonDropdown(!showReasonDropdown)}
-            className={`w-full border rounded-[4px] px-4 py-3 flex justify-between items-center bg-white ${errors.reason ? 'border-destructive border-2' : 'border-[#78788f]'}`}
+            className={`w-full border rounded-[4px] px-4 py-3 flex justify-between items-center bg-card ${errors.reason ? 'border-destructive border-2' : 'border-border'}`}
           >
             <span className={`text-sm ${reason ? 'text-foreground' : 'text-muted-foreground'}`}>
               {REASONS.find(r => r.id === reason)?.label || 'Selecione o motivo'}
@@ -144,12 +144,12 @@ export function CancelPunchScreen({ onBack }: CancelPunchScreenProps) {
 
           {/* Dropdown Menu */}
           {showReasonDropdown && (
-            <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-md shadow-lg z-20 max-h-48 overflow-y-auto">
+            <div className="absolute top-full left-0 right-0 mt-1 bg-card border border-border/60 rounded-md shadow-lg z-20 max-h-48 overflow-y-auto">
               {REASONS.map((r) => (
                 <button
                   key={r.id}
                   onClick={() => handleSelectReason(r.id)}
-                  className="w-full text-left px-4 py-3 hover:bg-gray-50 text-sm text-foreground border-b border-gray-50 last:border-0"
+                  className="w-full text-left px-4 py-3 hover:bg-muted/20 text-sm text-foreground border-b border-gray-50 last:border-0"
                 >
                   {r.label}
                 </button>
@@ -176,7 +176,7 @@ export function CancelPunchScreen({ onBack }: CancelPunchScreenProps) {
       </div>
 
       {/* Footer - Fixed Action Button */}
-      <div className="shrink-0 px-6 pt-[16px] pb-[24px] bg-white border-t border-[#DDDDDD] z-20">
+      <div className="shrink-0 px-6 pt-[16px] pb-[24px] bg-[var(--surface-elevated)] border-t border-border/70 transition-colors z-20">
         <button
           onClick={handleSubmit}
           className="w-full bg-primary text-primary-foreground rounded-[4px] h-[40px] font-semibold text-[14px] leading-[24px] tracking-[0.4px] hover:bg-primary/90 transition-colors shadow-sm flex items-center justify-center"
@@ -188,11 +188,11 @@ export function CancelPunchScreen({ onBack }: CancelPunchScreenProps) {
       {/* Success Modal */}
       {showSuccessModal && (
         <div className="fixed inset-0 bg-black/50 z-[60] flex items-end sm:items-center justify-center p-4 animate-in fade-in duration-200">
-          <div className="bg-white w-full max-w-sm rounded-lg overflow-hidden shadow-lg animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
+          <div className="bg-card border border-border/70 w-full max-w-sm rounded-lg overflow-hidden shadow-lg animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
              <div className="p-6 pb-4 relative">
                <button 
                  onClick={() => setShowSuccessModal(false)}
-                 className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+                 className="absolute top-4 right-4 text-muted-foreground hover:text-foreground"
                >
                  <CloseIcon fontSize="small" />
                </button>
@@ -211,7 +211,7 @@ export function CancelPunchScreen({ onBack }: CancelPunchScreenProps) {
                </div>
              </div>
              
-             <div className="p-4 pt-2 flex gap-4 border-t border-gray-100/50">
+             <div className="p-4 pt-2 flex gap-4 border-t border-border/40">
                <button 
                  onClick={() => {
                    setShowSuccessModal(false);

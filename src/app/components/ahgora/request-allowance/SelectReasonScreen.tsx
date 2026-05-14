@@ -40,7 +40,7 @@ export function SelectReasonScreen({ onBack, onSelect }: SelectReasonScreenProps
   const categories = Array.from(new Set(REASONS.map(r => r.category)));
 
   return (
-    <div className="w-full h-full bg-white flex flex-col">
+    <div className="w-full h-full bg-background flex flex-col transition-colors">
       {/* Header */}
       <div className="bg-primary px-4 py-3 flex items-center gap-2 sticky top-0 z-10 shadow-sm shrink-0 h-[62px]">
         <button onClick={onBack} className="text-white p-1 mr-2">
@@ -56,17 +56,17 @@ export function SelectReasonScreen({ onBack, onSelect }: SelectReasonScreenProps
         {categories.map((category) => (
           <div key={category}>
             <div className="px-4 py-3 pt-6">
-              <h2 className="text-[#2a2a33] font-bold text-base">{category}</h2>
+              <h2 className="text-foreground font-bold text-base">{category}</h2>
             </div>
             <div className="flex flex-col">
               {REASONS.filter(r => r.category === category).map((reason) => (
                 <button
                   key={reason.id}
                   onClick={() => onSelect(reason)}
-                  className="px-4 py-4 border-b border-gray-100 flex justify-between items-center active:bg-gray-50 transition-colors group"
+                  className="px-4 py-4 border-b border-border/60 flex justify-between items-center active:bg-muted/20 transition-colors group"
                 >
-                  <span className="text-sm text-[#3a3a45]">{reason.label}</span>
-                  <KeyboardArrowRightIcon className="text-gray-400 group-hover:text-primary" sx={{ fontSize: 20 }} />
+                  <span className="text-sm text-foreground">{reason.label}</span>
+                  <KeyboardArrowRightIcon className="text-muted-foreground group-hover:text-primary" sx={{ fontSize: 20 }} />
                 </button>
               ))}
             </div>

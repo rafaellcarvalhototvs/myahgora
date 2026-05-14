@@ -48,32 +48,32 @@ export const AhgoraButton = React.forwardRef<HTMLButtonElement, AhgoraButtonProp
 
     const variants = {
       primary: cn(
-        "bg-[#19d] text-[#f4f4f6] font-['Open_Sans']",
-        "hover:bg-[#15addd]",
-        "active:bg-[#0c6d9e]",
-        "focus:ring-4 focus:ring-[#81cef5] focus:ring-offset-0",
-        "disabled:bg-[#d5d5dc] disabled:text-[#58586b]"
+        "bg-primary text-primary-foreground font-['Open_Sans']",
+        "hover:brightness-110 dark:hover:brightness-105",
+        "active:brightness-90",
+        "focus:ring-4 focus:ring-ring/50 focus:ring-offset-0",
+        "disabled:bg-muted disabled:text-muted-foreground"
       ),
       secondary: cn(
-        "bg-[#42b6f0] text-[#2a2a33] font-['Open_Sans']",
-        "hover:bg-[#68c0ed]",
-        "active:bg-[#5bb5e6]",
-        "focus:ring-4 focus:ring-[#bfe6fa] focus:ring-offset-0",
-        "disabled:bg-[#d5d5dc] disabled:text-[#58586b]"
+        "bg-primary/20 text-foreground font-['Open_Sans']",
+        "hover:bg-primary/25",
+        "active:bg-primary/30",
+        "focus:ring-4 focus:ring-ring/40 focus:ring-offset-0",
+        "disabled:bg-muted disabled:text-muted-foreground"
       ),
       outline: cn(
-        "border-2 border-[#19d] text-[#19d] bg-transparent font-['Open_Sans']",
-        "hover:bg-[#19d]/10",
-        "active:bg-[#0c6d9e] active:text-[#f4f4f6] active:border-[#0c6d9e]",
-        "focus:ring-4 focus:ring-[#81cef5]/50 focus:ring-offset-0",
-        "disabled:border-[#b6b6c2] disabled:text-[#b6b6c2] disabled:bg-transparent"
+        "border-2 border-primary-darken-1 text-primary-darken-1 bg-transparent font-['Open_Sans']",
+        "hover:bg-primary/10",
+        "active:bg-primary active:text-primary-foreground active:border-primary",
+        "focus:ring-4 focus:ring-ring/40 focus:ring-offset-0",
+        "disabled:border-muted disabled:text-muted-foreground disabled:bg-transparent"
       ),
       ghost: cn(
-        "bg-transparent text-[#19d] font-['Open_Sans']",
-        "hover:bg-slate-100",
-        "active:bg-slate-200",
-        "focus:ring-4 focus:ring-[#42b6f0] focus:ring-offset-0",
-        "disabled:text-[#b6b6c2] disabled:bg-transparent"
+        "bg-transparent text-primary-darken-1 font-['Open_Sans']",
+        "hover:bg-muted/40",
+        "active:bg-muted/60",
+        "focus:ring-4 focus:ring-ring/40 focus:ring-offset-0",
+        "disabled:text-muted-foreground disabled:bg-transparent"
       ),
       destructive: cn(
         "bg-[#dd1818] text-white font-['Open_Sans']",
@@ -191,7 +191,7 @@ export const AhgoraButton = React.forwardRef<HTMLButtonElement, AhgoraButtonProp
 
     // Spinner Color Logic
     const isOutline = variant === 'outline' || variant.endsWith('-outline');
-    const spinnerClass = isOutline ? "text-[#3A3A45]" : "text-current";
+    const spinnerClass = isOutline ? "text-foreground" : "text-current";
 
     return (
       <button

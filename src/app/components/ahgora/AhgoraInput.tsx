@@ -23,11 +23,11 @@ const AhgoraInput = forwardRef<HTMLInputElement | HTMLTextAreaElement, AhgoraInp
             <div className="flex flex-1 items-center">
               {label && (
                 <div className="flex items-center">
-                  <span className="font-semibold text-[#58586b] text-[14px] leading-[18px] tracking-[0.1246px]">
+                  <span className="font-semibold text-muted-foreground text-[14px] leading-[18px] tracking-[0.1246px]">
                     {label}
                   </span>
                   {required && (
-                    <span className="font-semibold text-[#58586b] text-[14px] leading-[18px] ml-1">
+                    <span className="font-semibold text-muted-foreground text-[14px] leading-[18px] ml-1">
                       *
                     </span>
                   )}
@@ -36,7 +36,7 @@ const AhgoraInput = forwardRef<HTMLInputElement | HTMLTextAreaElement, AhgoraInp
             </div>
             {info && (
               <div className="flex items-center">
-                <span className="font-semibold text-[#58586b] text-[14px] leading-[18px] tracking-[0.1246px]">
+                <span className="font-semibold text-muted-foreground text-[14px] leading-[18px] tracking-[0.1246px]">
                   {info}
                 </span>
               </div>
@@ -64,15 +64,15 @@ const AhgoraInput = forwardRef<HTMLInputElement | HTMLTextAreaElement, AhgoraInp
             }
           }}
           className={cn(
-            "flex items-center w-full rounded-[4px] bg-white border border-[#78788f] px-[16px] transition-colors overflow-hidden cursor-text",
+            "flex items-center w-full rounded-[4px] bg-card border border-border px-[16px] transition-colors overflow-hidden cursor-text",
             multiline ? "items-start py-[12px] min-h-[100px]" : "min-h-[48px]",
             "focus-within:border-primary", // Primary color
-            error && "border-[#dd1818] focus-within:border-[#dd1818]", // Destructive color
+            error && "border-destructive focus-within:border-destructive", // Destructive color
             className
           )}
         >
           {startIcon && (
-            <div className={cn("mr-[8px] shrink-0 text-[#3A3A45] pointer-events-none", multiline && "mt-[2px]")}>
+            <div className={cn("mr-[8px] shrink-0 text-foreground pointer-events-none", multiline && "mt-[2px]")}>
               {startIcon}
             </div>
           )}
@@ -81,7 +81,7 @@ const AhgoraInput = forwardRef<HTMLInputElement | HTMLTextAreaElement, AhgoraInp
             <textarea
               ref={ref as React.Ref<HTMLTextAreaElement>}
               className={cn(
-                "flex-1 bg-transparent border-none outline-none text-[14px] text-[#58586b] placeholder:text-[#78788f] w-full font-regular tracking-[0.105px] resize-none",
+                "flex-1 bg-transparent border-none outline-none text-[14px] text-foreground placeholder:text-muted-foreground w-full font-regular tracking-[0.105px] resize-none",
                 "disabled:cursor-not-allowed disabled:opacity-50"
               )}
               {...(props as React.TextareaHTMLAttributes<HTMLTextAreaElement>)}
@@ -90,7 +90,7 @@ const AhgoraInput = forwardRef<HTMLInputElement | HTMLTextAreaElement, AhgoraInp
             <input
               ref={ref as React.Ref<HTMLInputElement>}
               className={cn(
-                "flex-1 bg-transparent border-none outline-none text-[14px] text-[#58586b] placeholder:text-[#78788f] h-full w-full font-regular tracking-[0.105px]",
+                "flex-1 bg-transparent border-none outline-none text-[14px] text-foreground placeholder:text-muted-foreground h-full w-full font-regular tracking-[0.105px]",
                 "disabled:cursor-not-allowed disabled:opacity-50"
               )}
               {...(props as React.InputHTMLAttributes<HTMLInputElement>)}
@@ -98,7 +98,7 @@ const AhgoraInput = forwardRef<HTMLInputElement | HTMLTextAreaElement, AhgoraInp
           )}
 
           {endIcon && (
-            <div className={cn("ml-[8px] shrink-0 text-[#3A3A45] pointer-events-none", multiline && "mt-[2px]")}>
+            <div className={cn("ml-[8px] shrink-0 text-foreground pointer-events-none", multiline && "mt-[2px]")}>
               {endIcon}
             </div>
           )}
@@ -108,8 +108,8 @@ const AhgoraInput = forwardRef<HTMLInputElement | HTMLTextAreaElement, AhgoraInp
         {helperText && (
           <div className="flex gap-[6px] items-center min-h-[22px] py-[2px]">
             <p className={cn(
-              "text-[14px] text-[#58586b] leading-[14px] tracking-[0.4382px]", 
-               error && "text-[#dd1818]"
+              "text-[14px] text-muted-foreground leading-[14px] tracking-[0.4382px]", 
+               error && "text-destructive"
             )}>
               {helperText}
             </p>

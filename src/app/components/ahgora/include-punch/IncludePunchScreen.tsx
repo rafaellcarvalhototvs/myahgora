@@ -52,8 +52,8 @@ export function IncludePunchScreen({ onBack }: IncludePunchScreenProps) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden bg-[#f0f0f5] flex justify-center items-stretch font-['Open_Sans'] h-[100dvh] w-screen">
-      <div className="w-full max-w-md bg-white h-full relative shadow-2xl flex flex-col">
+    <div className="fixed inset-0 z-50 overflow-hidden bg-background flex justify-center items-stretch font-['Open_Sans'] h-[100dvh] w-screen">
+      <div className="w-full max-w-md bg-background h-full relative shadow-2xl dark:shadow-none flex flex-col transition-colors">
         {/* Header */}
         <div className="bg-primary px-6 py-3 flex items-center gap-2 shrink-0 shadow-sm h-[62px] z-10 relative">
           <button onClick={onBack} className="text-white p-1 mr-2">
@@ -65,15 +65,15 @@ export function IncludePunchScreen({ onBack }: IncludePunchScreenProps) {
         </div>
 
         {/* Content */}
-        <div className="flex-1 min-h-0 overflow-y-auto w-full bg-white relative scroll-smooth">
-          <div className="p-6 pb-[40px] flex flex-col gap-6 w-full min-h-full bg-white">
+        <div className="flex-1 min-h-0 overflow-y-auto w-full bg-background relative scroll-smooth transition-colors">
+          <div className="p-6 pb-[40px] flex flex-col gap-6 w-full min-h-full bg-background transition-colors">
             {/* Info Text */}
             <div className="flex flex-col">
               <p className="text-sm font-semibold text-foreground mb-6">Use esta tela para incluir batidas não gravadas ou esquecidas.</p>
               <p className="text-sm text-muted-foreground m-[0px]">Todos os campos são obrigatórios, exceto quando indicado como opcional.</p>
             </div>
 
-            <div className="h-px bg-gray-200 w-full shrink-0" />
+            <div className="h-px bg-border/60 w-full shrink-0" />
 
             {/* Punch Type Selection */}
             <div>
@@ -199,7 +199,7 @@ export function IncludePunchScreen({ onBack }: IncludePunchScreenProps) {
         </div>
 
         {/* Footer - Fixed Action Buttons */}
-        <div className="shrink-0 px-6 pt-[16px] pb-[24px] bg-white border-t border-[#DDDDDD] space-y-[16px] z-20">
+        <div className="shrink-0 px-6 pt-[16px] pb-[24px] bg-[var(--surface-elevated)] border-t border-border/70 transition-colors space-y-[16px] z-20">
           <button 
             onClick={handleSubmit}
             className="w-full bg-primary text-white rounded-[4px] h-[40px] font-semibold text-[14px] leading-[24px] tracking-[0.4px] hover:bg-primary/90 transition-colors shadow-sm flex items-center justify-center"
@@ -225,7 +225,7 @@ export function IncludePunchScreen({ onBack }: IncludePunchScreenProps) {
       {/* Success Modal */}
       {showSuccessModal && (
         <div className="fixed inset-0 bg-black/50 z-[60] flex items-center justify-center p-4 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-white w-full max-w-xs rounded-[16px] overflow-hidden shadow-2xl animate-in zoom-in-95 duration-200">
+          <div className="bg-card border border-border/70 w-full max-w-xs rounded-[16px] overflow-hidden shadow-2xl animate-in zoom-in-95 duration-200">
              <div className="p-6 pb-0 flex flex-col items-center text-center">
                <div className="w-[64px] h-[64px] bg-green-100 rounded-full flex items-center justify-center mb-4">
                   <CheckCircleIcon sx={{ color: '#22aa44', fontSize: 32 }} />
@@ -235,7 +235,7 @@ export function IncludePunchScreen({ onBack }: IncludePunchScreenProps) {
                <p className="text-[14px] text-muted-foreground mb-6">Confira os detalhes no espelho detalhado.</p>
              </div>
              
-             <div className="p-4 pt-0 border-t border-gray-100 bg-gray-50/50 flex gap-3">
+             <div className="p-4 pt-0 border-t border-border/60 bg-muted/20 dark:bg-muted/10 flex gap-3">
                <button 
                  onClick={onBack}
                  className="flex-1 border-2 border-primary text-primary py-2 rounded-[4px] font-semibold text-[14px] leading-[24px] tracking-[0.4px] hover:bg-primary/5 flex items-center justify-center"

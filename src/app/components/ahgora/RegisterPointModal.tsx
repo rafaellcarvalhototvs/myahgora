@@ -39,7 +39,7 @@ export function RegisterPointModal({ isOpen, onClose, onConfirm }: RegisterPoint
   return createPortal(
     <div className="fixed inset-0 bg-black/50 z-[9999] flex items-end justify-center animate-in fade-in duration-200 font-['Open_Sans']">
       <div 
-        className="bg-white relative rounded-t-[8px] w-full sm:max-w-md overflow-hidden animate-in slide-in-from-bottom-full fade-in duration-300 shadow-xl"
+        className="bg-card border border-border/70 relative rounded-t-[8px] w-full sm:max-w-md overflow-hidden animate-in slide-in-from-bottom-full fade-in duration-300 shadow-xl dark:shadow-[0px_16px_32px_0px_rgba(0,0,0,0.35)] transition-colors"
         role="dialog"
         aria-modal="true"
       >
@@ -57,7 +57,7 @@ export function RegisterPointModal({ isOpen, onClose, onConfirm }: RegisterPoint
                 {/* Close Button */}
                 <button 
                   onClick={onClose}
-                  className="content-stretch flex flex-col items-center relative shrink-0 p-1 hover:bg-gray-100 rounded-full text-[#3A3A45] transition-colors"
+                  className="content-stretch flex flex-col items-center relative shrink-0 p-1 hover:bg-muted/40 rounded-full text-foreground transition-colors"
                 >
                   <CloseIcon sx={{ fontSize: 20 }} />
                 </button>
@@ -65,35 +65,35 @@ export function RegisterPointModal({ isOpen, onClose, onConfirm }: RegisterPoint
              
              {/* Title & Subtitle */}
              <div className="flex flex-col gap-0 w-full">
-                <p className="font-['Open_Sans'] font-semibold leading-[30px] text-[#3a3a45] text-[20px] tracking-[0.03px]">
+                <p className="font-['Open_Sans'] font-semibold leading-[30px] text-foreground text-[20px] tracking-[0.03px]">
                   Confirme o registro de ponto
                 </p>
-                <p className="font-['Open_Sans'] leading-[20px] text-[#3a3a45] text-[14px] tracking-[0.028px] mt-1">
+                <p className="font-['Open_Sans'] leading-[20px] text-muted-foreground text-[14px] tracking-[0.028px] mt-1">
                   Verifique as informações antes de confirmar
                 </p>
              </div>
           </div>
 
           {/* Date/Time Card */}
-          <div className="relative rounded-[7px] shrink-0 w-full border border-[rgba(42,42,51,0.14)]">
+          <div className="relative rounded-[7px] shrink-0 w-full border border-border/70 bg-[var(--surface-elevated)] transition-colors">
              <div className="flex items-center justify-between px-[24px] py-[10px] w-full">
                 <div className="flex flex-col gap-[2px]">
-                   <p className="font-['Open_Sans'] font-semibold leading-[24px] text-[16px] tracking-[0.024px] text-[#2a2a33]">
+                   <p className="font-['Open_Sans'] font-semibold leading-[24px] text-[16px] tracking-[0.024px] text-foreground">
                       {formattedWeekday}
                    </p>
-                   <p className="font-['Open_Sans'] leading-[20px] text-[14px] tracking-[0.035px] text-[#2a2a33]">
+                   <p className="font-['Open_Sans'] leading-[20px] text-[14px] tracking-[0.035px] text-muted-foreground">
                       {formattedDate}
                    </p>
                 </div>
                 
                 {/* Time Circle with Badge */}
-                <div className="relative bg-[#eaf8ff] flex items-center justify-center rounded-full size-[56px] shrink-0">
+                <div className="relative bg-[#eaf8ff] dark:bg-primary/15 flex items-center justify-center rounded-full size-[56px] shrink-0 transition-colors">
                    {/* Check Badge (Absolute Top-Rightish) */}
                    <div className="absolute top-0 right-0 bg-primary rounded-[4px] w-[18px] h-[18px] flex items-center justify-center z-10 translate-x-[-4px] translate-y-[0px]">
                       <CheckIcon sx={{ color: 'white', fontSize: 12 }} />
                    </div>
                    
-                   <span className="font-['Open_Sans'] font-semibold text-[14px] text-[#2a2a33]">
+                   <span className="font-['Open_Sans'] font-semibold text-[14px] text-foreground">
                       {timeString}
                    </span>
                 </div>
@@ -103,8 +103,8 @@ export function RegisterPointModal({ isOpen, onClose, onConfirm }: RegisterPoint
         </div>
 
         {/* Footer Actions */}
-        <div className="bg-white relative shrink-0 w-full">
-           <div aria-hidden="true" className="absolute border-[rgba(42,42,51,0.12)] border-solid border-t inset-0 pointer-events-none" />
+        <div className="bg-[var(--surface-elevated)] relative shrink-0 w-full transition-colors">
+           <div aria-hidden="true" className="absolute border-border/70 border-solid border-t inset-0 pointer-events-none" />
            <div className="content-stretch flex flex-col gap-[16px] items-center justify-center p-[24px] relative w-full">
               <button 
                 onClick={onConfirm}

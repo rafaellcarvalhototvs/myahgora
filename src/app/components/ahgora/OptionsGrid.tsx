@@ -60,13 +60,13 @@ const options = [
 export function OptionsGrid() {
   return (
     <div className="flex flex-col mt-6 px-6 pt-[0px] pb-[32px]">
-      <h3 className="font-semibold text-base mb-4 text-[#2a2a33] tracking-[0.024px] leading-6">Outras opções</h3>
+      <h3 className="font-semibold text-base mb-4 text-foreground tracking-[0.024px] leading-6">Outras opções</h3>
       
       <div className="grid grid-cols-2 gap-x-[17px] gap-y-4">
         {options.map((option, index) => (
           <div 
             key={index}
-            className="bg-primary h-[88px] rounded-[8px] p-2 flex flex-col justify-between relative overflow-hidden cursor-pointer hover:bg-primary/90 transition-colors"
+            className="bg-primary dark:bg-[#1d5d7b] h-[88px] rounded-[8px] p-2 flex flex-col justify-between relative overflow-hidden cursor-pointer hover:bg-primary/90 dark:hover:bg-[#2678a0] transition-colors"
           >
             {/* Icon positioned at top-right */}
             <div className="self-end opacity-100 w-6 h-6 flex items-center justify-center">

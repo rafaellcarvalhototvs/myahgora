@@ -1,3 +1,5 @@
+import { Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 import svgPaths from "../../../imports/svg-xrhe7qzgal";
 
 interface HeaderProps {
@@ -8,8 +10,11 @@ interface HeaderProps {
 }
 
 export function Header({ userName, avatarUrl, onNotificationClick, onAvatarClick }: HeaderProps) {
+  const { resolvedTheme, setTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
+
   return (
-    <div className="bg-primary flex flex-col items-start w-full relative">
+    <div className="bg-primary dark:bg-[var(--surface-strong)] flex flex-col items-start w-full relative transition-colors border-b border-transparent dark:border-border/70">
       <div className="flex flex-col gap-2 items-start px-6 py-4 w-full">
         {/* User Details Row */}
         <div className="flex items-start justify-between w-full">
@@ -29,7 +34,19 @@ export function Header({ userName, avatarUrl, onNotificationClick, onAvatarClick
           </button>
 
           {/* Icons / Notifications */}
-          <div className="flex items-center justify-end relative shrink-0 w-44 gap-1">
+          <div className="flex items-center justify-end relative shrink-0 gap-1">
+            <button
+              onClick={() => setTheme(isDark ? "light" : "dark")}
+              className="flex items-center gap-2 rounded-full border border-white/20 dark:border-border/80 bg-white/10 dark:bg-white/5 px-3 h-10 text-white/90 hover:bg-white/15 dark:hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary dark:focus:ring-primary dark:focus:ring-offset-[var(--surface-strong)]"
+              aria-label={isDark ? "Ativar modo claro" : "Ativar modo escuro"}
+              type="button"
+            >
+              {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+              <span className="text-xs font-semibold leading-none">
+                {isDark ? "Light" : "Dark"}
+              </span>
+            </button>
+
             {/* Megaphone Icon */}
             <button 
               onClick={onNotificationClick}
@@ -53,7 +70,7 @@ export function Header({ userName, avatarUrl, onNotificationClick, onAvatarClick
                    <path d={svgPaths.p2a5aec00} fill="white" />
                  </svg>
                  {/* Badge */}
-                 <div className="absolute -top-1 -right-1 bg-[#2a2a33] rounded-[4px] border border-primary flex flex-col items-center justify-center px-1 py-0.5 min-w-[14px] h-[14px]">
+                 <div className="absolute -top-1 -right-1 bg-[#2a2a33] dark:bg-card rounded-[4px] border border-primary flex flex-col items-center justify-center px-1 py-0.5 min-w-[14px] h-[14px]">
                     <span className="text-[10px] font-semibold text-white leading-none">4</span>
                  </div>
                </div>

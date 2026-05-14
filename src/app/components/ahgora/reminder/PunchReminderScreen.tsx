@@ -23,8 +23,8 @@ export function PunchReminderScreen({ onBack }: PunchReminderScreenProps) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-[#f0f0f5] flex justify-center font-['Open_Sans']">
-        <div className="w-full max-w-md bg-white min-h-screen relative shadow-2xl pb-20 flex flex-col">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-background flex justify-center font-['Open_Sans']">
+        <div className="w-full max-w-md bg-background min-h-screen relative shadow-2xl dark:shadow-none transition-colors pb-20 flex flex-col">
             {/* Header */}
             <div className="bg-primary px-6 py-3 flex items-center gap-2 sticky top-0 z-10 shadow-sm h-[62px]">
                 <button onClick={onBack} className="text-white p-1 mr-2 cursor-pointer">
@@ -44,15 +44,15 @@ export function PunchReminderScreen({ onBack }: PunchReminderScreenProps) {
 
             <div className="p-6 flex flex-col flex-1 h-full">
                 <div className="mb-6 shrink-0">
-                    <p className="text-[14px] text-[#78788f] leading-[22px] tracking-[0.3px]">
+                    <p className="text-[14px] text-muted-foreground leading-[22px] tracking-[0.3px]">
                         Siga os passos abaixo para <span className="font-bold">configurar ou editar um lembrete</span> de retorno do intervalo:
                     </p>
-                    <ol className="list-decimal pl-5 mt-4 space-y-1 text-[14px] text-[#78788f] font-semibold leading-[22px]">
+                    <ol className="list-decimal pl-5 mt-4 space-y-1 text-[14px] text-muted-foreground font-semibold leading-[22px]">
                         <li>Ative o lembrete.</li>
                         <li>Escolha a duração do intervalo. Ex: 15min.</li>
                         <li>Selecione "Repetir" para receber notificações automáticas.</li>
                     </ol>
-                    <p className="mt-4 text-[14px] text-[#78788f] leading-[22px] tracking-[0.3px]">
+                    <p className="mt-4 text-[14px] text-muted-foreground leading-[22px] tracking-[0.3px]">
                         <span className="font-bold">Exemplo</span>: Se você definir 15min, receberá uma notificação 15 minutos após o início do intervalo.
                     </p>
                 </div>
@@ -74,7 +74,7 @@ export function PunchReminderScreen({ onBack }: PunchReminderScreenProps) {
                             </svg>
                         )}
                     </div>
-                    <span className="font-['Open_Sans'] text-[14px] leading-[20px] text-[#3a3a45] tracking-[0.105px]">
+                    <span className="font-['Open_Sans'] text-[14px] leading-[20px] text-foreground tracking-[0.105px]">
                         Ativar lembrete
                     </span>
                 </div>
@@ -82,7 +82,7 @@ export function PunchReminderScreen({ onBack }: PunchReminderScreenProps) {
                 {isEnabled && (
                     <div className="flex flex-col flex-1 gap-6 animate-in fade-in slide-in-from-top-2 duration-300">
                         <div className="shrink-0">
-                            <p className="text-[14px] text-[#78788f] mb-2">Defina a duração do intervalo:</p>
+                            <p className="text-[14px] text-muted-foreground mb-2">Defina a duração do intervalo:</p>
                             <div className="flex w-full isolate">
                                 {['15min', '60min', '72min', '+Definir'].map((opt, idx, arr) => {
                                     const isSelected = duration === opt;
@@ -104,7 +104,7 @@ export function PunchReminderScreen({ onBack }: PunchReminderScreenProps) {
                                                 // States
                                                 isSelected 
                                                     ? "bg-[#0c6d9e] text-[#f4f4f6] z-10 border border-[#0c6d9e]" 
-                                                    : "bg-white text-[#3a3a45] border border-[#b6b6c2] hover:bg-gray-50 z-0"
+                                                    : "bg-white text-foreground border border-[#b6b6c2] hover:bg-muted/20 z-0"
                                             )}
                                         >
                                             {opt}
@@ -131,14 +131,14 @@ export function PunchReminderScreen({ onBack }: PunchReminderScreenProps) {
                              />
                              <label 
                                 htmlFor="repeat-reminder"
-                                className="text-[14px] text-[#58586b] font-normal cursor-pointer select-none"
+                                className="text-[14px] text-muted-foreground font-normal cursor-pointer select-none"
                              >
                                 Repetir lembrete de intervalo automaticamente
                              </label>
                         </div>
 
                         <div className="mt-auto pb-0">
-                            <div className="fixed bottom-0 left-0 right-0 px-6 py-4 bg-white border-t border-[#DDDDDD] z-20 w-full max-w-md mx-auto">
+                            <div className="fixed bottom-0 left-0 right-0 px-6 py-4 bg-[var(--surface-elevated)] border-t border-border/70 transition-colors z-20 w-full max-w-md mx-auto">
                                 <AhgoraButton
                                     variant="primary"
                                     size="lg"

@@ -19,6 +19,7 @@ import { PunchReminderScreen } from "./components/ahgora/reminder/PunchReminderS
 import { DetailedMirrorScreen } from "./components/ahgora/detailed-mirror/DetailedMirrorScreen";
 import { AccessibilityReportScreen } from "./components/ahgora/accessibility/AccessibilityReportScreen";
 import { DetailedMirrorAccessibilityReport } from "./components/ahgora/accessibility/DetailedMirrorAccessibilityReport";
+import { ProfileSettingsScreen } from "./components/ahgora/profile/ProfileSettingsScreen";
 
 export default function App() {
   const [currentView, setCurrentView] = useState('home');
@@ -97,18 +98,27 @@ export default function App() {
     return <AccessibilityReportScreen onBack={() => setCurrentView('home')} />;
   }
 
+  if (currentView === 'profile-settings') {
+    return (
+      <ProfileSettingsScreen
+        onBack={() => setCurrentView('home')}
+        onAccessibilityReport={() => setCurrentView('accessibility-report')}
+      />
+    );
+  }
+
   if (currentView === 'detailed-mirror-accessibility-report') {
     return <DetailedMirrorAccessibilityReport onBack={() => setCurrentView('detailed-mirror')} />;
   }
 
   return (
-    <div className="min-h-screen bg-[#f0f0f5] flex justify-center font-['Open_Sans']">
-      <div className="w-full max-w-md bg-white min-h-screen relative shadow-2xl pb-20">
+    <div className="min-h-screen bg-background flex justify-center font-['Open_Sans'] transition-colors">
+      <div className="w-full max-w-md bg-background min-h-screen relative shadow-2xl dark:shadow-none pb-20 transition-colors">
         <Header 
           userName="Rafael" 
           avatarUrl={avatarUrl} 
           onNotificationClick={() => setCurrentView('punch-reminder')}
-          onAvatarClick={() => setCurrentView('accessibility-report')}
+          onAvatarClick={() => setCurrentView('profile-settings')}
         />
         <TimeCard />
         <DetailLink onClick={() => handleAction('detailed-mirror')} />

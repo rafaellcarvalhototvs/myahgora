@@ -64,7 +64,7 @@ export function MonthYearBottomSheet({
 
   return (
     <div className="fixed inset-0 bg-black/50 z-[60] flex items-end justify-center animate-in fade-in duration-200 font-['Open_Sans']">
-      <div className="bg-white relative rounded-t-[8px] w-full max-w-md overflow-hidden animate-in slide-in-from-bottom-full fade-in duration-300 shadow-xl">
+      <div className="bg-card border border-border/70 relative rounded-t-[8px] w-full max-w-md overflow-hidden animate-in slide-in-from-bottom-full fade-in duration-300 shadow-xl dark:shadow-[0px_16px_32px_0px_rgba(0,0,0,0.35)] transition-colors">
         {/* Header + Body */}
         <div className="content-stretch flex flex-col gap-[24px] items-start p-[24px] relative w-full">
           {/* Header */}
@@ -73,22 +73,22 @@ export function MonthYearBottomSheet({
               <div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
                 {/* Title */}
                 <div className="content-stretch flex flex-col items-start relative shrink-0">
-                  <p className="font-['Open_Sans'] font-semibold leading-[30px] relative shrink-0 text-[#3a3a45] text-[20px] tracking-[0.03px] whitespace-pre-wrap">
+                  <p className="font-['Open_Sans'] font-semibold leading-[30px] relative shrink-0 text-foreground text-[20px] tracking-[0.03px] whitespace-pre-wrap">
                     Selecionar competência
                   </p>
                 </div>
                 {/* Close Button */}
                 <button 
                   onClick={onClose}
-                  className="content-stretch flex flex-col items-center relative shrink-0 p-1 hover:bg-gray-100 rounded-full"
+                  className="content-stretch flex flex-col items-center relative shrink-0 p-1 hover:bg-muted/40 rounded-full text-foreground"
                 >
-                  <CloseIcon sx={{ color: '#3A3A45', fontSize: 20 }} />
+                  <CloseIcon sx={{ fontSize: 20 }} />
                 </button>
               </div>
             </div>
             {/* Description */}
             <div className="content-stretch flex flex-col items-start relative shrink-0 w-full">
-              <p className="font-['Open_Sans'] leading-[20px] not-italic relative shrink-0 text-[#3a3a45] text-[14px] tracking-[0.028px] w-full whitespace-pre-wrap">
+              <p className="font-['Open_Sans'] leading-[20px] not-italic relative shrink-0 text-muted-foreground text-[14px] tracking-[0.028px] w-full whitespace-pre-wrap">
                 Selecione o ano e o mês desejado para visualizar o espelho.
               </p>
             </div>
@@ -99,23 +99,23 @@ export function MonthYearBottomSheet({
             <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
               <button 
                 onClick={handlePrevYear}
-                className="content-stretch flex items-center justify-center p-2 hover:bg-gray-100 rounded-full"
+                className="content-stretch flex items-center justify-center p-2 hover:bg-muted/40 rounded-full text-foreground"
               >
-                <ChevronLeftIcon sx={{ color: '#3A3A45', fontSize: 20 }} />
+                <ChevronLeftIcon sx={{ fontSize: 20 }} />
               </button>
               <div className="content-stretch flex flex-col items-center relative shrink-0">
-                <p className="font-['Open_Sans'] font-semibold leading-[26px] relative shrink-0 text-[18px] text-[#3a3a45] tracking-[0.024px]">
+                <p className="font-['Open_Sans'] font-semibold leading-[26px] relative shrink-0 text-[18px] text-foreground tracking-[0.024px]">
                   {selectedYear}
                 </p>
               </div>
               <button 
                 onClick={handleNextYear}
                 disabled={selectedYear >= currentYearToday}
-                className={`content-stretch flex items-center justify-center p-2 hover:bg-gray-100 rounded-full ${
+                className={`content-stretch flex items-center justify-center p-2 hover:bg-muted/40 rounded-full text-foreground ${
                   selectedYear >= currentYearToday ? 'opacity-40 cursor-not-allowed' : ''
                 }`}
               >
-                <ChevronRightIcon sx={{ color: '#3A3A45', fontSize: 20 }} />
+                <ChevronRightIcon sx={{ fontSize: 20 }} />
               </button>
             </div>
 
@@ -131,10 +131,10 @@ export function MonthYearBottomSheet({
                     className={`
                       content-stretch flex flex-col items-center justify-center p-4 relative rounded-lg border
                       ${future 
-                        ? 'bg-gray-100 border-gray-300 text-gray-400 cursor-not-allowed'
+                        ? 'bg-muted/50 border-border text-muted-foreground cursor-not-allowed'
                         : selectedMonth === index 
                           ? 'bg-primary border-primary text-white' 
-                          : 'bg-white border-gray-200 text-[#3a3a45] hover:bg-gray-50'
+                          : 'bg-card border-border text-foreground hover:bg-muted/30'
                       }
                       transition-colors
                     `}
@@ -150,8 +150,8 @@ export function MonthYearBottomSheet({
         </div>
 
         {/* Footer */}
-        <div className="bg-white relative shrink-0 w-full">
-          <div aria-hidden="true" className="absolute border-[rgba(42,42,51,0.12)] border-solid border-t inset-0 pointer-events-none" />
+        <div className="bg-[var(--surface-elevated)] relative shrink-0 w-full transition-colors">
+          <div aria-hidden="true" className="absolute border-border/70 border-solid border-t inset-0 pointer-events-none" />
           <div className="content-stretch flex items-center justify-end p-[24px] relative w-full">
              <button 
                onClick={onClose}
