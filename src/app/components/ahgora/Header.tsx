@@ -39,7 +39,7 @@ export function Header({ userName, avatarUrl, onNotificationClick, onAvatarClick
           <div className="flex items-center justify-end relative shrink-0 gap-1">
             <button
               onClick={() => setTheme(isDark ? "light" : "dark")}
-              className="flex items-center justify-center rounded-full border border-primary-foreground/30 bg-primary-foreground/10 h-10 w-10 text-primary-foreground/90 hover:bg-primary-foreground/15 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-foreground focus:ring-offset-2 focus:ring-offset-primary"
+              className="flex items-center justify-center rounded-full border border-primary-foreground/30 bg-primary-foreground/10 h-10 w-10 text-primary-foreground hover:bg-primary-foreground/15 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-foreground focus:ring-offset-2 focus:ring-offset-primary"
               aria-label={isDark ? "Ativar modo claro" : "Ativar modo escuro"}
               title={isDark ? "Ativar modo claro" : "Ativar modo escuro"}
               type="button"
@@ -52,7 +52,7 @@ export function Header({ userName, avatarUrl, onNotificationClick, onAvatarClick
               className={`flex items-center justify-center rounded-full border h-10 w-10 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary ${
                 inspectModeEnabled
                   ? "border-primary-foreground/35 bg-primary-foreground/20 text-primary-foreground"
-                  : "border-primary-foreground/25 bg-primary-foreground/10 text-primary-foreground/90 hover:bg-primary-foreground/15"
+                  : "border-primary-foreground/25 bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/15"
               }`}
               aria-label={inspectModeEnabled ? "Desativar modo lupa" : "Ativar modo lupa"}
               title={inspectModeEnabled ? "Desativar modo lupa" : "Ativar modo lupa"}
@@ -64,7 +64,7 @@ export function Header({ userName, avatarUrl, onNotificationClick, onAvatarClick
             {/* Megaphone Icon */}
             <button 
               onClick={onNotificationClick}
-              className="flex flex-col items-center justify-center p-2 relative rounded-full w-12 h-12 shrink-0 hover:bg-primary-foreground/10 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-foreground focus:ring-offset-2 focus:ring-offset-primary"
+              className="flex flex-col items-center justify-center p-2 relative rounded-full w-12 h-12 shrink-0 text-primary-foreground hover:bg-primary-foreground/10 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-foreground focus:ring-offset-2 focus:ring-offset-primary"
               aria-label="Notificações"
             >
                <div className="relative w-6 h-6 shrink-0 flex items-center justify-center">
@@ -76,7 +76,7 @@ export function Header({ userName, avatarUrl, onNotificationClick, onAvatarClick
 
             {/* Message Icon with Badge */}
             <button 
-              className="flex flex-col items-center justify-center p-2 relative rounded-full w-12 h-12 shrink-0 hover:bg-primary-foreground/10 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-foreground focus:ring-offset-2 focus:ring-offset-primary"
+              className="flex flex-col items-center justify-center p-2 relative rounded-full w-12 h-12 shrink-0 text-primary-foreground hover:bg-primary-foreground/10 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-foreground focus:ring-offset-2 focus:ring-offset-primary"
               aria-label="Mensagens (4 novas)"
             >
                <div className="relative w-6 h-6 shrink-0 flex items-center justify-center">
@@ -93,7 +93,7 @@ export function Header({ userName, avatarUrl, onNotificationClick, onAvatarClick
             {/* Bell Icon */}
             <button 
               onClick={onNotificationClick}
-              className="flex flex-col items-center justify-center p-2 relative rounded-full w-12 h-12 shrink-0 hover:bg-primary-foreground/10 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-foreground focus:ring-offset-2 focus:ring-offset-primary"
+              className="flex flex-col items-center justify-center p-2 relative rounded-full w-12 h-12 shrink-0 text-primary-foreground hover:bg-primary-foreground/10 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-foreground focus:ring-offset-2 focus:ring-offset-primary"
               aria-label="Lembretes"
             >
                <div className="relative w-6 h-6 shrink-0 flex items-center justify-center overflow-hidden">
