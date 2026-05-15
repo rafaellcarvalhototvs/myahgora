@@ -37,16 +37,17 @@ export function ComplimentsCarousel() {
         <button className="text-primary-darken-1 text-sm font-semibold hover:underline">Ver todos</button>
       </div>
       
-      <div 
+      <div
         ref={scrollRef}
-        className={`flex gap-4 px-6 pb-4 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] ${ isDragging ? 'cursor-grabbing snap-none' : 'cursor-grab snap-x snap-mandatory' } ml-0 mr-0 my-0`}
+        className={`overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
         onMouseDown={handleMouseDown}
         onMouseLeave={handleMouseLeave}
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}
       >
+        <div className={`flex gap-4 pl-6 pr-6 w-max ${isDragging ? 'snap-none' : 'snap-x snap-mandatory'}`}>
         {/* Card 1 */}
-        <div className="min-w-[300px] bg-card rounded-lg p-4 border border-border/40 shadow-sm dark:shadow-[0px_12px_24px_0px_rgba(0,0,0,0.18)] flex flex-col justify-between snap-start select-none transition-colors">
+        <div className="w-[300px] shrink-0 bg-card rounded-lg p-4 border border-border/40 shadow-sm dark:shadow-[0px_12px_24px_0px_rgba(0,0,0,0.18)] flex flex-col justify-between snap-start select-none transition-colors">
           <div>
             <div className="flex items-center gap-2 mb-3">
               <div className="flex -space-x-2">
@@ -75,7 +76,7 @@ export function ComplimentsCarousel() {
         </div>
 
         {/* Card 2 */}
-        <div className="min-w-[300px] bg-card rounded-lg p-4 border border-border/40 shadow-sm dark:shadow-[0px_12px_24px_0px_rgba(0,0,0,0.18)] flex flex-col justify-between opacity-60 snap-start select-none transition-colors">
+        <div className="w-[300px] shrink-0 bg-card rounded-lg p-4 border border-border/40 shadow-sm dark:shadow-[0px_12px_24px_0px_rgba(0,0,0,0.18)] flex flex-col justify-between opacity-60 snap-start select-none transition-colors">
            <div>
             <div className="flex items-center gap-2 mb-3">
                <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-xs font-bold border-2 border-card text-muted-foreground">
@@ -93,6 +94,7 @@ export function ComplimentsCarousel() {
              <div className="flex justify-between items-end mt-4">
             <span className="text-xs text-muted-foreground">sexta-feira - 12/07/24</span>
           </div>
+        </div>
         </div>
       </div>
     </div>
