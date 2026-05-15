@@ -110,10 +110,8 @@ export function RepositionPunchScreen({ onBack }: RepositionPunchScreenProps) {
                     `}
                   >
                     {isSelected && (
-                      <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-card flex items-center justify-center border border-border/60 shadow-sm z-10 overflow-hidden">
-                        <div className="w-full h-full bg-card flex items-center justify-center">
-                           <CheckIcon sx={{ fontSize: 12, color: '#78788F' }} />
-                        </div>
+                      <div className="absolute -top-1 -right-1 z-10 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm">
+                        <CheckIcon sx={{ fontSize: 14, color: 'currentColor' }} />
                       </div>
                     )}
                     <span className={`text-sm ${isSelected ? 'font-semibold text-foreground' : 'font-normal text-foreground'}`}>

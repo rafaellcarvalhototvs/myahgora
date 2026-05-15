@@ -1,6 +1,3 @@
-import { Moon, Pipette, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
-import { useInspectMode } from "../ui/inspect-mode-provider";
 import svgPaths from "../../../imports/svg-xrhe7qzgal";
 
 interface HeaderProps {
@@ -11,10 +8,6 @@ interface HeaderProps {
 }
 
 export function Header({ userName, avatarUrl, onNotificationClick, onAvatarClick }: HeaderProps) {
-  const { resolvedTheme, setTheme } = useTheme();
-  const { enabled: inspectModeEnabled, toggle: toggleInspectMode } = useInspectMode();
-  const isDark = resolvedTheme === "dark";
-
   return (
     <div className="bg-primary flex flex-col items-start w-full relative transition-colors border-b border-transparent">
       <div className="flex flex-col gap-2 items-start px-6 py-4 w-full">
@@ -37,30 +30,6 @@ export function Header({ userName, avatarUrl, onNotificationClick, onAvatarClick
 
           {/* Icons / Notifications */}
           <div className="flex items-center justify-end relative shrink-0 gap-1">
-            <button
-              onClick={() => setTheme(isDark ? "light" : "dark")}
-              className="flex items-center justify-center rounded-full border border-primary-foreground/30 bg-primary-foreground/10 h-10 w-10 text-primary-foreground hover:bg-primary-foreground/15 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-foreground focus:ring-offset-2 focus:ring-offset-primary"
-              aria-label={isDark ? "Ativar modo claro" : "Ativar modo escuro"}
-              title={isDark ? "Ativar modo claro" : "Ativar modo escuro"}
-              type="button"
-            >
-              {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-            </button>
-
-            <button
-              onClick={toggleInspectMode}
-              className={`flex items-center justify-center rounded-full border h-10 w-10 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary ${
-                inspectModeEnabled
-                  ? "border-primary-foreground/35 bg-primary-foreground/20 text-primary-foreground"
-                  : "border-primary-foreground/25 bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/15"
-              }`}
-              aria-label={inspectModeEnabled ? "Desativar modo lupa" : "Ativar modo lupa"}
-              title={inspectModeEnabled ? "Desativar modo lupa" : "Ativar modo lupa"}
-              type="button"
-            >
-              <Pipette className="w-4 h-4" />
-            </button>
-
             {/* Megaphone Icon */}
             <button 
               onClick={onNotificationClick}
@@ -106,7 +75,7 @@ export function Header({ userName, avatarUrl, onNotificationClick, onAvatarClick
         </div>
 
         {/* User Greeting */}
-        <div className="flex items-center relative shrink-0 w-full mt-2 mb-4">
+        <div className="flex items-center relative shrink-0 w-full mt-2">
            <h1 className="text-xl font-semibold text-primary-foreground">
              Olá, {userName}
            </h1>

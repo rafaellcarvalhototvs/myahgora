@@ -40,7 +40,7 @@ export function AccessibilityReportScreen({ onBack }: AccessibilityReportScreenP
     {
       id: 5,
       title: 'Contraste de cores',
-      description: 'Verificação e ajuste de contraste para atender WCAG AA',
+      description: 'Verificação e ajuste de contraste para light/dark mode, incluindo tokens semânticos e estados de hover',
       status: 'implementado',
       impact: 'alto'
     },
@@ -61,7 +61,7 @@ export function AccessibilityReportScreen({ onBack }: AccessibilityReportScreenP
     {
       id: 8,
       title: 'Suporte a leitores de tela',
-      description: 'Compatibilidade com NVDA, JAWS, VoiceOver',
+      description: 'Compatibilidade com VoiceOver, TalkBack e leitores web, com guias de implementação por tela',
       status: 'implementado',
       impact: 'alto'
     }
@@ -153,13 +153,13 @@ export function AccessibilityReportScreen({ onBack }: AccessibilityReportScreenP
       elements: [
         {
           element: 'Cabeçalho',
-          announcement: 'Olá, Rafael. Botão de perfil. Botão de notificações. Botão de mensagens, 4 novas. Botão de lembretes.',
+          announcement: 'Botão perfil de Rafael. Botão ativar modo claro ou escuro. Botão ativar lupa. Botão notificações. Botão mensagens, 4 novas. Botão lembretes. Olá, Rafael.',
           rating: 'excelente',
-          notes: 'Labels descritivos, contagem de mensagens inclusa'
+          notes: 'Header atualizado com labels descritivos, ícones acessíveis e estado de mensagens'
         },
         {
           element: 'Cartão de ponto',
-          announcement: 'Registrar o ponto. 25 de Março, 2026. Vamos começar o dia? Registre seu primeiro ponto. Botão registrar ponto. Saldo total banco de horas, mais 02:04.',
+          announcement: 'Registrar o ponto. 15 de Maio, 2026. Vamos começar o dia? Registre seu primeiro ponto. Botão registrar o ponto. Saldo total banco de horas, mais 02:04.',
           rating: 'bom',
           notes: 'Informação temporal clara, estado do botão explícito'
         },
@@ -183,7 +183,7 @@ export function AccessibilityReportScreen({ onBack }: AccessibilityReportScreenP
         },
         {
           element: 'Menu inferior',
-          announcement: 'Menu de navegação. Botão Ponto, selecionado. Botão Espelho. Botão Ajustes. Botão Perfil.',
+          announcement: 'Menu de navegação. Botão Início, selecionado. Botão Documentos.',
           rating: 'excelente',
           notes: 'Estado de seleção anunciado para item ativo'
         }
@@ -194,25 +194,25 @@ export function AccessibilityReportScreen({ onBack }: AccessibilityReportScreenP
       elements: [
         {
           element: 'Calendário',
-          announcement: 'Calendário do mês de Abril 2026, grade. Domingo, segunda, terça, quarta, quinta, sexta, sábado. Dia 1, terça-feira, feriado, Páscoa. Dia 2, quarta-feira, dia útil. Dia 3, quinta-feira, dia útil. Dia 4, sexta-feira, dia útil, ponto registrado às 08:00 e 12:00. Dia 5, sábado, fim de semana.',
+          announcement: 'Calendário do mês de Maio 2026, grade. Domingo, segunda, terça, quarta, quinta, sexta, sábado. Dia 14, quinta-feira, selecionado, exceção. Dia 21, quinta-feira, feriado, Tiradentes. Datas futuras, indisponíveis.',
           rating: 'excelente',
-          notes: 'Estrutura de grade, informações contextuais (feriados, pontos) incluídas'
+          notes: 'Estrutura de grade, estado dos dias, feriados, exceções e indisponibilidade contextualizados'
         },
         {
           element: 'Botões de navegação',
-          announcement: 'Trocar mês e ano da competência, atual: Abril 2026, botão recolhível. Baixar espelho de ponto, botão.',
+          announcement: 'Trocar mês e ano da competência, atual: Maio - 2026, botão expandido falso. Baixar espelho de ponto, botão.',
           rating: 'bom',
           notes: 'Estado recolhível anunciado, função clara'
         },
         {
           element: 'Detalhes do dia selecionado',
-          announcement: 'Detalhes do dia selecionado, região. Sexta-feira, 04 de Abril, 2026. Batidas: 08:00 entrada, 12:00 saída para almoço, 13:00 retorno, 17:00 saída. Total trabalhado: 08:00 horas.',
+          announcement: 'Detalhes do dia selecionado, região. 14 de maio, 2026. Registros do dia: 08:27, 12:01, 13:02, 17:27. Horas trabalhadas: 07:59. Horas previstas: 08:00.',
           rating: 'excelente',
           notes: 'Região identificada, informações de horários estruturadas'
         },
         {
           element: 'Resumo mensal',
-          announcement: 'Resumo mensal, região. Total de horas trabalhadas: 160 horas. Horas extras: 08:00 horas. Faltas: 0 dias. Banco de horas: + 02:04 horas.',
+          announcement: 'Resumo mensal, região. Resumo mensal, Maio, 2026. Horas trabalhadas, horas previstas, feriados, horas positivas, horas negativas e saldo.',
           rating: 'excelente',
           notes: 'Dados resumidos apresentados de forma clara'
         }
@@ -287,9 +287,9 @@ export function AccessibilityReportScreen({ onBack }: AccessibilityReportScreenP
     },
     {
       aspect: 'Conteúdo dinâmico',
-      status: '🔄 Parcial',
-      details: 'aria-live para notificações em tempo real',
-      example: 'Faltam anúncios automáticos para atualizações de saldo em tempo real'
+      status: '✅ Implementado',
+      details: 'aria-live para mudanças de dia, competência, legenda e expansão do calendário',
+      example: 'Espelho detalhado: anúncios curtos para dia selecionado e calendário expandido/recolhido'
     }
   ];
 
@@ -355,7 +355,7 @@ export function AccessibilityReportScreen({ onBack }: AccessibilityReportScreenP
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-green-800">Tela Espelho Detalhado - Acessível</h3>
-                    <p className="text-green-700 mt-1">Esta tela foi revisada e aprimorada para atender aos padrões de acessibilidade WCAG 2.1 AA.</p>
+                    <p className="text-green-700 mt-1">Esta tela foi revisada e aprimorada para atender aos padrões de acessibilidade WCAG 2.1 AA, com guia de implementação incluído no relatório específico do espelho.</p>
                   </div>
                 </div>
               </div>
@@ -366,8 +366,8 @@ export function AccessibilityReportScreen({ onBack }: AccessibilityReportScreenP
                   <p className="text-2xl font-bold text-blue-800 mt-1">WCAG 2.1 AA</p>
                 </div>
                 <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
-                  <p className="text-sm text-purple-700">Critérios atendidos</p>
-                  <p className="text-2xl font-bold text-purple-800 mt-1">11/11</p>
+                  <p className="text-sm text-purple-700">Última revisão</p>
+                  <p className="text-2xl font-bold text-purple-800 mt-1">15/05</p>
                 </div>
               </div>
 
@@ -405,6 +405,14 @@ export function AccessibilityReportScreen({ onBack }: AccessibilityReportScreenP
                       </svg>
                     </div>
                     <span className="text-sm text-foreground">Indicadores de foco visíveis para navegação por teclado</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <div className="bg-green-100 p-1 rounded-full mt-0.5">
+                      <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                      </svg>
+                    </div>
+                    <span className="text-sm text-foreground">Guia direto de VoiceOver, TalkBack e leitores web no relatório do espelho detalhado</span>
                   </li>
                 </ul>
               </div>
@@ -564,7 +572,7 @@ export function AccessibilityReportScreen({ onBack }: AccessibilityReportScreenP
                 <ul className="text-sm text-gray-700 space-y-2">
                   <li className="flex items-start gap-2">
                     <span className="text-blue-600 mt-0.5">•</span>
-                    <span><strong>Implementar aria-live para atualizações em tempo real:</strong> Anunciar automaticamente mudanças no saldo de horas</span>
+                    <span><strong>Expandir cobertura de aria-live:</strong> levar o mesmo padrão de anúncios do espelho detalhado para outros fluxos com mudança dinâmica de estado</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-blue-600 mt-0.5">•</span>

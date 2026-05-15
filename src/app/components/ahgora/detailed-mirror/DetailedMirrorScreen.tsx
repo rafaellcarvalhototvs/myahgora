@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
+import CheckIcon from '@mui/icons-material/Check';
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 import AccessibilityIcon from '@mui/icons-material/Accessibility';
 import { format, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isWeekend as isWeekendDate, getDay } from 'date-fns';
@@ -776,7 +777,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
 
             {/* Schedule */}
             {dayDetail.schedule && (
-              <div className={`text-center text-sm mt-2 mb-3 ${dayDetail.isHoliday ? themeClasses.emphasis : themeClasses.mutedText}`}>
+              <div className={`text-center text-sm mt-2 mb-3 ${dayDetail.isHoliday ? themeClasses.emphasis : 'text-text-darken-2'}`}>
                 {dayDetail.isHoliday ? dayDetail.schedule : (
                   <>
                     <span className="font-semibold">Escala:</span> {dayDetail.schedule}
@@ -787,7 +788,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
           </div>
 
           {/* Selected Day Details */}
-          <div className={`mb-6 border rounded-[4px] p-4 ${themeClasses.panel}`} role="region" aria-label="Detalhes do dia selecionado">
+          <div className={`mb-6 rounded-[4px] border p-4 bg-card ${themeClasses.border}`} role="region" aria-label="Detalhes do dia selecionado">
             <div className="mb-4">
               <h3 className={`text-base font-semibold tracking-[0.024px] ${themeClasses.heading}`}>{dayDetail.date}</h3>
             </div>
@@ -810,6 +811,9 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
                         key={index}
                         className="relative w-12 h-12 rounded-full flex items-center justify-center shrink-0 border bg-[#eaf8ff] dark:bg-primary/15 border-primary"
                       >
+                        <div className="absolute -top-1 -right-1 z-10 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm">
+                          <CheckIcon sx={{ fontSize: 12, color: 'currentColor' }} />
+                        </div>
                         <p className={`text-sm font-semibold ${themeClasses.bodyText}`}>
                           {punch}
                         </p>

@@ -89,8 +89,8 @@ export function RegisterPointModal({ isOpen, onClose, onConfirm }: RegisterPoint
                 {/* Time Circle with Badge */}
                 <div className="relative bg-[#eaf8ff] dark:bg-primary/15 flex items-center justify-center rounded-full size-[56px] shrink-0 transition-colors">
                    {/* Check Badge (Absolute Top-Rightish) */}
-                   <div className="absolute top-0 right-0 bg-primary text-primary-foreground rounded-[4px] w-[18px] h-[18px] flex items-center justify-center z-10 translate-x-[-4px] translate-y-[0px]">
-                      <CheckIcon sx={{ color: 'currentColor', fontSize: 12 }} />
+                   <div className="absolute top-0 right-0 flex h-[22px] w-[22px] translate-x-[-2px] translate-y-[-2px] items-center justify-center rounded-full bg-primary text-primary-foreground z-10">
+                      <CheckIcon sx={{ color: 'currentColor', fontSize: 14 }} />
                    </div>
                    
                    <span className="font-['Open_Sans'] font-semibold text-[14px] text-foreground">

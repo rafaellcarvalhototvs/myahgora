@@ -3,7 +3,6 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import AccessibilityIcon from '@mui/icons-material/Accessibility';
 import KeyboardIcon from '@mui/icons-material/Keyboard';
-import ScreenRotationIcon from '@mui/icons-material/ScreenRotation';
 import PsychologyIcon from '@mui/icons-material/Psychology';
 
 interface DetailedMirrorAccessibilityReportProps {
@@ -11,7 +10,7 @@ interface DetailedMirrorAccessibilityReportProps {
 }
 
 export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAccessibilityReportProps) {
-  const [currentSection, setCurrentSection] = useState<'overview' | 'screen-reader' | 'keyboard' | 'contrast' | 'semantics' | 'usability'>('overview');
+  const [currentSection, setCurrentSection] = useState<'overview' | 'scope' | 'guide' | 'semantics' | 'keyboard' | 'contrast' | 'handoff'>('overview');
   const reportAccent = 'text-[#1D4ED8]';
   const reportAccentBorder = 'border-[#1D4ED8]';
   const selectedTabClasses = `${reportAccent} border-b-2 ${reportAccentBorder}`;
@@ -20,8 +19,8 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
     screenName: 'Espelho Detalhado',
     wcagLevel: 'AA',
     complianceScore: 98,
-    lastTested: '14/05/2026',
-    testTools: ['Inspeção manual do componente', 'VoiceOver (macOS)', 'Navegação por teclado', 'Cálculo de contraste WCAG', 'Validação de estados light/dark'],
+    lastTested: '15/05/2026',
+    testTools: ['Inspeção manual do componente', 'VoiceOver (macOS)', 'Navegação por teclado', 'Cálculo de contraste WCAG', 'Validação de estados light/dark', 'Revisão guiada de implementação para leitores de tela'],
     
     screenReaderOutput: {
       navigationSequence: [
@@ -95,8 +94,262 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
       areasForImprovement: [
         'Cobrir com testes automatizados os anúncios de leitor de telas',
         'Adicionar atalho para retornar rapidamente à data de hoje',
-        'Levar a legenda textual para outras telas com comportamento semelhante'
+        'Levar a legenda textual para outras telas com comportamento semelhante',
+        'Replicar o mesmo guia direto de implementação em outros fluxos críticos do produto'
       ]
+    },
+
+    implementationGuide: {
+      principles: [
+        'Use elementos nativos antes de ARIA extra: `button`, `main`, headings e listas.',
+        'Faça a tela funcionar por foco e ordem de leitura, não por tentativa e erro com leitor de telas.',
+        'Anuncie só mudanças importantes: dia selecionado, competência alterada, calendário expandido/recolhido.',
+        'Nunca dependa só de cor para feriado, exceção, saldo positivo ou negativo.',
+      ],
+      readingOrder: [
+        'Skip link: Pular para o conteúdo principal',
+        'Botão voltar',
+        'Título da tela: Espelho detalhado',
+        'Botão de relatório de acessibilidade',
+        'Heading Competência',
+        'Botão trocar competência',
+        'Botão baixar espelho',
+        'Heading Calendário',
+        'Botão ver legenda',
+        'Cabeçalhos da grade: Domingo, Segunda, Terça, Quarta, Quinta, Sexta, Sábado',
+        'Dias da grade, um por um, com data completa e estado',
+        'Botão expandir/recolher calendário',
+        'Texto da escala do dia ou mensagem de feriado',
+        'Região detalhes do dia selecionado',
+        'Data completa do dia selecionado',
+        'Heading Registros do dia',
+        'Lista de horários de batida',
+        'Linha Horas trabalhadas',
+        'Linha Horas previstas',
+        'Região Solicitar ajustes',
+        'Botões de ação rápida, um por um',
+        'Linha Saldo total banco de horas',
+        'Região Resumo mensal',
+        'Heading do resumo mensal',
+        'Linhas de horas trabalhadas, previstas e feriados',
+        'Linhas de horas positivas e negativas',
+        'Linha de saldo consolidado',
+        'Linha Banco de horas no mês',
+      ],
+      componentRules: [
+        {
+          component: 'Header',
+          rules: [
+            'O botão Voltar deve ser um `button` com `aria-label` explícito.',
+            'O título da tela deve ser o único `h1`.',
+            'A ação de acessibilidade deve ser um `button` com nome claro e sem depender só do ícone.',
+          ],
+        },
+        {
+          component: 'Competência',
+          rules: [
+            'Use heading visível para o bloco.',
+            'O botão de trocar competência deve anunciar o valor atual.',
+            'O botão de baixar deve anunciar o tipo de arquivo ou ação quando houver essa informação.',
+          ],
+        },
+        {
+          component: 'Calendário',
+          rules: [
+            'Implemente como `grid` com `columnheader` e `gridcell`.',
+            'Use roving tabindex: só um dia com `tabIndex=0`, os demais `-1`.',
+            'Cada dia precisa anunciar data, dia da semana, estados e indisponibilidade.',
+            'Datas futuras devem ser desabilitadas semanticamente, não só visualmente.',
+          ],
+        },
+        {
+          component: 'Detalhes do dia',
+          rules: [
+            'A área deve ser `region` com rótulo claro.',
+            'Os horários precisam ser lidos em sequência natural.',
+            'Quando não houver batidas, o texto alternativo deve ser explícito.',
+          ],
+        },
+        {
+          component: 'Bottom sheets',
+          rules: [
+            'Use `role=\"dialog\"`, `aria-modal`, `aria-labelledby` e `aria-describedby`.',
+            'Leve o foco para dentro ao abrir e devolva para a origem ao fechar.',
+            'Backdrop não pode impedir fechamento por gesto, clique externo ou Escape.',
+          ],
+        },
+        {
+          component: 'Resumo mensal',
+          rules: [
+            'Mantenha a leitura linear, sem exigir interpretação visual da tabela.',
+            'Saldo e horas positivas/negativas devem ter semântica textual além da cor.',
+            'Linhas críticas como saldo devem ser legíveis isoladamente no foco.',
+          ],
+        },
+      ],
+      requiredPatterns: [
+        {
+          title: 'Cabeçalhos e landmarks',
+          rules: [
+            'Use 1 único `h1` para o título da tela.',
+            'Use `h2` para blocos principais como Competência e Resumo mensal.',
+            'Use `role=\"region\"` com `aria-label` em áreas longas como detalhes do dia e resumo mensal.',
+            'Mantenha `main` envolvendo todo o conteúdo operacional.',
+          ],
+        },
+        {
+          title: 'Calendário acessível',
+          rules: [
+            'Use `role=\"grid\"` no calendário e `role=\"gridcell\"` nos dias clicáveis.',
+            'Cada dia precisa de `aria-label` completo com data, dia da semana e estado.',
+            'Use `aria-selected` para o dia atual e `aria-disabled` para datas futuras.',
+            'Setas navegam entre os dias; Enter/Espaço selecionam.',
+          ],
+        },
+        {
+          title: 'Atualizações dinâmicas',
+          rules: [
+            'Use uma região `aria-live=\"polite\"` para mudanças de dia, competência e expansão.',
+            'O texto anunciado deve ser curto e orientado à tarefa.',
+            'Evite duplicar no anúncio tudo que já está imediatamente ao redor do foco.',
+          ],
+        },
+        {
+          title: 'Bottom sheets e diálogos',
+          rules: [
+            'Use `role=\"dialog\"` + `aria-modal=\"true\"`.',
+            'Associe `aria-labelledby` e `aria-describedby`.',
+            'Leve o foco inicial para o botão fechar.',
+            'Feche com `Escape` no web e respeite o gesto de voltar no mobile.',
+          ],
+        },
+        {
+          title: 'Feriados, exceções e saldo',
+          rules: [
+            'Sempre combine indicador visual com texto acessível.',
+            'Para feriado, anuncie nome e contexto do feriado no dia.',
+            'Para exceção, anuncie que o dia possui ocorrência.',
+            'Para saldo positivo/negativo, preserve semântica textual além da cor.',
+          ],
+        },
+      ],
+      platformChecks: [
+        {
+          platform: 'VoiceOver (iPhone/iPad)',
+          checks: [
+            'Swipe percorre a ordem da tela sem saltos estranhos.',
+            'Duplo toque ativa corretamente trocar competência, legenda e dias do calendário.',
+            'Ao abrir bottom sheet, o foco entra no diálogo.',
+            'Ao mudar o dia, o anúncio fala o resumo do dia selecionado.',
+          ],
+        },
+        {
+          platform: 'TalkBack (Android)',
+          checks: [
+            'Exploração por toque encontra os dias da grade com rótulo completo.',
+            'Ações rápidas são lidas como botões individuais.',
+            'Botões recolhíveis anunciam o estado expandido/recolhido.',
+            'Datas futuras são anunciadas como indisponíveis.',
+          ],
+        },
+        {
+          platform: 'Leitores web (desktop)',
+          checks: [
+            'Tab e Shift+Tab seguem ordem lógica.',
+            'Setas funcionam dentro da grade do calendário.',
+            'Skip link aparece ao focar.',
+            'Foco não some ao abrir ou fechar bottom sheets.',
+          ],
+        },
+      ],
+      marketStandard: [
+        'Preferir HTML semântico + ARIA mínima e correta.',
+        'Usar anúncios curtos, específicos e transacionais.',
+        'Tratar grade de calendário como componente rico com roving tabindex.',
+        'Testar de verdade em VoiceOver e TalkBack, não só por inspeção de DOM.',
+      ],
+      qaChecklist: [
+        'Com VoiceOver, percorrer a tela inteira por swipe e confirmar a ordem de leitura item a item.',
+        'Com TalkBack, explorar por toque a grade do calendário e validar os rótulos completos dos dias.',
+        'Com teclado no web, validar Tab, Shift+Tab, setas, Home, End, Enter, Espaço e Escape.',
+        'Confirmar que o foco entra e sai corretamente dos bottom sheets.',
+        'Confirmar que mudanças de competência, dia e expansão do calendário disparam anúncio curto via aria-live.',
+        'Confirmar que feriado, exceção e saldo continuam compreensíveis sem apoio de cor.',
+      ],
+    },
+
+    handoff: {
+      scope: {
+        included: [
+          'Header da tela e navegação principal',
+          'Bloco de competência e ação de download',
+          'Calendário recolhido e expandido',
+          'Legenda do calendário e bottom sheet de competência',
+          'Detalhes do dia selecionado',
+          'Ações rápidas de ajuste de ponto',
+          'Saldo e resumo mensal',
+          'Comportamento light/dark e tokens semânticos relevantes',
+        ],
+        excluded: [
+          'Fluxos completos posteriores de incluir, cancelar, substituir e solicitar abono',
+          'Download real do arquivo de espelho',
+          'Integrações com backend, carregamento remoto e estados de erro de API',
+          'Cobertura automatizada fim a fim fora desta tela',
+        ],
+      },
+      states: [
+        'Dia comum com batidas e horas previstas',
+        'Dia com feriado e descrição textual',
+        'Dia com exceção sinalizada no calendário',
+        'Data futura desabilitada',
+        'Calendário recolhido para semana atual',
+        'Calendário expandido para o mês',
+        'Dia sem registros de batida',
+        'Dia sem horas previstas ou sem horas trabalhadas',
+        'Bottom sheet de legenda aberto',
+        'Bottom sheet de competência aberto',
+      ],
+      behaviors: [
+        'Trocar competência atualiza mês/ano visível e anuncia a mudança por `aria-live`.',
+        'Selecionar um dia atualiza detalhes, saldo contextual e anúncio curto do dia selecionado.',
+        'Expandir ou recolher calendário preserva foco e anuncia o novo estado.',
+        'Abrir bottom sheet move foco para dentro do diálogo e permite fechamento por botão, backdrop e Escape.',
+        'Datas futuras permanecem indisponíveis semanticamente e visualmente.',
+      ],
+      tokenSource: [
+        '`primary`: header, CTA principal e elementos de destaque forte',
+        '`primary-darken-1`: outlines, links, ícones ativos e texto interativo no dark',
+        '`destructive-contrast`: indicador negativo pequeno e texto de exceção no dark',
+        '`text-lighten-3`: linhas divisórias e separadores sutis',
+        '`text-darken-2`: labels de apoio como a escala em superfícies claras',
+      ],
+      acceptanceCriteria: [
+        'Ordem de leitura validada em VoiceOver, TalkBack e navegação por teclado web',
+        'Bottom sheets com `role="dialog"`, `aria-modal`, foco inicial e fechamento consistente',
+        'Calendário com `role="grid"`, `aria-selected`, `aria-disabled` e roving tabindex',
+        'Contraste conforme a matriz oficial em light/dark para texto, outline e estados negativos',
+        'Nenhuma informação crítica depende exclusivamente de cor',
+        'Tokens semânticos corretos aplicados nas áreas documentadas deste relatório',
+      ],
+      knownRisks: [
+        'Anúncios de leitor de telas ainda dependem de validação manual regressiva a cada mudança de layout.',
+        'Troca futura da cor de marca exige nova verificação de contraste nos tokens derivados.',
+        'Fluxos filhos de ajuste de ponto podem divergir se não herdarem os mesmos padrões documentados aqui.',
+      ],
+      componentMap: [
+        { component: 'Tela principal', file: 'src/app/components/ahgora/detailed-mirror/DetailedMirrorScreen.tsx', responsibility: 'Layout, calendário, detalhes do dia, resumo e live region' },
+        { component: 'Legenda do calendário', file: 'src/app/components/ahgora/CalendarLegendBottomSheet.tsx', responsibility: 'Significado visual e textual dos indicadores do calendário' },
+        { component: 'Competência', file: 'src/app/components/ahgora/MonthYearBottomSheet.tsx', responsibility: 'Seleção de mês e ano com semântica modal' },
+        { component: 'Ações rápidas', file: 'src/app/components/ahgora/ActionButtons.tsx', responsibility: 'Atalhos para fluxos de ajuste de ponto' },
+        { component: 'Botão base', file: 'src/app/components/ahgora/AhgoraButton.tsx', responsibility: 'Semântica visual e estados dos botões do fluxo' },
+        { component: 'Tema/tokens', file: 'src/styles/theme.css', responsibility: 'Fonte da verdade de cores, contraste e estados light/dark' },
+      ],
+      qaByArea: [
+        { area: 'Visual', checks: ['Verificar estados normal, feriado, exceção e data futura', 'Confirmar tokens corretos em light e dark', 'Validar linhas, bordas, badges e contraste de CTA'] },
+        { area: 'Teclado', checks: ['Validar Tab/Shift+Tab entre blocos', 'Validar setas dentro da grade', 'Validar Escape nos bottom sheets'] },
+        { area: 'VoiceOver', checks: ['Confirmar ordem de leitura', 'Confirmar anúncio de dia selecionado', 'Confirmar rótulos completos dos dias'] },
+        { area: 'TalkBack', checks: ['Explorar por toque o calendário', 'Confirmar botões e regiões nomeadas', 'Confirmar datas futuras como indisponíveis'] },
+      ],
     },
 
     keyboardNavigation: {
@@ -291,17 +544,37 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
             >
               <div className="flex items-center gap-2">
                 <AccessibilityIcon className="w-4 h-4" />
-                <span>Visão Geral</span>
+                <span>Resumo</span>
+              </div>
+            </button>
+
+            <button
+              onClick={() => setCurrentSection('scope')}
+              className={`flex-none py-3 px-4 text-sm font-medium whitespace-nowrap ${currentSection === 'scope' ? selectedTabClasses : 'text-gray-600'}`}
+            >
+              <div className="flex items-center gap-2">
+                <CalendarTodayIcon className="w-4 h-4" />
+                <span>Escopo</span>
               </div>
             </button>
             
             <button
-              onClick={() => setCurrentSection('screen-reader')}
-              className={`flex-none py-3 px-4 text-sm font-medium whitespace-nowrap ${currentSection === 'screen-reader' ? selectedTabClasses : 'text-gray-600'}`}
+              onClick={() => setCurrentSection('guide')}
+              className={`flex-none py-3 px-4 text-sm font-medium whitespace-nowrap ${currentSection === 'guide' ? selectedTabClasses : 'text-gray-600'}`}
             >
               <div className="flex items-center gap-2">
-                <ScreenRotationIcon className="w-4 h-4" />
-                <span>Leitor de Telas</span>
+                <AccessibilityIcon className="w-4 h-4" />
+                <span>Implementação</span>
+              </div>
+            </button>
+
+            <button
+              onClick={() => setCurrentSection('semantics')}
+              className={`flex-none py-3 px-4 text-sm font-medium whitespace-nowrap ${currentSection === 'semantics' ? selectedTabClasses : 'text-gray-600'}`}
+            >
+              <div className="flex items-center gap-2">
+                <span className="text-lg font-bold">{"</>"}</span>
+                <span>Estrutura</span>
               </div>
             </button>
             
@@ -326,22 +599,12 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
             </button>
             
             <button
-              onClick={() => setCurrentSection('semantics')}
-              className={`flex-none py-3 px-4 text-sm font-medium whitespace-nowrap ${currentSection === 'semantics' ? selectedTabClasses : 'text-gray-600'}`}
-            >
-              <div className="flex items-center gap-2">
-                <span className="text-lg font-bold">{"</>"}</span>
-                <span>Semântica</span>
-              </div>
-            </button>
-            
-            <button
-              onClick={() => setCurrentSection('usability')}
-              className={`flex-none py-3 px-4 text-sm font-medium whitespace-nowrap ${currentSection === 'usability' ? selectedTabClasses : 'text-gray-600'}`}
+              onClick={() => setCurrentSection('handoff')}
+              className={`flex-none py-3 px-4 text-sm font-medium whitespace-nowrap ${currentSection === 'handoff' ? selectedTabClasses : 'text-gray-600'}`}
             >
               <div className="flex items-center gap-2">
                 <PsychologyIcon className="w-4 h-4" />
-                <span>Usabilidade</span>
+                <span>Handoff</span>
               </div>
             </button>
           </div>
@@ -397,38 +660,126 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
             </div>
           )}
 
-          {/* Screen Reader Section */}
-          {currentSection === 'screen-reader' && (
+          {currentSection === 'scope' && (
             <div className="space-y-6">
-              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                <h3 className="text-sm font-semibold text-green-800 mb-2">Sequência de Navegação por Leitor de Telas</h3>
-                <p className="text-sm text-green-700">
-                  Esta é a sequência exata que um usuário de leitor de telas ouviria ao navegar pela tela:
+              <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                <h3 className="text-sm font-semibold text-slate-800 mb-2">Escopo do relatório</h3>
+                <p className="text-sm text-slate-700">
+                  Esta aba delimita o que este handoff cobre, os estados considerados importantes e o comportamento esperado da tela para evitar dúvida entre design, frontend, QA e acessibilidade.
                 </p>
               </div>
 
-              <div className="space-y-4">
-                {reportData.screenReaderOutput.navigationSequence.map((item, index) => (
-                  <div key={index} className="border-l-4 border-[#1D4ED8] pl-4 py-3">
-                    <div className="flex items-start gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="border border-gray-200 rounded-lg p-4">
+                  <h4 className="text-sm font-semibold text-gray-900 mb-3">Coberto neste relatório</h4>
+                  <ul className="space-y-2">
+                    {reportData.handoff.scope.included.map((item, index) => (
+                      <li key={index} className="flex items-start gap-2 text-sm text-gray-700">
+                        <span className="text-green-600 mt-0.5">✓</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="border border-gray-200 rounded-lg p-4">
+                  <h4 className="text-sm font-semibold text-gray-900 mb-3">Fora do escopo</h4>
+                  <ul className="space-y-2">
+                    {reportData.handoff.scope.excluded.map((item, index) => (
+                      <li key={index} className="flex items-start gap-2 text-sm text-gray-700">
+                        <span className="text-gray-500 mt-0.5">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-base font-semibold text-gray-900 mb-3">Estados relevantes da tela</h3>
+                <div className="space-y-2">
+                  {reportData.handoff.states.map((item, index) => (
+                    <div key={index} className="border border-gray-200 rounded-lg p-3 text-sm text-gray-700">
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-base font-semibold text-gray-900 mb-3">Comportamento esperado</h3>
+                <div className="space-y-2">
+                  {reportData.handoff.behaviors.map((item, index) => (
+                    <div key={index} className="flex items-start gap-2 border border-gray-200 rounded-lg p-3 text-sm text-gray-700">
+                      <span className="text-[#1D4ED8] mt-0.5">•</span>
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {currentSection === 'guide' && (
+            <div className="space-y-6">
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <h3 className="text-sm font-semibold text-blue-800 mb-2">Guia de mercado para aplicar acessibilidade nesta tela</h3>
+                <p className="text-sm text-blue-700">
+                  Este guia descreve como o Espelho Detalhado deve ser construído e validado para VoiceOver, TalkBack e leitores web, usando o padrão mais aceito hoje em produto digital.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-base font-semibold text-gray-900 mb-3">Princípios obrigatórios</h3>
+                <div className="space-y-2">
+                  {reportData.implementationGuide.principles.map((item, index) => (
+                    <div key={index} className="flex items-start gap-3 p-3 border border-gray-200 rounded-lg">
+                      <span className="mt-1 h-2 w-2 rounded-full bg-[#1D4ED8]"></span>
+                      <p className="text-sm text-gray-700">{item}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-base font-semibold text-gray-900 mb-3">Ordem de leitura esperada</h3>
+                <div className="space-y-2">
+                  {reportData.implementationGuide.readingOrder.map((item, index) => (
+                    <div key={index} className="flex items-start gap-3 border border-gray-200 rounded-lg p-3">
                       <div className="bg-gray-100 text-gray-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold flex-shrink-0">
                         {index + 1}
                       </div>
-                      <div className="flex-1">
-                        <h4 className="text-sm font-semibold text-gray-900">{item.element}</h4>
-                        <div className="mt-2 p-3 bg-gray-50 rounded border border-gray-200">
-                          <p className="text-sm text-gray-700 italic">"{item.announcement}"</p>
+                      <p className="text-sm text-gray-700">{item}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-base font-semibold text-gray-900 mb-3">O que o leitor de telas deve anunciar</h3>
+                <div className="space-y-4">
+                  {reportData.screenReaderOutput.navigationSequence.map((item, index) => (
+                    <div key={index} className="border-l-4 border-[#1D4ED8] pl-4 py-3">
+                      <div className="flex items-start gap-3">
+                        <div className="bg-gray-100 text-gray-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold flex-shrink-0">
+                          {index + 1}
                         </div>
-                        <p className="text-xs text-gray-600 mt-2">📌 {item.purpose}</p>
+                        <div className="flex-1">
+                          <h4 className="text-sm font-semibold text-gray-900">{item.element}</h4>
+                          <div className="mt-2 p-3 bg-gray-50 rounded border border-gray-200">
+                            <p className="text-sm text-gray-700 italic">"{item.announcement}"</p>
+                          </div>
+                          <p className="text-xs text-gray-600 mt-2">📌 {item.purpose}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                  <h4 className="text-sm font-semibold text-blue-800 mb-2">Pontos Fortes</h4>
+                  <h4 className="text-sm font-semibold text-blue-800 mb-2">Pontos fortes atuais</h4>
                   <ul className="text-sm text-blue-700 space-y-1">
                     {reportData.screenReaderOutput.keyStrengths.map((strength, index) => (
                       <li key={index} className="flex items-start gap-2">
@@ -440,7 +791,7 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
                 </div>
 
                 <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                  <h4 className="text-sm font-semibold text-yellow-800 mb-2">Áreas para Melhoria</h4>
+                  <h4 className="text-sm font-semibold text-yellow-800 mb-2">Pontos a evoluir</h4>
                   <ul className="text-sm text-yellow-700 space-y-1">
                     {reportData.screenReaderOutput.areasForImprovement.map((area, index) => (
                       <li key={index} className="flex items-start gap-2">
@@ -450,6 +801,87 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
                     ))}
                   </ul>
                 </div>
+              </div>
+
+              <div>
+                <h3 className="text-base font-semibold text-gray-900 mb-3">Como implementar</h3>
+                <div className="space-y-4">
+                  {reportData.implementationGuide.requiredPatterns.map((pattern, index) => (
+                    <div key={index} className="border border-gray-200 rounded-lg p-4">
+                      <h4 className="text-sm font-semibold text-gray-900 mb-3">{pattern.title}</h4>
+                      <ul className="space-y-2">
+                        {pattern.rules.map((rule, ruleIndex) => (
+                          <li key={ruleIndex} className="flex items-start gap-2 text-sm text-gray-700">
+                            <span className="text-[#1D4ED8] mt-0.5">•</span>
+                            <span>{rule}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-base font-semibold text-gray-900 mb-3">Regras por componente</h3>
+                <div className="space-y-4">
+                  {reportData.implementationGuide.componentRules.map((item, index) => (
+                    <div key={index} className="border border-gray-200 rounded-lg p-4">
+                      <h4 className="text-sm font-semibold text-gray-900 mb-3">{item.component}</h4>
+                      <ul className="space-y-2">
+                        {item.rules.map((rule, ruleIndex) => (
+                          <li key={ruleIndex} className="flex items-start gap-2 text-sm text-gray-700">
+                            <span className="text-[#1D4ED8] mt-0.5">•</span>
+                            <span>{rule}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-base font-semibold text-gray-900 mb-3">Checklist por plataforma</h3>
+                <div className="space-y-4">
+                  {reportData.implementationGuide.platformChecks.map((platform, index) => (
+                    <div key={index} className="border border-gray-200 rounded-lg p-4">
+                      <h4 className="text-sm font-semibold text-gray-900 mb-3">{platform.platform}</h4>
+                      <ul className="space-y-2">
+                        {platform.checks.map((check, checkIndex) => (
+                          <li key={checkIndex} className="flex items-start gap-2 text-sm text-gray-700">
+                            <span className="text-green-600 mt-0.5">✓</span>
+                            <span>{check}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <h4 className="text-sm font-semibold text-green-800 mb-2">Padrão de mercado aplicado</h4>
+                <ul className="text-sm text-green-700 space-y-2">
+                  {reportData.implementationGuide.marketStandard.map((item, index) => (
+                    <li key={index} className="flex items-start gap-2">
+                      <span className="text-green-600 mt-0.5">✓</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                <h4 className="text-sm font-semibold text-gray-800 mb-2">Checklist de QA para desenvolvimento</h4>
+                <ul className="text-sm text-gray-700 space-y-2">
+                  {reportData.implementationGuide.qaChecklist.map((item, index) => (
+                    <li key={index} className="flex items-start gap-2">
+                      <span className="text-gray-600 mt-0.5">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           )}
@@ -648,186 +1080,79 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
             </div>
           )}
 
-          {/* Usability Section */}
-          {currentSection === 'usability' && (
+          {currentSection === 'handoff' && (
             <div className="space-y-6">
-              <div className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-xl p-4 mb-6">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <h2 className="text-lg font-bold text-gray-900">Análise de Usabilidade</h2>
-                    <p className="text-sm text-gray-700 mt-1">Avaliação baseada nas 10 Heurísticas de Nielsen e métricas de UX</p>
-                    
-                    <div className="flex items-center gap-4 mt-3">
-                      <div className="flex items-center gap-2">
-                        <div className="bg-purple-100 p-1.5 rounded-lg">
-                          <span className="text-sm font-bold text-purple-700">{reportData.usability.usabilityScore}%</span>
-                        </div>
-                        <div>
-                          <p className="text-xs text-gray-600">Pontuação de Usabilidade</p>
-                          <p className="text-sm font-semibold text-gray-900">Avaliado em 11/04/2026</p>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-center gap-2">
-                        <div className="bg-pink-100 p-1.5 rounded-lg">
-                          <span className="text-sm font-bold text-pink-700">{reportData.usability.satisfactionScore}/5</span>
-                        </div>
-                        <div>
-                          <p className="text-xs text-gray-600">Satisfação do Usuário</p>
-                          <p className="text-sm font-semibold text-gray-900">Baseado em testes com 15 usuários</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="bg-white p-2 rounded-lg border">
-                    <PsychologyIcon className="w-8 h-8 text-purple-600" />
-                  </div>
-                </div>
+              <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                <h3 className="text-sm font-semibold text-purple-800 mb-2">Fechamento para handoff</h3>
+                <p className="text-sm text-purple-700">
+                  Esta aba concentra a fonte da verdade técnica: tokens que devem ser usados, critérios de aceite, riscos conhecidos, mapa de componentes e checklist final de QA.
+                </p>
               </div>
 
               <div>
-                <h3 className="text-base font-semibold text-gray-900 mb-3">Avaliação por Heurísticas de Nielsen</h3>
+                <h3 className="text-base font-semibold text-gray-900 mb-3">Fonte da verdade dos tokens</h3>
                 <div className="space-y-3">
-                  {reportData.usability.heuristicEvaluation.map((heuristic, index) => (
-                    <div key={index} className="border border-gray-200 rounded-lg p-4">
-                      <div className="flex justify-between items-start mb-2">
-                        <h4 className="text-sm font-semibold text-gray-900">{heuristic.heuristic}</h4>
-                        <span className={`px-2 py-1 rounded text-xs font-medium ${
-                          heuristic.rating === 'Excelente' ? 'bg-green-100 text-green-800' :
-                          heuristic.rating === 'Bom' ? 'bg-blue-100 text-blue-800' :
-                          heuristic.rating === 'Regular' ? 'bg-yellow-100 text-yellow-800' :
-                          'bg-red-100 text-red-800'
-                        }`}>
-                          {heuristic.rating}
-                        </span>
-                      </div>
-                      <p className="text-sm text-gray-600 mb-2">{heuristic.notes}</p>
-                      <div className="bg-gray-50 border border-gray-200 rounded p-3">
-                        <p className="text-xs font-medium text-gray-700 mb-1">Recomendação:</p>
-                        <p className="text-sm text-gray-900">{heuristic.recommendation}</p>
-                      </div>
+                  {reportData.handoff.tokenSource.map((item, index) => (
+                    <div key={index} className="border border-gray-200 rounded-lg p-4 text-sm text-gray-700">
+                      {item}
                     </div>
                   ))}
                 </div>
               </div>
 
               <div>
-                <h3 className="text-base font-semibold text-gray-900 mb-3">Taxa de Sucesso por Tarefa</h3>
+                <h3 className="text-base font-semibold text-gray-900 mb-3">Critérios de aceite</h3>
                 <div className="space-y-3">
-                  {reportData.usability.taskSuccessRate.map((task, index) => (
-                    <div key={index} className="border border-gray-200 rounded-lg p-4">
-                      <div className="flex justify-between items-center mb-3">
-                        <h4 className="text-sm font-semibold text-gray-900">{task.task}</h4>
-                        <span className={`px-2 py-1 rounded text-xs font-medium ${
-                          task.successRate >= 95 ? 'bg-green-100 text-green-800' :
-                          task.successRate >= 85 ? 'bg-blue-100 text-blue-800' :
-                          task.successRate >= 75 ? 'bg-yellow-100 text-yellow-800' :
-                          'bg-red-100 text-red-800'
-                        }`}>
-                          {task.successRate}% sucesso
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="text-xs text-gray-600">Tempo estimado</p>
-                          <p className="text-sm font-medium text-gray-900">{task.timeEstimate}</p>
-                        </div>
-                        <div>
-                          <p className="text-xs text-gray-600">Dificuldade percebida</p>
-                          <p className="text-sm font-medium text-gray-900">{task.difficulty}</p>
-                        </div>
-                        <div>
-                          <p className="text-xs text-gray-600">Experiência</p>
-                          <div className="flex items-center">
-                            {[...Array(5)].map((_, i) => (
-                              <div
-                                key={i}
-                                className={`w-2 h-2 rounded-full mx-0.5 ${
-                                  i < Math.floor(task.successRate / 20)
-                                    ? 'bg-green-500'
-                                    : 'bg-gray-300'
-                                }`}
-                              />
-                            ))}
-                          </div>
-                        </div>
-                      </div>
+                  {reportData.handoff.acceptanceCriteria.map((item, index) => (
+                    <div key={index} className="flex items-start gap-2 border border-gray-200 rounded-lg p-4 text-sm text-gray-700">
+                      <span className="text-green-600 mt-0.5">✓</span>
+                      <span>{item}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-                  <h4 className="text-sm font-semibold text-red-800 mb-3">Pontos Críticos de Dor</h4>
-                  <div className="space-y-3">
-                    {reportData.usability.painPoints.map((point, index) => (
-                      <div key={index} className="border border-red-200 bg-white rounded p-3">
-                        <div className="flex justify-between items-center mb-2">
-                          <h5 className="text-sm font-medium text-gray-900">{point.issue}</h5>
-                          <span className={`px-2 py-0.5 rounded text-xs font-medium ${
-                            point.severity === 'Alta' ? 'bg-red-100 text-red-800' :
-                            point.severity === 'Média' ? 'bg-yellow-100 text-yellow-800' :
-                            'bg-blue-100 text-blue-800'
-                          }`}>
-                            {point.severity}
-                          </span>
-                        </div>
-                        <p className="text-xs text-gray-600 mb-2">{point.impact}</p>
-                        <div className="bg-red-50 border border-red-100 rounded p-2">
-                          <p className="text-xs font-medium text-red-700 mb-1">Solução proposta:</p>
-                          <p className="text-sm text-red-900">{point.solution}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                <h4 className="text-sm font-semibold text-yellow-800 mb-2">Riscos conhecidos</h4>
+                <ul className="space-y-2">
+                  {reportData.handoff.knownRisks.map((item, index) => (
+                    <li key={index} className="flex items-start gap-2 text-sm text-yellow-700">
+                      <span className="mt-0.5">↻</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-                <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                  <h4 className="text-sm font-semibold text-green-800 mb-3">Recomendações Prioritárias</h4>
-                  <ol className="text-sm text-green-700 space-y-3 list-decimal list-inside">
-                    {reportData.usability.recommendations.map((rec, index) => (
-                      <li key={index} className="pb-2 border-b border-green-200 last:border-b-0">
-                        <span className="font-medium">{rec}</span>
-                      </li>
-                    ))}
-                  </ol>
-                  <div className="mt-4 pt-4 border-t border-green-200">
-                    <p className="text-xs text-green-600">
-                      <span className="font-semibold">Impacto estimado:</span> Implementar essas recomendações pode aumentar a satisfação do usuário em 25% e reduzir o tempo de tarefas em 40%.
-                    </p>
-                  </div>
+              <div>
+                <h3 className="text-base font-semibold text-gray-900 mb-3">Mapa de componentes</h3>
+                <div className="space-y-3">
+                  {reportData.handoff.componentMap.map((item, index) => (
+                    <div key={index} className="border border-gray-200 rounded-lg p-4">
+                      <h4 className="text-sm font-semibold text-gray-900">{item.component}</h4>
+                      <p className="text-xs font-mono text-gray-600 mt-1">{item.file}</p>
+                      <p className="text-sm text-gray-700 mt-2">{item.responsibility}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
 
-              <div className="bg-gradient-to-r from-gray-50 to-blue-50 border border-gray-200 rounded-lg p-4">
-                <h4 className="text-sm font-semibold text-gray-900 mb-3">Resumo Executivo de Usabilidade</h4>
+              <div>
+                <h3 className="text-base font-semibold text-gray-900 mb-3">Checklist final de QA</h3>
                 <div className="space-y-3">
-                  <p className="text-sm text-gray-700">
-                    A tela <strong>Espelho Detalhado</strong> apresenta uma <strong>boa usabilidade geral ({reportData.usability.usabilityScore}%)</strong> com destaque para a
-                    <strong> clareza visual das informações</strong> e <strong>navegação intuitiva</strong>. Os principais pontos fortes são o
-                    <strong> design limpo</strong> e a <strong>correspondência com o modelo mental</strong> do usuário de ponto eletrônico.
-                  </p>
-                  <p className="text-sm text-gray-700">
-                    As áreas que requerem atenção são a <strong>densidade de informação em telas pequenas</strong> e a
-                    <strong> falta de feedback durante operações de carregamento</strong>. A implementação das recomendações prioritárias
-                    pode elevar a pontuação de usabilidade para <strong>90%+</strong> e melhorar significativamente a experiência do usuário.
-                  </p>
-                  <div className="flex items-center gap-4 pt-2">
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-gray-900">{reportData.usability.usabilityScore}%</div>
-                      <div className="text-xs text-gray-600">Usabilidade</div>
+                  {reportData.handoff.qaByArea.map((item, index) => (
+                    <div key={index} className="border border-gray-200 rounded-lg p-4">
+                      <h4 className="text-sm font-semibold text-gray-900 mb-2">{item.area}</h4>
+                      <ul className="space-y-2">
+                        {item.checks.map((check, checkIndex) => (
+                          <li key={checkIndex} className="flex items-start gap-2 text-sm text-gray-700">
+                            <span className="text-gray-600 mt-0.5">•</span>
+                            <span>{check}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-gray-900">{reportData.usability.satisfactionScore}/5</div>
-                      <div className="text-xs text-gray-600">Satisfação</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-gray-900">8.4/10</div>
-                      <div className="text-xs text-gray-600">NPS</div>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>

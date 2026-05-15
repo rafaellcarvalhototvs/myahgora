@@ -295,8 +295,8 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
             <div className="flex flex-col items-center gap-3 flex-1">
               <span className="text-[12px] font-bold text-primary tracking-[0.5px]">Novo</span>
               <div className="w-[64px] h-[64px] rounded-full border-2 border-primary bg-[#eaf8ff] flex items-center justify-center relative shadow-sm">
-                <div className="absolute -top-1.5 -right-1.5 bg-primary rounded-full w-[22px] h-[22px] flex items-center justify-center text-primary-foreground border-2 border-white shadow-sm">
-                  <CheckIcon style={{ fontSize: 12 }} />
+                <div className="absolute -top-1.5 -right-1.5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm">
+                  <CheckIcon style={{ fontSize: 14, color: 'currentColor' }} />
                 </div>
                 <span className="text-[16px] font-bold text-foreground">{newTime}</span>
               </div>
