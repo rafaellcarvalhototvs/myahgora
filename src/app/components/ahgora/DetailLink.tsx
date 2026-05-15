@@ -6,7 +6,7 @@ interface DetailLinkProps {
 
 export function DetailLink({ onClick }: DetailLinkProps) {
   return (
-    <div className="mx-6 mt-6">
+    <div className="mx-6">
       <div 
         className="flex gap-2.5 items-center p-2 relative w-full border-t border-b border-text-lighten-3 cursor-pointer hover:bg-muted/20 transition-colors"
         onClick={onClick}

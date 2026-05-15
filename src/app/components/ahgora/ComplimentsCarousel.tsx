@@ -31,7 +31,7 @@ export function ComplimentsCarousel() {
   };
 
   return (
-    <div className="mt-6 p-[0px]">
+    <div className="p-[0px]">
       <div className="flex justify-between items-center px-6 mb-4">
         <h3 className="font-semibold text-lg text-foreground">Elogios</h3>
         <button className="text-primary-darken-1 text-sm font-semibold hover:underline">Ver todos</button>

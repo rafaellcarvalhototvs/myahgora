@@ -124,12 +124,14 @@ export default function App() {
           onAvatarClick={() => setCurrentView('profile-settings')}
         />
         <div className="flex-1 min-h-0 overflow-y-auto pb-20 bg-background transition-colors">
+          <div className="flex flex-col gap-6 pt-6">
           <TimeCard />
           <DetailLink onClick={() => handleAction('detailed-mirror')} />
           <ActionButtons onAction={handleAction} />
           <ComplimentsCarousel />
           <AppCard />
           <OptionsGrid />
+          </div>
         </div>
         <BottomNav />
       </div>

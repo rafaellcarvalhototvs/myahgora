@@ -87,7 +87,7 @@ export function ActionButtons({ onAction }: ActionButtonsProps) {
   };
 
   return (
-    <div className="mt-6 px-6">
+    <div className="px-6">
       <h3 className="font-semibold text-base mb-4 tracking-[0.024px] text-foreground">Solicitar ajustes</h3>
       
       {/* Native App-like Carousel with Scroll Snap & Drag Support */}
