@@ -94,7 +94,7 @@ export function CalendarLegendBottomSheet({
 
             <div className="rounded-[4px] border p-3 border-border/60 bg-card">
               <div className="flex items-start gap-3">
-                <span className="inline-flex min-h-6 min-w-6 items-center justify-center rounded-md px-1 text-xs font-semibold bg-primary text-white" aria-hidden="true">15</span>
+                <span className="inline-flex min-h-6 min-w-6 items-center justify-center rounded-md px-1 text-xs font-semibold bg-primary text-primary-foreground" aria-hidden="true">15</span>
                 <div>
                   <p className="text-sm font-semibold text-foreground">Dia selecionado</p>
                   <p className="text-sm text-foreground">Mostra qual data esta aberta na area de detalhes logo abaixo do calendario.</p>
@@ -118,7 +118,7 @@ export function CalendarLegendBottomSheet({
           <div className="content-stretch flex items-center justify-end p-[24px] relative w-full">
             <button
               onClick={onClose}
-              className="bg-primary text-white hover:bg-primary/90 content-stretch flex flex-col items-center justify-center relative rounded-[4px] shrink-0 w-full transition-colors"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 content-stretch flex flex-col items-center justify-center relative rounded-[4px] shrink-0 w-full transition-colors"
             >
               <div className="relative shrink-0 w-full">
                 <div className="flex flex-row items-center justify-center size-full">

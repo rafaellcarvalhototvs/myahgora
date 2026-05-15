@@ -49,12 +49,12 @@ export function RequestOvertimeScreen({ onBack }: RequestOvertimeScreenProps) {
       <div className="w-full max-w-md bg-background h-full relative shadow-2xl dark:shadow-none flex flex-col transition-colors">
         {/* Header */}
         <div className="bg-primary px-6 py-3 flex items-center gap-2 shrink-0 shadow-sm h-[62px] z-10 relative">
-        <button onClick={onBack} className="text-white p-1 mr-2">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+        <button onClick={onBack} className="text-primary-foreground p-1 mr-2">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
             <path d="M16 7H3.83L9.42 1.41L8 0L0 8L8 16L9.41 14.59L3.83 9H16V7Z" />
           </svg>
         </button>
-        <h1 className="text-white font-semibold text-[18px] leading-[28px] tracking-[0.027px]">Hora extra</h1>
+        <h1 className="text-primary-foreground font-semibold text-[18px] leading-[28px] tracking-[0.027px]">Hora extra</h1>
       </div>
 
       <div className="flex-1 min-h-0 overflow-y-auto w-full bg-background relative scroll-smooth transition-colors">
@@ -158,7 +158,7 @@ export function RequestOvertimeScreen({ onBack }: RequestOvertimeScreenProps) {
                    setShowSuccessModal(false);
                    onBack();
                  }}
-                 className="flex-1 bg-primary text-white py-2 rounded-[4px] font-semibold text-[14px] leading-[24px] tracking-[0.4px] hover:bg-primary/90 flex items-center justify-center shadow-sm"
+                 className="flex-1 bg-primary text-primary-foreground py-2 rounded-[4px] font-semibold text-[14px] leading-[24px] tracking-[0.4px] hover:bg-primary/90 flex items-center justify-center shadow-sm"
                >
                  Salvar
                </button>

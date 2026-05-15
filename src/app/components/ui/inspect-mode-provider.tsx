@@ -11,9 +11,10 @@ interface InspectModeContextValue {
 
 interface InspectDetails {
   tag: string;
-  background?: string;
-  text?: string;
-  border?: string;
+  containerTag?: string;
+  background?: ColorLabel;
+  text?: ColorLabel;
+  border?: ColorLabel;
   left: number;
   top: number;
   width: number;
@@ -21,6 +22,67 @@ interface InspectDetails {
   mouseX: number;
   mouseY: number;
 }
+
+interface ParsedColor {
+  hex: string;
+  alpha: number;
+  rgbHex: string;
+}
+
+interface ColorLabel {
+  hex: string;
+  token?: string;
+  cssVar?: string;
+}
+
+const THEME_TOKEN_LABELS: Array<[string, string]> = [
+  ["--background", "background"],
+  ["--foreground", "foreground"],
+  ["--card", "card"],
+  ["--card-foreground", "card-foreground"],
+  ["--popover", "popover"],
+  ["--popover-foreground", "popover-foreground"],
+  ["--primary", "primary"],
+  ["--primary-darken-1", "primary-darken-1"],
+  ["--primary-foreground", "primary-foreground"],
+  ["--primary-hover", "primary-hover"],
+  ["--primary-active", "primary-active"],
+  ["--secondary", "secondary"],
+  ["--secondary-foreground", "secondary-foreground"],
+  ["--muted", "muted"],
+  ["--muted-foreground", "muted-foreground"],
+  ["--text-lighten-3", "text-lighten-3"],
+  ["--accent", "accent"],
+  ["--accent-foreground", "accent-foreground"],
+  ["--accent-hover", "accent-hover"],
+  ["--info", "info"],
+  ["--info-foreground", "info-foreground"],
+  ["--info-hover", "info-hover"],
+  ["--success", "success"],
+  ["--success-foreground", "success-foreground"],
+  ["--success-hover", "success-hover"],
+  ["--warning", "warning"],
+  ["--warning-foreground", "warning-foreground"],
+  ["--warning-hover", "warning-hover"],
+  ["--destructive", "destructive"],
+  ["--destructive-contrast", "destructive-contrast"],
+  ["--destructive-foreground", "destructive-foreground"],
+  ["--destructive-hover", "destructive-hover"],
+  ["--destructive-active", "destructive-active"],
+  ["--disabled", "disabled"],
+  ["--disabled-foreground", "disabled-foreground"],
+  ["--border", "border"],
+  ["--input", "input"],
+  ["--input-background", "input-background"],
+  ["--ring", "ring"],
+  ["--surface-elevated", "surface-elevated"],
+  ["--surface-strong", "surface-strong"],
+  ["--chart-1", "chart-1"],
+  ["--chart-2", "chart-2"],
+  ["--chart-3", "chart-3"],
+  ["--chart-4", "chart-4"],
+  ["--chart-5", "chart-5"],
+];
 
 const InspectModeContext = createContext<InspectModeContextValue | null>(null);
 
@@ -33,16 +95,29 @@ function channelToHex(value: number) {
   return Math.max(0, Math.min(255, Math.round(value))).toString(16).padStart(2, "0").toUpperCase();
 }
 
-function cssColorToHex(color: string) {
+function parseCssColor(color: string): ParsedColor | null {
   if (!color) return null;
   const normalized = color.trim();
 
   if (normalized.startsWith("#")) {
     const hex = normalized.slice(1);
     if (hex.length === 3) {
-      return `#${hex.split("").map((char) => char + char).join("").toUpperCase()}`;
+      const expanded = `#${hex.split("").map((char) => char + char).join("").toUpperCase()}`;
+      return { hex: expanded, alpha: 1, rgbHex: expanded };
     }
-    return `#${hex.toUpperCase()}`;
+    if (hex.length === 6) {
+      const fullHex = `#${hex.toUpperCase()}`;
+      return { hex: fullHex, alpha: 1, rgbHex: fullHex };
+    }
+    if (hex.length === 8) {
+      const fullHex = `#${hex.toUpperCase()}`;
+      return {
+        hex: fullHex,
+        alpha: Number.parseInt(hex.slice(6, 8), 16) / 255,
+        rgbHex: `#${hex.slice(0, 6).toUpperCase()}`,
+      };
+    }
+    return null;
   }
 
   const match = normalized.match(/rgba?\(([^)]+)\)/i);
@@ -51,11 +126,98 @@ function cssColorToHex(color: string) {
   const [r, g, b, alpha] = match[1].split(",").map((part) => Number(part.trim()));
   if ([r, g, b].some((channel) => Number.isNaN(channel))) return null;
 
-  if (typeof alpha === "number" && !Number.isNaN(alpha) && alpha < 1) {
-    return `#${channelToHex(r)}${channelToHex(g)}${channelToHex(b)}${channelToHex(alpha * 255)}`;
+  const rgbHex = `#${channelToHex(r)}${channelToHex(g)}${channelToHex(b)}`;
+  const resolvedAlpha = typeof alpha === "number" && !Number.isNaN(alpha) ? alpha : 1;
+
+  if (resolvedAlpha < 1) {
+    return {
+      hex: `${rgbHex}${channelToHex(resolvedAlpha * 255)}`,
+      alpha: resolvedAlpha,
+      rgbHex,
+    };
   }
 
-  return `#${channelToHex(r)}${channelToHex(g)}${channelToHex(b)}`;
+  return { hex: rgbHex, alpha: 1, rgbHex };
+}
+
+function getThemeTokenMap() {
+  const rootStyles = window.getComputedStyle(document.documentElement);
+  const tokenMap = new Map<string, { label: string; cssVar: string }>();
+
+  for (const [cssVar, label] of THEME_TOKEN_LABELS) {
+    const value = rootStyles.getPropertyValue(cssVar).trim();
+    const parsed = parseCssColor(value);
+    if (!parsed) continue;
+    const meta = { label, cssVar };
+    tokenMap.set(parsed.hex.toUpperCase(), meta);
+    tokenMap.set(parsed.rgbHex.toUpperCase(), meta);
+  }
+
+  return tokenMap;
+}
+
+function resolveColorLabel(
+  color: string,
+  tokenMap: Map<string, { label: string; cssVar: string }>,
+): ColorLabel | undefined {
+  const parsed = parseCssColor(color);
+  if (!parsed) return undefined;
+
+  const exactToken = tokenMap.get(parsed.hex.toUpperCase()) ?? tokenMap.get(parsed.rgbHex.toUpperCase());
+  if (exactToken) {
+    const token = parsed.alpha < 1 ? `${exactToken.label} @ ${Math.round(parsed.alpha * 100)}%` : exactToken.label;
+    return { hex: parsed.hex, token, cssVar: exactToken.cssVar };
+  }
+
+  return { hex: parsed.hex };
+}
+
+function getInspectableDetails(target: HTMLElement, clientX: number, clientY: number): InspectDetails | null {
+  const tokenMap = getThemeTokenMap();
+  const textStyles = window.getComputedStyle(target);
+  const text = isTransparent(textStyles.color) ? undefined : resolveColorLabel(textStyles.color, tokenMap);
+
+  let container: HTMLElement | null = target;
+  let containerBackground: ColorLabel | undefined;
+  let containerBorder: ColorLabel | undefined;
+
+  while (container && container !== document.body) {
+    const styles = window.getComputedStyle(container);
+    const background = isTransparent(styles.backgroundColor) ? undefined : resolveColorLabel(styles.backgroundColor, tokenMap);
+    const border =
+      Number.parseFloat(styles.borderTopWidth) > 0 && !isTransparent(styles.borderTopColor)
+        ? resolveColorLabel(styles.borderTopColor, tokenMap)
+        : undefined;
+
+    if (background || border) {
+      containerBackground = background;
+      containerBorder = border;
+      break;
+    }
+
+    container = container.parentElement;
+  }
+
+  const elementToFrame = container ?? target;
+  const rect = elementToFrame.getBoundingClientRect();
+
+  if (!containerBackground && !containerBorder && !text) {
+    return null;
+  }
+
+  return {
+    tag: target.tagName.toLowerCase(),
+    containerTag: elementToFrame.tagName.toLowerCase(),
+    background: containerBackground,
+    text,
+    border: containerBorder,
+    left: rect.left,
+    top: rect.top,
+    width: rect.width,
+    height: rect.height,
+    mouseX: clientX,
+    mouseY: clientY,
+  };
 }
 
 function InspectOverlay({ enabled }: { enabled: boolean }) {
@@ -68,85 +230,104 @@ function InspectOverlay({ enabled }: { enabled: boolean }) {
     }
 
     const updateFromPoint = (clientX: number, clientY: number) => {
-      const target = document.elementFromPoint(clientX, clientY) as HTMLElement | null;
-      if (!target || target.dataset.inspectorUi === "true") {
+      const target = document
+        .elementsFromPoint(clientX, clientY)
+        .find((element) => element instanceof HTMLElement && (element as HTMLElement).dataset.inspectorUi !== "true") as
+        | HTMLElement
+        | undefined;
+
+      if (!target) {
         setDetails(null);
         return;
       }
-
-      const styles = window.getComputedStyle(target);
-      const rect = target.getBoundingClientRect();
-
-      const nextDetails: InspectDetails = {
-        tag: target.tagName.toLowerCase(),
-        background: isTransparent(styles.backgroundColor) ? undefined : cssColorToHex(styles.backgroundColor) ?? undefined,
-        text: isTransparent(styles.color) ? undefined : cssColorToHex(styles.color) ?? undefined,
-        border:
-          Number.parseFloat(styles.borderTopWidth) > 0 && !isTransparent(styles.borderTopColor)
-            ? cssColorToHex(styles.borderTopColor) ?? undefined
-            : undefined,
-        left: rect.left,
-        top: rect.top,
-        width: rect.width,
-        height: rect.height,
-        mouseX: clientX,
-        mouseY: clientY,
-      };
-
-      if (!nextDetails.background && !nextDetails.text && !nextDetails.border) {
-        setDetails(null);
-        return;
-      }
-
-      setDetails(nextDetails);
+      setDetails(getInspectableDetails(target, clientX, clientY));
     };
 
-    const handleMouseMove = (event: MouseEvent) => updateFromPoint(event.clientX, event.clientY);
     const handleScroll = () => {
       if (details) {
         updateFromPoint(details.mouseX, details.mouseY);
       }
     };
-    const handleLeave = () => setDetails(null);
 
-    window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("scroll", handleScroll, true);
-    window.addEventListener("mouseout", handleLeave);
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("scroll", handleScroll, true);
-      window.removeEventListener("mouseout", handleLeave);
     };
   }, [enabled, details]);
 
-  if (!enabled || !details) return null;
+  if (!enabled) return null;
 
-  const tooltipLeft = Math.min(details.mouseX + 16, window.innerWidth - 180);
-  const tooltipTop = Math.max(details.mouseY + 16, 16);
+  const tooltipLeft = details ? Math.min(details.mouseX + 16, window.innerWidth - 180) : 16;
+  const tooltipTop = details ? Math.max(details.mouseY + 16, 16) : 16;
 
   return (
     <>
       <div
         aria-hidden="true"
-        className="pointer-events-none fixed z-[120] rounded-[8px] border-2 border-[#1D4ED8] bg-transparent"
-        style={{
-          left: details.left,
-          top: details.top,
-          width: details.width,
-          height: details.height,
+        data-inspector-ui="true"
+        className="fixed inset-0 z-[119] cursor-crosshair bg-transparent"
+        onMouseMove={(event) => {
+          const target = document
+            .elementsFromPoint(event.clientX, event.clientY)
+            .find((element) => element instanceof HTMLElement && (element as HTMLElement).dataset.inspectorUi !== "true") as
+            | HTMLElement
+            | undefined;
+
+          if (!target) {
+            setDetails(null);
+            return;
+          }
+
+          setDetails(getInspectableDetails(target, event.clientX, event.clientY));
         }}
+        onMouseLeave={() => setDetails(null)}
       />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none fixed z-[121] min-w-[170px] rounded-[8px] border border-[#CBD5E1] bg-white px-3 py-2 font-['Open_Sans'] shadow-[0px_12px_24px_rgba(15,23,42,0.18)]"
-        style={{ left: tooltipLeft, top: tooltipTop }}
-      >
-        <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#475569]">{details.tag}</p>
-        {details.background && <p className="mt-1 text-xs text-[#0F172A]">BG: {details.background}</p>}
-        {details.text && <p className="text-xs text-[#0F172A]">Text: {details.text}</p>}
-        {details.border && <p className="text-xs text-[#0F172A]">Border: {details.border}</p>}
-      </div>
+      {details && (
+        <>
+          <div
+            aria-hidden="true"
+            className="pointer-events-none fixed z-[120] rounded-[8px] border-2 border-[#1D4ED8] bg-transparent"
+            style={{
+              left: details.left,
+              top: details.top,
+              width: details.width,
+              height: details.height,
+            }}
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none fixed z-[121] min-w-[170px] rounded-[8px] border border-[#CBD5E1] bg-white px-3 py-2 font-['Open_Sans'] shadow-[0px_12px_24px_rgba(15,23,42,0.18)]"
+            style={{ left: tooltipLeft, top: tooltipTop }}
+          >
+            <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#475569]">{details.tag}</p>
+            {details.containerTag && details.containerTag !== details.tag && (
+              <p className="text-[11px] text-[#64748B]">Container: {details.containerTag}</p>
+            )}
+            {details.background && (
+              <p className="mt-1 text-xs text-[#0F172A]">
+                BG: {details.background.token ? `${details.background.token} ` : ""}
+                {details.background.cssVar ? <span className="font-mono text-[11px]">{details.background.cssVar} </span> : ""}
+                <span className="font-mono">{details.background.hex}</span>
+              </p>
+            )}
+            {details.text && (
+              <p className="text-xs text-[#0F172A]">
+                Text: {details.text.token ? `${details.text.token} ` : ""}
+                {details.text.cssVar ? <span className="font-mono text-[11px]">{details.text.cssVar} </span> : ""}
+                <span className="font-mono">{details.text.hex}</span>
+              </p>
+            )}
+            {details.border && (
+              <p className="text-xs text-[#0F172A]">
+                Border: {details.border.token ? `${details.border.token} ` : ""}
+                {details.border.cssVar ? <span className="font-mono text-[11px]">{details.border.cssVar} </span> : ""}
+                <span className="font-mono">{details.border.hex}</span>
+              </p>
+            )}
+          </div>
+        </>
+      )}
     </>
   );
 }
@@ -161,7 +342,7 @@ function InspectModeButton() {
       type="button"
       data-inspector-ui="true"
       onClick={context.toggle}
-      className={`fixed bottom-24 right-4 z-[130] flex h-11 items-center gap-2 rounded-full border px-3 shadow-lg transition-colors ${
+      className={`fixed bottom-24 right-4 z-[130] flex h-11 w-11 items-center justify-center rounded-full border shadow-lg transition-colors ${
         context.enabled
           ? "border-[#1D4ED8] bg-[#1D4ED8] text-white"
           : "border-[#CBD5E1] bg-white text-[#334155]"
@@ -170,7 +351,6 @@ function InspectModeButton() {
       title={context.enabled ? "Desativar modo lupa" : "Ativar modo lupa"}
     >
       <Pipette className="h-4 w-4" />
-      <span className="text-xs font-semibold leading-none">{context.enabled ? "Lupa on" : "Lupa"}</span>
     </button>
   );
 }

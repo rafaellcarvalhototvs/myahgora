@@ -164,7 +164,7 @@ export function MonthYearBottomSheet({
                       ${future 
                         ? 'bg-muted/50 border-border text-muted-foreground cursor-not-allowed'
                         : selectedMonth === index 
-                          ? 'bg-primary border-primary text-white' 
+                          ? 'bg-primary border-primary text-primary-foreground' 
                           : 'bg-card border-border text-foreground hover:bg-muted/30'
                       }
                       transition-colors
@@ -191,7 +191,7 @@ export function MonthYearBottomSheet({
                 <div className="relative shrink-0 w-full">
                   <div className="flex flex-row items-center justify-center size-full">
                     <div className="content-stretch flex gap-[8px] items-center justify-center px-[22px] py-[8px] relative w-full">
-                      <p className="font-['Open_Sans'] font-semibold leading-[26px] relative shrink-0 text-[16px] text-white tracking-[0.46px]">
+                      <p className="font-['Open_Sans'] font-semibold leading-[26px] relative shrink-0 text-[16px] text-primary-foreground tracking-[0.46px]">
                         Cancelar
                       </p>
                     </div>

@@ -57,12 +57,12 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
     <div className="flex flex-col h-full">
       {/* Header */}
       <div className="bg-primary px-6 py-3 flex items-center gap-2 sticky top-0 z-10 shadow-sm shrink-0 h-[62px]">
-        <button onClick={onBack} className="text-white p-1 mr-2">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+        <button onClick={onBack} className="text-primary-foreground p-1 mr-2">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
             <path d="M16 7H3.83L9.42 1.41L8 0L0 8L8 16L9.41 14.59L3.83 9H16V7Z" />
           </svg>
         </button>
-        <h1 className="text-white font-semibold text-[18px] leading-[28px] tracking-[0.027px]">Substituir batida</h1>
+        <h1 className="text-primary-foreground font-semibold text-[18px] leading-[28px] tracking-[0.027px]">Substituir batida</h1>
       </div>
 
       <div className="p-6 flex flex-col gap-6 w-full flex-1 max-w-md mx-auto overflow-y-auto">
@@ -140,12 +140,12 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
     <div className="flex flex-col h-full bg-white">
       {/* Header */}
       <div className="bg-primary px-6 py-3 flex items-center gap-2 sticky top-0 z-10 shadow-sm shrink-0 h-[62px]">
-        <button onClick={() => setViewState(1)} className="text-white p-1 mr-2">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+        <button onClick={() => setViewState(1)} className="text-primary-foreground p-1 mr-2">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
             <path d="M16 7H3.83L9.42 1.41L8 0L0 8L8 16L9.41 14.59L3.83 9H16V7Z" />
           </svg>
         </button>
-        <h1 className="text-white font-semibold text-[18px] leading-[28px] tracking-[0.027px]">Selecione novo horário</h1>
+        <h1 className="text-primary-foreground font-semibold text-[18px] leading-[28px] tracking-[0.027px]">Selecione novo horário</h1>
       </div>
 
       <div className="p-6 flex flex-col gap-6 w-full flex-1 max-w-md mx-auto">
@@ -192,8 +192,8 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
                 <div className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-full">
                   <div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
                     {/* Blue Icon Circle */}
-                    <div className="bg-primary content-stretch flex items-center justify-center p-[8px] relative rounded-[56px] shrink-0 size-[42px]">
-                      <AccessTimeIcon sx={{ color: 'white', fontSize: 24 }} />
+                    <div className="bg-primary text-primary-foreground content-stretch flex items-center justify-center p-[8px] relative rounded-[56px] shrink-0 size-[42px]">
+                      <AccessTimeIcon sx={{ color: 'currentColor', fontSize: 24 }} />
                     </div>
                     {/* Close Button */}
                     <button 
@@ -244,7 +244,7 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
                  </button>
                  <button 
                    onClick={() => setShowTimePicker(false)}
-                   className="flex-1 bg-primary text-white rounded-[4px] h-[40px] font-semibold text-[14px] leading-[24px] tracking-[0.4px] hover:bg-primary/90 transition-colors flex items-center justify-center shadow-sm"
+                   className="flex-1 bg-primary text-primary-foreground rounded-[4px] h-[40px] font-semibold text-[14px] leading-[24px] tracking-[0.4px] hover:bg-primary/90 transition-colors flex items-center justify-center shadow-sm"
                  >
                    Selecionar
                  </button>
@@ -260,12 +260,12 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
     <div className="flex flex-col h-full bg-white">
       {/* Header */}
       <div className="bg-primary px-6 py-3 flex items-center gap-2 sticky top-0 z-10 shadow-sm shrink-0 h-[62px]">
-        <button onClick={() => setViewState(2)} className="text-white p-1 mr-2">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+        <button onClick={() => setViewState(2)} className="text-primary-foreground p-1 mr-2">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
             <path d="M16 7H3.83L9.42 1.41L8 0L0 8L8 16L9.41 14.59L3.83 9H16V7Z" />
           </svg>
         </button>
-        <h1 className="text-white font-semibold text-[18px] leading-[28px] tracking-[0.027px]">Revise e confirme a alteração</h1>
+        <h1 className="text-primary-foreground font-semibold text-[18px] leading-[28px] tracking-[0.027px]">Revise e confirme a alteração</h1>
       </div>
 
       <div className="p-6 flex flex-col gap-6 w-full flex-1 max-w-md mx-auto">
@@ -295,7 +295,7 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
             <div className="flex flex-col items-center gap-3 flex-1">
               <span className="text-[12px] font-bold text-primary tracking-[0.5px]">Novo</span>
               <div className="w-[64px] h-[64px] rounded-full border-2 border-primary bg-[#eaf8ff] flex items-center justify-center relative shadow-sm">
-                <div className="absolute -top-1.5 -right-1.5 bg-primary rounded-full w-[22px] h-[22px] flex items-center justify-center text-white border-2 border-white shadow-sm">
+                <div className="absolute -top-1.5 -right-1.5 bg-primary rounded-full w-[22px] h-[22px] flex items-center justify-center text-primary-foreground border-2 border-white shadow-sm">
                   <CheckIcon style={{ fontSize: 12 }} />
                 </div>
                 <span className="text-[16px] font-bold text-foreground">{newTime}</span>
@@ -335,7 +335,7 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
       <div className="p-6 flex flex-col items-center justify-center flex-1 w-full max-w-md mx-auto text-center">
         <div className="w-[130px] h-[130px] bg-primary/10 rounded-full flex items-center justify-center mb-8 relative">
           <div className="w-[90px] h-[90px] bg-primary rounded-full flex items-center justify-center">
-             <CheckIcon className="text-white" style={{ fontSize: 40 }} />
+             <CheckIcon className="text-primary-foreground" style={{ fontSize: 40 }} />
           </div>
         </div>
 

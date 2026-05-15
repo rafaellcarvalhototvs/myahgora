@@ -27,18 +27,18 @@ export function PunchReminderScreen({ onBack }: PunchReminderScreenProps) {
         <div className="w-full max-w-md bg-background min-h-screen relative shadow-2xl dark:shadow-none transition-colors pb-20 flex flex-col">
             {/* Header */}
             <div className="bg-primary px-6 py-3 flex items-center gap-2 sticky top-0 z-10 shadow-sm h-[62px]">
-                <button onClick={onBack} className="text-white p-1 mr-2 cursor-pointer">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                <button onClick={onBack} className="text-primary-foreground p-1 mr-2 cursor-pointer">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                         <path d={arrowBackPath} />
                     </svg>
                 </button>
-                <h1 className="text-white font-semibold text-[18px] leading-[28px] tracking-[0.027px]">Lembrete de ponto</h1>
+                <h1 className="text-primary-foreground font-semibold text-[18px] leading-[28px] tracking-[0.027px]">Lembrete de ponto</h1>
             </div>
             
             {/* Success Banner */}
             {showSuccess && (
                 <div className="bg-[#22aa44] w-full py-3 px-6 text-center animate-in slide-in-from-top duration-300 fixed top-0 max-w-md z-20 shadow-md">
-                    <p className="text-white font-semibold text-[14px]">Lembrete SALVO com sucesso</p>
+                    <p className="text-primary-foreground font-semibold text-[14px]">Lembrete SALVO com sucesso</p>
                 </div>
             )}
 

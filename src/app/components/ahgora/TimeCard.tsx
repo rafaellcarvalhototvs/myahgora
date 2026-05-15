@@ -24,7 +24,7 @@ function Batida({ time, type }: BatidaProps) {
         {/* The badge background needs to mask the border of the main circle below it, which z-10 handles if bg is opaque */}
         
         {isCompleted ? (
-          <CheckIcon sx={{ fontSize: 10, color: 'white' }} />
+          <CheckIcon sx={{ fontSize: 10, color: 'var(--primary-foreground)' }} />
         ) : (
           <InfoOutlinedIcon sx={{ fontSize: 14, color: 'currentColor' }} className="text-foreground" />
         )}

@@ -12,8 +12,8 @@ interface ProfileSettingsScreenProps {
 
 export function ProfileSettingsScreen({ onBack, onAccessibilityReport }: ProfileSettingsScreenProps) {
   const { resolvedTheme, setTheme } = useTheme();
-  const { brandColor, setBrandColor, resetBrandColor } = useBrandTheme();
-  const [draftColor, setDraftColor] = useState(brandColor);
+  const { brandColor, hasCustomBrand, setBrandColor, resetBrandColor } = useBrandTheme();
+  const [draftColor, setDraftColor] = useState(brandColor ?? "#1199DD");
   const mode = resolvedTheme === "dark" ? "dark" : "light";
   const preview = useMemo(() => deriveBrandTheme(draftColor, mode), [draftColor, mode]);
   const darkPreview = useMemo(() => deriveBrandTheme(draftColor, "dark"), [draftColor]);
@@ -23,12 +23,12 @@ export function ProfileSettingsScreen({ onBack, onAccessibilityReport }: Profile
     <div className="fixed inset-0 z-50 overflow-hidden bg-background flex justify-center items-stretch font-['Open_Sans'] h-[100dvh] w-screen">
       <div className="w-full max-w-md bg-background h-full relative shadow-2xl dark:shadow-none flex flex-col transition-colors">
         <div className="bg-primary px-6 py-3 flex items-center gap-2 shrink-0 shadow-sm h-[62px] z-10 relative">
-          <button onClick={onBack} className="text-white p-1 mr-2" aria-label="Voltar para tela inicial">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+          <button onClick={onBack} className="text-primary-foreground p-1 mr-2" aria-label="Voltar para tela inicial">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M16 7H3.83L9.42 1.41L8 0L0 8L8 16L9.41 14.59L3.83 9H16V7Z" />
             </svg>
           </button>
-          <h1 className="text-white font-semibold text-[18px] leading-[28px] tracking-[0.027px]">Perfil e tema</h1>
+          <h1 className="text-primary-foreground font-semibold text-[18px] leading-[28px] tracking-[0.027px]">Perfil e tema</h1>
         </div>
 
         <div className="flex-1 overflow-y-auto bg-background transition-colors">
@@ -36,7 +36,7 @@ export function ProfileSettingsScreen({ onBack, onAccessibilityReport }: Profile
             <div className="space-y-2">
               <h2 className="text-base font-semibold text-foreground">Aparência da marca</h2>
               <p className="text-sm text-muted-foreground">
-                Informe a cor principal da marca. O app ajusta automaticamente texto, botões e a versão profunda do dark mode para manter contraste.
+                Informe a cor principal da marca. Sem personalização, o app usa a paleta oficial do sistema. Quando houver marca de cliente, o dark mode deriva variantes acessíveis a partir dela.
               </p>
             </div>
 
@@ -46,7 +46,7 @@ export function ProfileSettingsScreen({ onBack, onAccessibilityReport }: Profile
                 <div className="flex gap-3 items-center">
                   <input
                     type="color"
-                    value={normalizeHex(draftColor) ?? brandColor}
+                    value={normalizeHex(draftColor) ?? brandColor ?? "#1199DD"}
                     onChange={(e) => setDraftColor(e.target.value)}
                     className="h-12 w-14 rounded-[4px] border border-border bg-transparent p-1"
                     aria-label="Selecionar cor da marca"
@@ -61,6 +61,9 @@ export function ProfileSettingsScreen({ onBack, onAccessibilityReport }: Profile
                   />
                 </div>
                 {!validColor && <p className="text-xs text-destructive">Use um hexadecimal válido como `#1199DD`.</p>}
+                {!hasCustomBrand && (
+                  <p className="text-xs text-muted-foreground">Sem marca customizada ativa. O app está usando a paleta oficial do sistema.</p>
+                )}
               </div>
 
               <div className="grid grid-cols-2 gap-3">
@@ -93,7 +96,7 @@ export function ProfileSettingsScreen({ onBack, onAccessibilityReport }: Profile
                   Aplicar cor
                 </AhgoraButton>
                 <AhgoraButton variant="outline" size="md" onClick={() => { resetBrandColor(); setDraftColor("#1199DD"); }} className="flex-1">
-                  Restaurar
+                  Restaurar padrão
                 </AhgoraButton>
               </div>
             </div>
@@ -193,7 +196,7 @@ export function ProfileSettingsScreen({ onBack, onAccessibilityReport }: Profile
                   <div className="absolute right-[32px] bottom-[82px] w-[184px] rounded-[10px] border border-border bg-card p-3 shadow-sm">
                     <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">Card forte</p>
                     <p className="mt-1 text-sm font-semibold text-foreground">`card` + `border`</p>
-                    <p className="text-xs text-muted-foreground">#232630 + #474C5D</p>
+                    <p className="text-xs text-muted-foreground">#31313D + #58586B</p>
                   </div>
                   <div className="absolute right-[214px] bottom-[136px] h-[2px] w-[86px] bg-border" />
                   <div className="absolute right-[292px] bottom-[132px] h-0 w-0 border-y-[6px] border-y-transparent border-r-[10px] border-r-border" />
@@ -202,7 +205,7 @@ export function ProfileSettingsScreen({ onBack, onAccessibilityReport }: Profile
                     <span className="text-xs font-semibold text-muted-foreground">Preview técnico do dark</span>
                   </div>
 
-                  <div className="absolute left-1/2 top-16 w-[300px] -translate-x-1/2 overflow-hidden rounded-[28px] border border-border/80 bg-[#17181F] shadow-[0_18px_40px_rgba(0,0,0,0.32)]">
+                  <div className="absolute left-1/2 top-16 w-[300px] -translate-x-1/2 overflow-hidden rounded-[28px] border border-border/80 bg-[#25252D] shadow-[0_18px_40px_rgba(0,0,0,0.32)]">
                     <div className="h-[84px] px-5 py-4" style={{ backgroundColor: darkPreview.primary }}>
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
@@ -220,14 +223,14 @@ export function ProfileSettingsScreen({ onBack, onAccessibilityReport }: Profile
                       </p>
                     </div>
 
-                    <div className="p-4 space-y-4 bg-[#17181F]">
-                      <div className="rounded-[16px] border bg-[#232630] p-4" style={{ borderColor: "#474C5D" }}>
+                    <div className="p-4 space-y-4 bg-[#25252D]">
+                      <div className="rounded-[16px] border bg-[#31313D] p-4" style={{ borderColor: "#58586B" }}>
                         <div className="flex items-start justify-between gap-3">
                           <div>
-                            <p className="text-lg font-semibold text-[#ECEEF4]">Registrar o ponto</p>
-                            <p className="mt-2 text-sm text-[#9BA3B3]">Card principal no dark com contraste preservado.</p>
+                            <p className="text-lg font-semibold text-[#E0E0E5]">Registrar o ponto</p>
+                            <p className="mt-2 text-sm text-[#B6B6C2]">Card principal no dark com contraste preservado.</p>
                           </div>
-                          <p className="text-xs font-semibold text-[#9BA3B3]">13 Mai</p>
+                          <p className="text-xs font-semibold text-[#B6B6C2]">13 Mai</p>
                         </div>
 
                         <button
@@ -238,14 +241,14 @@ export function ProfileSettingsScreen({ onBack, onAccessibilityReport }: Profile
                           Registrar o ponto
                         </button>
 
-                        <div className="mt-4 flex items-center justify-between border-t pt-3" style={{ borderColor: "#474C5D" }}>
-                          <span className="text-sm text-[#ECEEF4]">Saldo banco de horas</span>
-                          <span className="text-sm font-semibold text-[#22AA44]">+ 02:04</span>
+                        <div className="mt-4 flex items-center justify-between border-t pt-3" style={{ borderColor: "#58586B" }}>
+                          <span className="text-sm text-[#E0E0E5]">Saldo banco de horas</span>
+                          <span className="text-sm font-semibold text-[#44DD56]">+ 02:04</span>
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between rounded-[12px] border border-[#474C5D] px-4 py-3">
-                        <span className="text-sm text-[#ECEEF4]">Acessar espelho detalhado</span>
+                      <div className="flex items-center justify-between rounded-[12px] border border-[#58586B] px-4 py-3">
+                        <span className="text-sm text-[#E0E0E5]">Acessar espelho detalhado</span>
                         <span style={{ color: darkPreview.primaryDarken1 }} className="text-sm font-semibold">
                           Ver
                         </span>
@@ -254,10 +257,10 @@ export function ProfileSettingsScreen({ onBack, onAccessibilityReport }: Profile
                       <div className="grid grid-cols-4 gap-3">
                         {["Incluir", "Cancelar", "Substituir", "Solicitar"].map((label) => (
                           <div key={label} className="flex flex-col items-center gap-2">
-                            <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[#474C5D] bg-[#232630]">
+                            <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[#58586B] bg-[#31313D]">
                               <div className="h-4 w-4 rounded-full" style={{ backgroundColor: darkPreview.primaryDarken1 }} />
                             </div>
-                            <span className="text-[11px] text-center text-[#ECEEF4]">{label}</span>
+                            <span className="text-[11px] text-center text-[#E0E0E5]">{label}</span>
                           </div>
                         ))}
                       </div>

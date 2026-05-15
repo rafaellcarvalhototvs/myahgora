@@ -22,7 +22,10 @@ import { DetailedMirrorAccessibilityReport } from "./components/ahgora/accessibi
 import { ProfileSettingsScreen } from "./components/ahgora/profile/ProfileSettingsScreen";
 
 export default function App() {
-  const [currentView, setCurrentView] = useState('home');
+  const [currentView, setCurrentView] = useState(() => {
+    const params = new URLSearchParams(globalThis.location?.search ?? "");
+    return params.get("view") || "home";
+  });
 
   // Use the Unsplash image found earlier
   const avatarUrl = "https://images.unsplash.com/photo-1710357956769-232ef8e9e1aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxicmF6aWxpYW4lMjBtYW4lMjBzbWlsZSUyMHBvcnRyYWl0fGVufDF8fHx8MTc3MTQ1OTM4OXww&ixlib=rb-4.1.0&q=80&w=1080";

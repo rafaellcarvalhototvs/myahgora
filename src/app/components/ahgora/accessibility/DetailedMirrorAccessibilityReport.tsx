@@ -122,15 +122,16 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
     colorContrast: {
       testedElements: [
         { element: 'Texto `primary-darken-1` sobre branco (outline no light)', contrast: '5.68:1', status: '✅ Atende AA' },
-        { element: 'Texto branco sobre `primary` no header dark', contrast: '6.53:1', status: '✅ Atende AA' },
-        { element: 'Texto `primary-darken-1` sobre fundo dark do app', contrast: '10.18:1', status: '✅ Atende AA' },
+        { element: 'Texto escuro sobre `primary` no header/CTA dark', contrast: '8.65:1', status: '✅ Atende AAA' },
+        { element: 'Texto `primary-darken-1` sobre fundo dark do app', contrast: '7.57:1', status: '✅ Atende AAA' },
         { element: 'Texto escuro sobre CTA azul claro no light', contrast: '5.92:1', status: '✅ Atende AA' },
-        { element: 'Texto/indicador `destructive-contrast` sobre fundo dark', contrast: '5.87:1', status: '✅ Atende AA' },
+        { element: 'Texto/indicador `destructive-contrast` sobre fundo dark', contrast: '5.61:1', status: '✅ Atende AA' },
         { element: 'Uso antigo de `primary` como texto outline no dark', contrast: '2.47:1', status: '⚠️ Corrigido' },
         { element: 'Uso antigo de `destructive` em texto/indicador no dark', contrast: '2.72:1', status: '⚠️ Corrigido' }
       ],
       recommendations: [
-        'Manter `primary` para superfícies fortes e `primary-darken-1` para texto, ícone e outline no dark',
+        'Manter `primary` para header e CTA com `primary-foreground` escuro no dark',
+        'Usar `accent` para navegação secundária e cards de atalho no dark',
         'Preservar `destructive-contrast` para estados negativos pequenos em superfícies escuras',
         'Continuar validando contraste por token quando a cor da marca mudar'
       ]
@@ -539,10 +540,10 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
                   <div>
                     <p className="text-sm text-gray-700 mb-2">Antes da correção no dark:</p>
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-lg" style={{ backgroundColor: '#0A5D87' }}></div>
+                      <div className="w-12 h-12 rounded-lg" style={{ backgroundColor: '#42B6F0' }}></div>
                       <div>
-                        <p className="text-sm font-mono text-gray-900">#0A5D87 como texto outline no dark</p>
-                        <p className="text-xs text-gray-600">Contraste: 2.47:1</p>
+                        <p className="text-sm font-mono text-gray-900">#42B6F0 como fundo primário oficial do dark</p>
+                        <p className="text-xs text-gray-600">Texto sobreposto: #0A0A0C, contraste: 8.65:1</p>
                       </div>
                     </div>
                   </div>
@@ -553,7 +554,7 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
                       <div className="w-12 h-12 rounded-lg" style={{ backgroundColor: '#81CEF5' }}></div>
                       <div>
                         <p className="text-sm font-mono text-gray-900">#81CEF5 (`primary-darken-1` no dark)</p>
-                        <p className="text-xs text-gray-600">Contraste: 10.18:1</p>
+                        <p className="text-xs text-gray-600">Contraste: 7.57:1</p>
                       </div>
                     </div>
                   </div>
@@ -564,7 +565,7 @@ export function DetailedMirrorAccessibilityReport({ onBack }: DetailedMirrorAcce
                       <div className="w-12 h-12 rounded-lg" style={{ backgroundColor: '#F76464' }}></div>
                       <div>
                         <p className="text-sm font-mono text-gray-900">#F76464 (`destructive-contrast` no dark)</p>
-                        <p className="text-xs text-gray-600">Contraste: 5.87:1</p>
+                        <p className="text-xs text-gray-600">Contraste: 5.61:1</p>
                       </div>
                     </div>
                   </div>

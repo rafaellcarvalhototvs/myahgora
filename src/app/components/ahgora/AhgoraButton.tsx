@@ -49,8 +49,8 @@ export const AhgoraButton = React.forwardRef<HTMLButtonElement, AhgoraButtonProp
     const variants = {
       primary: cn(
         "bg-primary text-primary-foreground font-['Open_Sans']",
-        "hover:brightness-110 dark:hover:brightness-105",
-        "active:brightness-90",
+        "hover:bg-primary-hover",
+        "active:bg-primary-active",
         "focus:ring-4 focus:ring-ring/50 focus:ring-offset-0",
         "disabled:bg-muted disabled:text-muted-foreground"
       ),
@@ -76,116 +76,116 @@ export const AhgoraButton = React.forwardRef<HTMLButtonElement, AhgoraButtonProp
         "disabled:text-muted-foreground disabled:bg-transparent"
       ),
       destructive: cn(
-        "bg-[#dd1818] text-white font-['Open_Sans']",
-        "hover:bg-[#c01515]",
-        "active:bg-[#730707]",
+        "bg-destructive text-destructive-foreground font-['Open_Sans']",
+        "hover:bg-destructive-hover",
+        "active:bg-destructive-active",
         "focus:ring-4 focus:ring-[#f76464] focus:ring-offset-0",
-        "disabled:bg-[#d5d5dc] disabled:text-[#78788f]"
+        "disabled:bg-disabled disabled:text-disabled-foreground"
       ),
       'destructive-outline': cn(
-        "border-2 border-[#dd1818] text-[#dd1818] bg-transparent font-['Open_Sans']",
-        "hover:bg-[#dd1818]/10",
+        "border-2 border-[#dd1818] text-[#dd1818] bg-transparent font-['Open_Sans'] dark:border-destructive-contrast dark:text-destructive-contrast",
+        "hover:bg-[#dd1818]/10 dark:hover:bg-destructive/15",
         "active:bg-[#730707] active:text-white active:border-[#730707]",
         "focus:ring-4 focus:ring-[#f76464]/50 focus:ring-offset-0",
-        "disabled:border-[#b6b6c2] disabled:text-[#b6b6c2] disabled:bg-transparent"
+        "disabled:border-[#b6b6c2] disabled:text-[#b6b6c2] disabled:bg-transparent dark:disabled:border-muted dark:disabled:text-muted-foreground"
       ),
       'destructive-secondary': cn(
-        "bg-[#f76464] text-[#2a2a33] font-['Open_Sans']",
+        "bg-[#f76464] text-[#2a2a33] font-['Open_Sans'] dark:text-primary-foreground",
         "hover:bg-[#e05050]",
         "active:bg-[#dd1818] active:text-white",
         "focus:ring-4 focus:ring-[#f76464] focus:ring-offset-0",
-        "disabled:bg-[#d5d5dc] disabled:text-[#78788f]"
+        "disabled:bg-[#d5d5dc] disabled:text-[#78788f] dark:disabled:bg-muted dark:disabled:text-muted-foreground"
       ),
       'destructive-ghost': cn(
-        "bg-transparent text-[#dd1818] font-['Open_Sans']",
-        "hover:bg-[#dd1818]/10",
-        "active:bg-[#dd1818]/20",
+        "bg-transparent text-[#dd1818] font-['Open_Sans'] dark:text-destructive-contrast",
+        "hover:bg-[#dd1818]/10 dark:hover:bg-destructive/15",
+        "active:bg-[#dd1818]/20 dark:active:bg-destructive/25",
         "focus:ring-4 focus:ring-[#f76464] focus:ring-offset-0",
-        "disabled:text-[#b6b6c2] disabled:bg-transparent"
+        "disabled:text-[#b6b6c2] disabled:bg-transparent dark:disabled:text-muted-foreground"
       ),
       warning: cn(
-        "bg-[#fb0] text-white font-['Open_Sans']",
-        "hover:bg-[#e6a800]",
-        "active:bg-[#754600]",
-        "focus:ring-4 focus:ring-[#ffcc24] focus:ring-offset-0",
-        "disabled:bg-[#d5d5dc] disabled:text-[#78788f]"
+        "bg-warning text-warning-foreground font-['Open_Sans']",
+        "hover:bg-warning-hover",
+        "active:brightness-90",
+        "focus:ring-4 focus:ring-[#ffcc24] dark:focus:ring-[#F5D99D] focus:ring-offset-0",
+        "disabled:bg-disabled disabled:text-disabled-foreground"
       ),
       'warning-outline': cn(
-        "border-2 border-[#fb0] text-[#fb0] bg-transparent font-['Open_Sans']",
-        "hover:bg-[#fb0]/10",
-        "active:bg-[#754600] active:text-white active:border-[#754600]",
-        "focus:ring-4 focus:ring-[#ffcc24]/50 focus:ring-offset-0",
-        "disabled:border-[#b6b6c2] disabled:text-[#b6b6c2] disabled:bg-transparent"
+        "border-2 border-[#fb0] text-[#fb0] bg-transparent font-['Open_Sans'] dark:border-[#F5D99D] dark:text-[#F5D99D]",
+        "hover:bg-[#fb0]/10 dark:hover:bg-[#3D3420]/40",
+        "active:bg-[#754600] active:text-white active:border-[#754600] dark:active:bg-[#3D3420] dark:active:text-[#F5D99D] dark:active:border-[#F5D99D]",
+        "focus:ring-4 focus:ring-[#ffcc24]/50 dark:focus:ring-[#F5D99D]/50 focus:ring-offset-0",
+        "disabled:border-[#b6b6c2] disabled:text-[#b6b6c2] disabled:bg-transparent dark:disabled:border-muted dark:disabled:text-muted-foreground"
       ),
       'warning-secondary': cn(
-        "bg-[#ffcc24] text-[#2a2a33] font-['Open_Sans']",
-        "hover:bg-[#f0c020]",
-        "active:bg-[#fb0]", 
-        "focus:ring-4 focus:ring-[#ffcc24] focus:ring-offset-0",
-        "disabled:bg-[#d5d5dc] disabled:text-[#78788f]"
+        "bg-[#ffcc24] text-[#2a2a33] font-['Open_Sans'] dark:bg-[#5B4A1D] dark:text-[#F5D99D]",
+        "hover:bg-[#f0c020] dark:hover:bg-[#6b5823]",
+        "active:bg-[#fb0] dark:active:bg-[#4b3d17]", 
+        "focus:ring-4 focus:ring-[#ffcc24] dark:focus:ring-[#F5D99D] focus:ring-offset-0",
+        "disabled:bg-[#d5d5dc] disabled:text-[#78788f] dark:disabled:bg-muted dark:disabled:text-muted-foreground"
       ),
       'warning-ghost': cn(
-        "bg-transparent text-[#fb0] font-['Open_Sans']",
-        "hover:bg-[#fb0]/10",
-        "active:bg-[#fb0]/20",
+        "bg-transparent text-[#fb0] font-['Open_Sans'] dark:text-[#F5D99D]",
+        "hover:bg-[#fb0]/10 dark:hover:bg-[#3D3420]/30",
+        "active:bg-[#fb0]/20 dark:active:bg-[#3D3420]/40",
         "focus:ring-4 focus:ring-[#ffcc24] focus:ring-offset-0",
-        "disabled:text-[#b6b6c2] disabled:bg-transparent"
+        "disabled:text-[#b6b6c2] disabled:bg-transparent dark:disabled:text-muted-foreground"
       ),
       info: cn(
-        "bg-[#16c] text-white font-['Open_Sans']",
-        "hover:bg-[#135bb0]",
-        "active:bg-[#051e3d]",
-        "focus:ring-4 focus:ring-[#38e] focus:ring-offset-0",
-        "disabled:bg-[#d5d5dc] disabled:text-[#78788f]"
+        "bg-info text-info-foreground font-['Open_Sans']",
+        "hover:bg-info-hover",
+        "active:bg-accent-hover",
+        "focus:ring-4 focus:ring-info-foreground focus:ring-offset-0",
+        "disabled:bg-disabled disabled:text-disabled-foreground"
       ),
       'info-outline': cn(
-        "border-2 border-[#16c] text-[#16c] bg-transparent font-['Open_Sans']",
-        "hover:bg-[#16c]/10",
-        "active:bg-[#051e3d] active:text-white active:border-[#051e3d]",
-        "focus:ring-4 focus:ring-[#38e]/50 focus:ring-offset-0",
-        "disabled:border-[#b6b6c2] disabled:text-[#b6b6c2] disabled:bg-transparent"
+        "border-2 border-[#16c] text-[#16c] bg-transparent font-['Open_Sans'] dark:border-[#C2E4FF] dark:text-[#C2E4FF]",
+        "hover:bg-[#16c]/10 dark:hover:bg-[#2A4A5F]/35",
+        "active:bg-[#051e3d] active:text-white active:border-[#051e3d] dark:active:bg-[#213b4d] dark:active:text-[#C2E4FF] dark:active:border-[#C2E4FF]",
+        "focus:ring-4 focus:ring-[#38e]/50 dark:focus:ring-[#C2E4FF]/50 focus:ring-offset-0",
+        "disabled:border-[#b6b6c2] disabled:text-[#b6b6c2] disabled:bg-transparent dark:disabled:border-muted dark:disabled:text-muted-foreground"
       ),
       'info-secondary': cn(
-        "bg-[#38e] text-[#2a2a33] font-['Open_Sans']",
-        "hover:bg-[#2d7cd1]",
-        "active:bg-[#16c] active:text-white", 
-        "focus:ring-4 focus:ring-[#38e] focus:ring-offset-0",
-        "disabled:bg-[#d5d5dc] disabled:text-[#78788f]"
+        "bg-[#38e] text-[#2a2a33] font-['Open_Sans'] dark:bg-[#3D6280] dark:text-[#C2E4FF]",
+        "hover:bg-[#2d7cd1] dark:hover:bg-[#467293]",
+        "active:bg-[#16c] active:text-white dark:active:bg-[#2A4A5F] dark:active:text-[#C2E4FF]", 
+        "focus:ring-4 focus:ring-[#38e] dark:focus:ring-[#C2E4FF] focus:ring-offset-0",
+        "disabled:bg-[#d5d5dc] disabled:text-[#78788f] dark:disabled:bg-muted dark:disabled:text-muted-foreground"
       ),
       'info-ghost': cn(
-        "bg-transparent text-[#16c] font-['Open_Sans']",
-        "hover:bg-[#16c]/10",
-        "active:bg-[#16c]/20",
-        "focus:ring-4 focus:ring-[#38e] focus:ring-offset-0",
-        "disabled:text-[#b6b6c2] disabled:bg-transparent"
+        "bg-transparent text-[#16c] font-['Open_Sans'] dark:text-[#C2E4FF]",
+        "hover:bg-[#16c]/10 dark:hover:bg-[#2A4A5F]/30",
+        "active:bg-[#16c]/20 dark:active:bg-[#2A4A5F]/40",
+        "focus:ring-4 focus:ring-[#38e] dark:focus:ring-[#C2E4FF] focus:ring-offset-0",
+        "disabled:text-[#b6b6c2] disabled:bg-transparent dark:disabled:text-muted-foreground"
       ),
       success: cn(
-        "bg-[#19993a] text-white font-['Open_Sans']",
-        "hover:bg-[#158030]",
-        "active:bg-[#084f16]",
+        "bg-success text-success-foreground font-['Open_Sans']",
+        "hover:bg-success-hover",
+        "active:brightness-90",
         "focus:ring-4 focus:ring-[#44dd56] focus:ring-offset-0",
-        "disabled:bg-[#d5d5dc] disabled:text-[#78788f]"
+        "disabled:bg-disabled disabled:text-disabled-foreground"
       ),
       'success-outline': cn(
-        "border-2 border-[#19993a] text-[#19993a] bg-transparent font-['Open_Sans']",
-        "hover:bg-[#19993a]/10",
+        "border-2 border-[#19993a] text-[#19993a] bg-transparent font-['Open_Sans'] dark:border-[#44dd56] dark:text-[#44dd56]",
+        "hover:bg-[#19993a]/10 dark:hover:bg-[#084f16]/18",
         "active:bg-[#084f16] active:text-white active:border-[#084f16]",
         "focus:ring-4 focus:ring-[#44dd56]/50 focus:ring-offset-0",
-        "disabled:border-[#b6b6c2] disabled:text-[#b6b6c2] disabled:bg-transparent"
+        "disabled:border-[#b6b6c2] disabled:text-[#b6b6c2] disabled:bg-transparent dark:disabled:border-muted dark:disabled:text-muted-foreground"
       ),
       'success-secondary': cn(
-        "bg-[#44dd56] text-[#2a2a33] font-['Open_Sans']",
-        "hover:bg-[#3cc24b]",
-        "active:bg-[#19993a] active:text-white", 
+        "bg-[#44dd56] text-[#2a2a33] font-['Open_Sans'] dark:bg-[#2a7f38] dark:text-white",
+        "hover:bg-[#3cc24b] dark:hover:bg-[#318f40]",
+        "active:bg-[#19993a] active:text-white dark:active:bg-[#084f16]", 
         "focus:ring-4 focus:ring-[#44dd56] focus:ring-offset-0",
-        "disabled:bg-[#d5d5dc] disabled:text-[#78788f]"
+        "disabled:bg-[#d5d5dc] disabled:text-[#78788f] dark:disabled:bg-muted dark:disabled:text-muted-foreground"
       ),
       'success-ghost': cn(
-        "bg-transparent text-[#19993a] font-['Open_Sans']",
-        "hover:bg-[#19993a]/10",
-        "active:bg-[#19993a]/20",
+        "bg-transparent text-[#19993a] font-['Open_Sans'] dark:text-[#44dd56]",
+        "hover:bg-[#19993a]/10 dark:hover:bg-[#084f16]/18",
+        "active:bg-[#19993a]/20 dark:active:bg-[#084f16]/28",
         "focus:ring-4 focus:ring-[#44dd56] focus:ring-offset-0",
-        "disabled:text-[#b6b6c2] disabled:bg-transparent"
+        "disabled:text-[#b6b6c2] disabled:bg-transparent dark:disabled:text-muted-foreground"
       ),
     };
 

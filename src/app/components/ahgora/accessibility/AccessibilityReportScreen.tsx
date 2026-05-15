@@ -300,12 +300,12 @@ export function AccessibilityReportScreen({ onBack }: AccessibilityReportScreenP
         <div className="sticky top-0 z-10 bg-primary px-6 py-3 flex items-center gap-2 shrink-0 shadow-sm h-[62px] relative">
           <button
             onClick={onBack}
-            className="text-white p-1 mr-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary rounded"
+            className="text-primary-foreground p-1 mr-2 focus:outline-none focus:ring-2 focus:ring-primary-foreground focus:ring-offset-2 focus:ring-offset-primary rounded"
             aria-label="Voltar para tela anterior"
           >
             <ArrowBackIcon className="w-6 h-6" />
           </button>
-          <h1 className="text-white font-semibold text-[18px] leading-[28px] tracking-[0.027px]">
+          <h1 className="text-primary-foreground font-semibold text-[18px] leading-[28px] tracking-[0.027px]">
             Relatório de Acessibilidade
           </h1>
         </div>

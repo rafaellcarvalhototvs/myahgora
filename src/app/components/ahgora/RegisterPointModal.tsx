@@ -51,8 +51,8 @@ export function RegisterPointModal({ isOpen, onClose, onConfirm }: RegisterPoint
           <div className="content-stretch flex flex-col gap-[12px] items-start relative shrink-0 w-full">
              <div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
                 {/* Icon */}
-                <div className="bg-primary content-stretch flex items-center justify-center p-[8px] relative rounded-[56px] shrink-0 size-[42px]">
-                   <AccessTimeIcon sx={{ color: 'white', fontSize: 20 }} />
+                <div className="bg-primary text-primary-foreground content-stretch flex items-center justify-center p-[8px] relative rounded-[56px] shrink-0 size-[42px]">
+                   <AccessTimeIcon sx={{ color: 'currentColor', fontSize: 20 }} />
                 </div>
                 {/* Close Button */}
                 <button 
@@ -89,8 +89,8 @@ export function RegisterPointModal({ isOpen, onClose, onConfirm }: RegisterPoint
                 {/* Time Circle with Badge */}
                 <div className="relative bg-[#eaf8ff] dark:bg-primary/15 flex items-center justify-center rounded-full size-[56px] shrink-0 transition-colors">
                    {/* Check Badge (Absolute Top-Rightish) */}
-                   <div className="absolute top-0 right-0 bg-primary rounded-[4px] w-[18px] h-[18px] flex items-center justify-center z-10 translate-x-[-4px] translate-y-[0px]">
-                      <CheckIcon sx={{ color: 'white', fontSize: 12 }} />
+                   <div className="absolute top-0 right-0 bg-primary text-primary-foreground rounded-[4px] w-[18px] h-[18px] flex items-center justify-center z-10 translate-x-[-4px] translate-y-[0px]">
+                      <CheckIcon sx={{ color: 'currentColor', fontSize: 12 }} />
                    </div>
                    
                    <span className="font-['Open_Sans'] font-semibold text-[14px] text-foreground">
@@ -108,7 +108,7 @@ export function RegisterPointModal({ isOpen, onClose, onConfirm }: RegisterPoint
            <div className="content-stretch flex flex-col gap-[16px] items-center justify-center p-[24px] relative w-full">
               <button 
                 onClick={onConfirm}
-                className="w-full bg-primary text-white font-semibold text-[14px] leading-[24px] tracking-[0.4px] py-2 rounded-[4px] hover:bg-primary/90 transition-colors shadow-sm"
+                className="w-full bg-primary text-primary-foreground font-semibold text-[14px] leading-[24px] tracking-[0.4px] py-2 rounded-[4px] hover:bg-primary/90 transition-colors shadow-sm"
               >
                 Confirmar registro
               </button>

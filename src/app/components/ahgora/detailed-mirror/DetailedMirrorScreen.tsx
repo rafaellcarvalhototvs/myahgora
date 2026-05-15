@@ -148,8 +148,8 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
   const themeClasses = {
     app: 'bg-background text-foreground',
     card: 'bg-background border-border',
-    header: 'bg-primary dark:bg-[var(--surface-strong)] border-b border-transparent dark:border-border/70',
-    headerText: 'text-white',
+    header: 'bg-primary border-b border-transparent',
+    headerText: 'text-primary-foreground',
     heading: 'text-foreground',
     bodyText: 'text-foreground',
     mutedText: 'text-muted-foreground',
@@ -160,7 +160,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
     statusNegative: 'text-destructive dark:text-destructive-contrast',
     emphasis: 'text-primary-darken-1',
     outlineButton: 'border-primary text-primary-darken-1 dark:border-primary-darken-1 dark:text-primary-darken-1 hover:bg-primary/10 dark:hover:bg-primary/15',
-    ghostButton: 'text-white hover:bg-white/20',
+    ghostButton: 'text-primary-foreground hover:bg-primary-foreground/15',
   };
   
   // Effect to adjust selectedDay when month changes
@@ -588,7 +588,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
       {/* Skip to main content link for keyboard users */}
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-primary focus:text-white focus:px-4 focus:py-2 focus:rounded"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-primary focus:text-primary-foreground focus:px-4 focus:py-2 focus:rounded"
       >
         Pular para o conteúdo principal
       </a>
@@ -602,7 +602,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
         <div className={`sticky top-0 z-10 px-6 py-3 flex items-center justify-between shrink-0 shadow-sm h-[62px] relative ${themeClasses.header}`}>
           <button
             onClick={onBack}
-            className="p-1 mr-2 focus:outline-none focus:ring-2 rounded text-white focus:ring-white focus:ring-offset-2 focus:ring-offset-primary"
+            className="p-1 mr-2 focus:outline-none focus:ring-2 rounded text-primary-foreground focus:ring-primary-foreground focus:ring-offset-2 focus:ring-offset-primary"
             aria-label="Voltar para tela anterior"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -720,7 +720,7 @@ export function DetailedMirrorScreen({ onBack, onAccessibilityReport }: Detailed
                       ${themeClasses.calendarButton}
                       ${future ? 'cursor-not-allowed opacity-50' : ''}
                       ${day.isSelected
-                        ? 'bg-primary text-white'
+                        ? 'bg-primary text-primary-foreground'
                         : day.isWeekend
                           ? 'text-muted-foreground'
                           : 'text-foreground hover:bg-muted/40 dark:hover:bg-muted/20'

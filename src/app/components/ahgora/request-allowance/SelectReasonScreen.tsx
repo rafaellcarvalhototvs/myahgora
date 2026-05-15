@@ -43,12 +43,12 @@ export function SelectReasonScreen({ onBack, onSelect }: SelectReasonScreenProps
     <div className="w-full h-full bg-background flex flex-col transition-colors">
       {/* Header */}
       <div className="bg-primary px-4 py-3 flex items-center gap-2 sticky top-0 z-10 shadow-sm shrink-0 h-[62px]">
-        <button onClick={onBack} className="text-white p-1 mr-2">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+        <button onClick={onBack} className="text-primary-foreground p-1 mr-2">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
             <path d="M16 7H3.83L9.42 1.41L8 0L0 8L8 16L9.41 14.59L3.83 9H16V7Z" />
           </svg>
         </button>
-        <h1 className="text-white font-semibold text-[18px] leading-[28px] tracking-[0.027px]">Selecionar motivo</h1>
+        <h1 className="text-primary-foreground font-semibold text-[18px] leading-[28px] tracking-[0.027px]">Selecionar motivo</h1>
       </div>
 
       {/* List */}

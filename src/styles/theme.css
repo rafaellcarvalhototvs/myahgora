@@ -37,6 +37,10 @@
   --primary-darken-1: rgba(12, 109, 158, 1.00);
   /* The default color for text or elements that appear on top of primary colored elements. */
   --primary-foreground: rgba(244, 244, 246, 1.00);
+  /* Hover state for primary surfaces and CTAs. */
+  --primary-hover: rgba(12, 109, 158, 1.00);
+  /* Active/pressed state for primary surfaces and CTAs. */
+  --primary-active: rgba(7, 66, 95, 1.00);
   /* The secondary color used for secondary(but NOT-DESTRUCTIVE) buttons and interactive elements. */
   --secondary: rgba(0, 0, 0, 0);
   /* The default color for text or elements that appear on top of secondary colored elements. */
@@ -51,12 +55,40 @@
   --accent: rgba(17, 153, 221, 1.00);
   /* The default color for text or elements that appear on top of accent colored elements. */
   --accent-foreground: rgba(244, 244, 246, 1.00);
+  /* Hover state for accent surfaces. */
+  --accent-hover: rgba(12, 109, 158, 1.00);
+  /* Informational semantic surface and emphasis color. */
+  --info: rgba(17, 102, 204, 1.00);
+  /* Foreground for informational semantic surfaces. */
+  --info-foreground: rgba(244, 244, 246, 1.00);
+  /* Hover state for informational surfaces. */
+  --info-hover: rgba(12, 71, 141, 1.00);
+  /* Success semantic surface and emphasis color. */
+  --success: rgba(25, 153, 58, 1.00);
+  /* Foreground for success semantic surfaces. */
+  --success-foreground: rgba(255, 255, 255, 1.00);
+  /* Hover state for success surfaces. */
+  --success-hover: rgba(8, 79, 22, 1.00);
+  /* Warning semantic surface and emphasis color. */
+  --warning: rgba(255, 187, 0, 1.00);
+  /* Foreground for warning semantic surfaces. */
+  --warning-foreground: rgba(255, 255, 255, 1.00);
+  /* Hover state for warning surfaces. */
+  --warning-hover: rgba(117, 70, 0, 1.00);
   /* The color used for background in destructive actions, such as delete buttons or error messages. */
   --destructive: rgba(221, 24, 24, 1.00);
   /* Higher-contrast destructive shade for text and small indicators. */
   --destructive-contrast: rgba(184, 29, 29, 1.00);
   /* The default color for text or elements that appear on top of destructive colored elements. */
   --destructive-foreground: rgba(255, 255, 255, 1.00);
+  /* Hover state for destructive surfaces. */
+  --destructive-hover: rgba(184, 29, 29, 1.00);
+  /* Active/pressed state for destructive surfaces. */
+  --destructive-active: rgba(115, 7, 7, 1.00);
+  /* Disabled surface color. */
+  --disabled: rgba(213, 213, 220, 1.00);
+  /* Foreground for disabled surfaces. */
+  --disabled-foreground: rgba(120, 120, 143, 1.00);
   /* The default border color for elements such as inputs, buttons, and other containers. */
   --border: rgba(120, 120, 143, 1.00);
   /* The default background color for input fields once the text has been filled. Should be either transparent or match the input-background. */
@@ -113,6 +145,8 @@
   --color-primary: var(--primary);
   --color-primary-darken-1: var(--primary-darken-1);
   --color-primary-foreground: var(--primary-foreground);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-active: var(--primary-active);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
@@ -120,9 +154,23 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-accent-hover: var(--accent-hover);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-info-hover: var(--info-hover);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-success-hover: var(--success-hover);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-warning-hover: var(--warning-hover);
   --color-destructive: var(--destructive);
   --color-destructive-contrast: var(--destructive-contrast);
   --color-destructive-foreground: var(--destructive-foreground);
+  --color-destructive-hover: var(--destructive-hover);
+  --color-destructive-active: var(--destructive-active);
+  --color-disabled: var(--disabled);
+  --color-disabled-foreground: var(--disabled-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-input-background: var(--input-background);
@@ -149,44 +197,60 @@
 }
 
 .dark {
-  --background: rgba(23, 24, 31, 1.00);
-  --foreground: rgba(236, 238, 244, 1.00);
-  --card: rgba(35, 38, 48, 1.00);
-  --card-foreground: rgba(236, 238, 244, 1.00);
-  --popover: rgba(42, 45, 56, 1.00);
-  --popover-foreground: rgba(236, 238, 244, 1.00);
-  --primary: rgba(10, 93, 135, 1.00);
+  --background: rgba(37, 37, 45, 1.00);
+  --foreground: rgba(224, 224, 229, 1.00);
+  --card: rgba(49, 49, 61, 1.00);
+  --card-foreground: rgba(224, 224, 229, 1.00);
+  --popover: rgba(58, 58, 69, 1.00);
+  --popover-foreground: rgba(224, 224, 229, 1.00);
+  --primary: rgba(66, 182, 240, 1.00);
   --primary-darken-1: rgba(129, 206, 245, 1.00);
-  --primary-foreground: rgba(244, 244, 246, 1.00);
-  --secondary: rgba(49, 53, 66, 1.00);
-  --secondary-foreground: rgba(236, 238, 244, 1.00);
-  --muted: rgba(66, 71, 87, 1.00);
-  --text-lighten-3: rgba(71, 76, 93, 1.00);
-  --muted-foreground: rgba(155, 163, 179, 1.00);
-  --accent: rgba(59, 130, 246, 1.00);
-  --accent-foreground: rgba(244, 248, 255, 1.00);
-  --destructive: rgba(184, 29, 29, 1.00);
+  --primary-foreground: rgba(10, 10, 12, 1.00);
+  --primary-hover: rgba(129, 206, 245, 1.00);
+  --primary-active: rgba(160, 219, 248, 1.00);
+  --secondary: rgba(49, 49, 61, 1.00);
+  --secondary-foreground: rgba(224, 224, 229, 1.00);
+  --muted: rgba(58, 58, 66, 1.00);
+  --text-lighten-3: rgba(88, 88, 107, 1.00);
+  --muted-foreground: rgba(182, 182, 194, 1.00);
+  --accent: rgba(42, 74, 95, 1.00);
+  --accent-foreground: rgba(194, 228, 255, 1.00);
+  --accent-hover: rgba(49, 107, 147, 1.00);
+  --info: rgba(12, 71, 141, 1.00);
+  --info-foreground: rgba(194, 228, 255, 1.00);
+  --info-hover: rgba(17, 102, 204, 1.00);
+  --success: rgba(8, 79, 22, 1.00);
+  --success-foreground: rgba(255, 255, 255, 1.00);
+  --success-hover: rgba(11, 60, 22, 1.00);
+  --warning: rgba(61, 52, 32, 1.00);
+  --warning-foreground: rgba(245, 217, 157, 1.00);
+  --warning-hover: rgba(117, 70, 0, 1.00);
+  --destructive: rgba(115, 7, 7, 1.00);
   --destructive-contrast: rgba(247, 100, 100, 1.00);
-  --destructive-foreground: rgba(255, 244, 244, 1.00);
-  --border: rgba(71, 76, 93, 1.00);
-  --input: rgba(42, 45, 56, 1.00);
-  --input-background: rgba(42, 45, 56, 1.00);
+  --destructive-foreground: rgba(255, 255, 255, 1.00);
+  --destructive-hover: rgba(92, 7, 7, 1.00);
+  --destructive-active: rgba(61, 3, 3, 1.00);
+  --disabled: rgba(58, 58, 66, 1.00);
+  --disabled-foreground: rgba(182, 182, 194, 1.00);
+  --border: rgba(88, 88, 107, 1.00);
+  --input: rgba(42, 42, 51, 1.00);
+  --input-background: rgba(42, 42, 51, 1.00);
   --ring: rgba(129, 206, 245, 1.00);
   --elevation-sm: 0px 16px 32px 0px rgba(0, 0, 0, 0.35);
-  --surface-elevated: rgba(31, 34, 43, 1.00);
-  --surface-strong: rgba(10, 93, 135, 1.00);
+  --surface-elevated: rgba(42, 42, 51, 1.00);
+  --surface-strong: rgba(42, 42, 51, 1.00);
   --chart-1: rgba(129, 206, 245, 1.00);
-  --chart-2: rgba(34, 170, 68, 1.00);
-  --chart-3: rgba(184, 29, 29, 1.00);
-  --chart-4: rgba(209, 150, 18, 1.00);
-  --chart-5: rgba(205, 96, 138, 1.00);
-  --sidebar: rgba(26, 29, 39, 1.00);
-  --sidebar-foreground: rgba(236, 238, 244, 1.00);
-  --sidebar-primary: rgba(10, 93, 135, 1.00);
-  --sidebar-primary-foreground: rgba(244, 244, 246, 1.00);
-  --sidebar-accent: rgba(37, 99, 235, 1.00);
-  --sidebar-accent-foreground: rgba(244, 248, 255, 1.00);
-  --sidebar-border: rgba(71, 76, 93, 1.00);
+  --chart-2: rgba(8, 79, 22, 1.00);
+  --chart-3: rgba(247, 100, 100, 1.00);
+  --chart-4: rgba(255, 204, 36, 1.00);
+  --chart-5: rgba(244, 180, 200, 1.00);
+  --sidebar: rgba(37, 37, 45, 1.00);
+  --sidebar-foreground: rgba(224, 224, 229, 1.00);
+  --sidebar-primary: rgba(66, 182, 240, 1.00);
+  --sidebar-primary-foreground: rgba(10, 10, 12, 1.00);
+  --sidebar-accent: rgba(49, 107, 147, 1.00);
+  --sidebar-accent-foreground: rgba(194, 228, 255, 1.00);
+  --sidebar-border: rgba(88, 88, 107, 1.00);
   --sidebar-ring: rgba(129, 206, 245, 1.00);
 }
 

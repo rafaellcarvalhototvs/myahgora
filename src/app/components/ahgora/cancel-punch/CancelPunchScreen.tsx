@@ -67,12 +67,12 @@ export function CancelPunchScreen({ onBack }: CancelPunchScreenProps) {
       <div className="w-full max-w-md bg-background h-full relative shadow-2xl dark:shadow-none flex flex-col transition-colors">
         {/* Header */}
         <div className="bg-primary px-6 py-3 flex items-center gap-2 shrink-0 shadow-sm h-[62px] z-10 relative">
-        <button onClick={onBack} className="text-white p-1 mr-2">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+        <button onClick={onBack} className="text-primary-foreground p-1 mr-2">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
             <path d="M16 7H3.83L9.42 1.41L8 0L0 8L8 16L9.41 14.59L3.83 9H16V7Z" />
           </svg>
         </button>
-        <h1 className="text-white font-semibold text-[18px] leading-[28px] tracking-[0.027px]">Desconsiderar batida</h1>
+        <h1 className="text-primary-foreground font-semibold text-[18px] leading-[28px] tracking-[0.027px]">Desconsiderar batida</h1>
       </div>
 
       <div className="flex-1 min-h-0 overflow-y-auto w-full bg-background relative scroll-smooth transition-colors">
@@ -199,7 +199,7 @@ export function CancelPunchScreen({ onBack }: CancelPunchScreenProps) {
 
                <div className="flex flex-col gap-4">
                  <div className="w-[42px] h-[42px] rounded-full bg-primary flex items-center justify-center">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
                     </svg>
                  </div>

@@ -23,8 +23,8 @@ export function AttachmentBottomSheet({ onClose, onSelect, isVisible }: Attachme
             <div className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-full">
               <div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
                 {/* Blue Icon Circle */}
-                <div className="bg-primary content-stretch flex items-center justify-center p-[8px] relative rounded-[56px] shrink-0 size-[42px]">
-                  <AttachFile sx={{ color: 'white', fontSize: 24, transform: 'rotate(45deg)' }} />
+                <div className="bg-primary text-primary-foreground content-stretch flex items-center justify-center p-[8px] relative rounded-[56px] shrink-0 size-[42px]">
+                  <AttachFile sx={{ color: 'currentColor', fontSize: 24, transform: 'rotate(45deg)' }} />
                 </div>
                 {/* Close Button */}
                 <button 
@@ -59,8 +59,8 @@ export function AttachmentBottomSheet({ onClose, onSelect, isVisible }: Attachme
               <div className="relative shrink-0 w-full">
                 <div className="flex flex-row items-center justify-center size-full">
                   <div className="content-stretch flex gap-[8px] items-center justify-center px-[22px] py-[8px] relative w-full">
-                    <PhotoCameraIcon sx={{ color: 'white' }} />
-                    <p className="font-['Open_Sans'] font-semibold leading-[26px] relative shrink-0 text-[15px] text-white tracking-[0.46px]">
+                    <PhotoCameraIcon sx={{ color: 'currentColor' }} className="text-primary-foreground" />
+                    <p className="font-['Open_Sans'] font-semibold leading-[26px] relative shrink-0 text-[15px] text-primary-foreground tracking-[0.46px]">
                       Câmera
                     </p>
                   </div>
@@ -76,8 +76,8 @@ export function AttachmentBottomSheet({ onClose, onSelect, isVisible }: Attachme
               <div className="relative shrink-0 w-full">
                 <div className="flex flex-row items-center justify-center size-full">
                   <div className="content-stretch flex gap-[8px] items-center justify-center px-[22px] py-[8px] relative w-full">
-                    <PhotoLibraryIcon sx={{ color: 'white' }} />
-                    <p className="font-['Open_Sans'] font-semibold leading-[26px] relative shrink-0 text-[15px] text-white tracking-[0.46px]">
+                    <PhotoLibraryIcon sx={{ color: 'currentColor' }} className="text-primary-foreground" />
+                    <p className="font-['Open_Sans'] font-semibold leading-[26px] relative shrink-0 text-[15px] text-primary-foreground tracking-[0.46px]">
                       Galeria
                     </p>
                   </div>
@@ -93,8 +93,8 @@ export function AttachmentBottomSheet({ onClose, onSelect, isVisible }: Attachme
               <div className="relative shrink-0 w-full">
                 <div className="flex flex-row items-center justify-center size-full">
                   <div className="content-stretch flex gap-[8px] items-center justify-center px-[22px] py-[8px] relative w-full">
-                    <SnippetFolderIcon sx={{ color: 'white' }} />
-                    <p className="font-['Open_Sans'] font-semibold leading-[26px] relative shrink-0 text-[15px] text-white tracking-[0.46px]">
+                    <SnippetFolderIcon sx={{ color: 'currentColor' }} className="text-primary-foreground" />
+                    <p className="font-['Open_Sans'] font-semibold leading-[26px] relative shrink-0 text-[15px] text-primary-foreground tracking-[0.46px]">
                       Arquivos
                     </p>
                   </div>
@@ -115,7 +115,7 @@ export function AttachmentBottomSheet({ onClose, onSelect, isVisible }: Attachme
                 <div className="relative shrink-0 w-full">
                   <div className="flex flex-row items-center justify-center size-full">
                     <div className="content-stretch flex gap-[8px] items-center justify-center px-[22px] py-[8px] relative w-full">
-                      <p className="font-['Open_Sans'] font-semibold leading-[26px] relative shrink-0 text-[16px] text-white tracking-[0.46px]">
+                      <p className="font-['Open_Sans'] font-semibold leading-[26px] relative shrink-0 text-[16px] text-primary-foreground tracking-[0.46px]">
                         Cancelar
                       </p>
                     </div>

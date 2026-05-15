@@ -53,12 +53,12 @@ export function SendMessageScreen({ onBack }: SendMessageScreenProps) {
       <div className="w-full max-w-md bg-background h-full relative shadow-2xl dark:shadow-none flex flex-col transition-colors">
         {/* Header */}
         <div className="bg-primary px-6 py-3 flex items-center gap-2 shrink-0 shadow-sm h-[62px] z-10 relative">
-        <button onClick={onBack} className="text-white p-1 mr-2">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+        <button onClick={onBack} className="text-primary-foreground p-1 mr-2">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
             <path d="M16 7H3.83L9.42 1.41L8 0L0 8L8 16L9.41 14.59L3.83 9H16V7Z" />
           </svg>
         </button>
-        <h1 className="text-white font-semibold text-[18px] leading-[28px] tracking-[0.027px]">Enviar mensagem</h1>
+        <h1 className="text-primary-foreground font-semibold text-[18px] leading-[28px] tracking-[0.027px]">Enviar mensagem</h1>
       </div>
 
       <div className="flex-1 min-h-0 overflow-y-auto w-full bg-background relative scroll-smooth transition-colors">
@@ -162,7 +162,7 @@ export function SendMessageScreen({ onBack }: SendMessageScreenProps) {
 
                <div className="flex flex-col gap-4">
                  <div className="w-[42px] h-[42px] rounded-full bg-primary flex items-center justify-center">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
                     </svg>
                  </div>

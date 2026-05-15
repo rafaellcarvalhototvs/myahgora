@@ -12,9 +12,15 @@ export interface BrandThemeTokens {
 
 type RGB = { r: number; g: number; b: number };
 
+const SYSTEM_LIGHT_PRIMARY = "#1199DD";
+const SYSTEM_DARK_PRIMARY = "#42B6F0";
+const SYSTEM_DARK_PRIMARY_FOREGROUND = "#0A0A0C";
+const SYSTEM_DARK_ACCENT = "#2A4A5F";
+const SYSTEM_DARK_ACCENT_FOREGROUND = "#C2E4FF";
 const WHITE = "#F4F4F6";
-const BLACK = "#0D121B";
-const DARK_BG = "#17181F";
+const BLACK = "#0A0A0C";
+const DARK_BG = "#25252D";
+const DARK_SURFACE = "#2A2A33";
 const LIGHT_BG = "#FFFFFF";
 
 export function normalizeHex(input: string): string | null {
@@ -134,7 +140,7 @@ function toRgba(hex: string, alpha: number): string {
 }
 
 export function deriveBrandTheme(brandHex: string, mode: "light" | "dark"): BrandThemeTokens {
-  const normalized = normalizeHex(brandHex) ?? "#1199DD";
+  const normalized = normalizeHex(brandHex) ?? SYSTEM_LIGHT_PRIMARY;
 
   if (mode === "light") {
     const primary = ensureAccessibleBackground(normalized, undefined, "darken");
@@ -152,18 +158,21 @@ export function deriveBrandTheme(brandHex: string, mode: "light" | "dark"): Bran
     };
   }
 
-  const darkBase = mix(normalized, "#000000", 0.38);
-  const primary = ensureAccessibleBackground(darkBase, WHITE, "darken");
-  const highlight = ensureAccessibleText(mix(normalized, "#FFFFFF", 0.18), DARK_BG, "lighten");
+  const brandedPrimaryBase = mix(SYSTEM_DARK_PRIMARY, normalized, 0.35);
+  const primary = ensureAccessibleBackground(brandedPrimaryBase, SYSTEM_DARK_PRIMARY_FOREGROUND, "lighten");
+  const highlightBase = mix(SYSTEM_DARK_PRIMARY, normalized, 0.45);
+  const highlight = ensureAccessibleText(highlightBase, DARK_BG, "lighten");
+  const accentBase = mix(SYSTEM_DARK_ACCENT, normalized, 0.18);
+  const accent = ensureAccessibleBackground(accentBase, SYSTEM_DARK_ACCENT_FOREGROUND, "darken");
 
   return {
     primary: primary.color,
     primaryForeground: primary.foreground,
     primaryDarken1: highlight,
-    surfaceStrong: primary.color,
+    surfaceStrong: DARK_SURFACE,
     ring: toRgba(highlight, 0.45),
-    accent: highlight,
-    accentForeground: chooseForeground(highlight),
+    accent: accent.color,
+    accentForeground: accent.foreground,
     sidebarPrimary: primary.color,
     sidebarPrimaryForeground: primary.foreground,
   };

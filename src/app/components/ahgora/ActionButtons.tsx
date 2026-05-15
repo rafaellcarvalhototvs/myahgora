@@ -119,17 +119,17 @@ export function ActionButtons({ onAction }: ActionButtonsProps) {
             }}
           >
             {/* Icon Container */}
-            <div className="size-12 rounded-full flex items-center justify-center shrink-0 transition-colors pointer-events-none bg-[#F4F4F6] p-2 dark:bg-[var(--surface-elevated)] group-hover:bg-[#E8EAF0] dark:group-hover:bg-muted/80">
+            <div className="size-12 rounded-full flex items-center justify-center shrink-0 transition-colors bg-[#F4F4F6] p-2 dark:bg-primary/15 dark:border dark:border-primary/35 group-hover:bg-[#E8EAF0] dark:group-hover:bg-primary-hover/20 dark:group-hover:border-primary-hover/45">
               <div className="size-6 flex items-center justify-center">
                 <svg 
                   viewBox={action.viewBox} 
                   fill="none" 
                   xmlns="http://www.w3.org/2000/svg"
-                  className="w-full h-full"
+                  className="w-full h-full text-foreground dark:text-primary-darken-1"
                 >
                   <path 
                     d={action.path} 
-                    fill="var(--foreground)" 
+                    fill="currentColor" 
                     fillRule={action.label === "Solicitar abono" ? "evenodd" : "nonzero"}
                     clipRule={action.label === "Solicitar abono" ? "evenodd" : undefined}
                   />
@@ -138,7 +138,7 @@ export function ActionButtons({ onAction }: ActionButtonsProps) {
             </div>
             
             {/* Label */}
-            <span className="text-sm text-center font-normal leading-[20px] tracking-[0.035px] whitespace-pre-wrap pointer-events-none select-none text-foreground">
+            <span className="text-sm text-center font-normal leading-[20px] tracking-[0.035px] whitespace-pre-wrap select-none text-foreground">
               {action.label.replace(' ', '\n')}
             </span>
           </button>
