@@ -20,11 +20,11 @@ function Batida({ time, type }: BatidaProps) {
       `}
     >
       {/* Badge */}
-      <div className={`absolute -top-1 -right-1 w-4 h-4 rounded-full overflow-hidden flex items-center justify-center ${isCompleted ? "bg-primary" : "bg-white dark:bg-card"} z-10`}>
+      <div className={`absolute -top-1 -right-1 w-[18px] h-[18px] rounded-full flex items-center justify-center ${isCompleted ? "bg-primary" : "bg-white dark:bg-card"} z-10`}>
         {/* The badge background needs to mask the border of the main circle below it, which z-10 handles if bg is opaque */}
         
         {isCompleted ? (
-          <CheckIcon sx={{ fontSize: 10, color: 'var(--primary-foreground)' }} />
+          <CheckIcon sx={{ fontSize: 12, color: 'var(--primary-foreground)' }} />
         ) : (
           <InfoOutlinedIcon sx={{ fontSize: 14, color: 'currentColor' }} className="text-foreground" />
         )}

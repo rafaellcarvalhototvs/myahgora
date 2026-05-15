@@ -92,8 +92,8 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
                 }}
                 className={`w-12 h-12 rounded-full flex items-center justify-center text-sm border transition-colors ${
                   selectedPunch === time
-                    ? 'bg-[#eaf8ff] border-primary text-primary font-semibold'
-                    : 'bg-white border-[#c2c2cd] text-foreground hover:bg-muted/20'
+                    ? 'bg-[#eaf8ff] dark:bg-primary/15 border-primary text-primary font-semibold'
+                    : 'bg-card border-muted text-foreground hover:bg-muted/20'
                 }`}
               >
                 {time}
@@ -137,7 +137,7 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
   );
 
   const renderStep2 = () => (
-    <div className="flex flex-col h-full bg-white">
+    <div className="flex flex-col h-full bg-background transition-colors">
       {/* Header */}
       <div className="bg-primary px-6 py-3 flex items-center gap-2 sticky top-0 z-10 shadow-sm shrink-0 h-[62px]">
         <button onClick={() => setViewState(1)} className="text-primary-foreground p-1 mr-2">
@@ -159,7 +159,7 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
           <label className="text-sm font-semibold text-foreground block">Horário</label>
           <div 
             onClick={() => setShowTimePicker(true)}
-            className={`border rounded-[4px] px-4 py-3 flex items-center gap-2 bg-white cursor-pointer hover:border-primary transition-colors ${errors.newTime ? 'border-destructive border-2' : 'border-border'}`}
+            className={`border rounded-[4px] px-4 py-3 flex items-center gap-2 bg-card cursor-pointer hover:border-primary transition-colors ${errors.newTime ? 'border-destructive border-2' : 'border-border'}`}
           >
             <AccessTimeIcon className="text-muted-foreground" />
             <span className={`text-sm flex-1 ${newTime ? 'text-foreground' : 'text-muted-foreground'}`}>
@@ -184,7 +184,7 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
       {showTimePicker && (
         <>
           <div className="fixed inset-0 bg-black/50 z-[60]" onClick={() => setShowTimePicker(false)} />
-          <div className="fixed bottom-0 left-0 right-0 sm:max-w-md sm:mx-auto bg-white z-[70] rounded-t-[8px] overflow-hidden animate-in slide-in-from-bottom duration-300 shadow-xl font-['Open_Sans']">
+          <div className="fixed bottom-0 left-0 right-0 sm:max-w-md sm:mx-auto bg-card border border-border/70 z-[70] rounded-t-[8px] overflow-hidden animate-in slide-in-from-bottom duration-300 shadow-xl dark:shadow-[0px_16px_32px_0px_rgba(0,0,0,0.35)] font-['Open_Sans'] transition-colors">
             {/* Header + Body */}
             <div className="content-stretch flex flex-col gap-[24px] items-start p-[24px] relative w-full">
               {/* Header */}
@@ -200,7 +200,7 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
                       onClick={() => setShowTimePicker(false)}
                       className="content-stretch flex flex-col items-center relative shrink-0 p-1 hover:bg-muted/30 rounded-full"
                     >
-                      <CloseIcon sx={{ color: '#3A3A45', fontSize: 20 }} />
+                      <CloseIcon sx={{ color: 'currentColor', fontSize: 20 }} className="text-foreground" />
                     </button>
                   </div>
                 </div>
@@ -230,7 +230,7 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
             </div>
 
             {/* Footer */}
-            <div className="bg-white relative shrink-0 w-full">
+            <div className="bg-card relative shrink-0 w-full transition-colors">
               <div aria-hidden="true" className="absolute border-text-lighten-3 border-solid border-t inset-0 pointer-events-none" />
               <div className="content-stretch flex items-center justify-end p-[24px] relative w-full gap-3">
                  <button 
@@ -257,7 +257,7 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
   );
 
   const renderStep3 = () => (
-    <div className="flex flex-col h-full bg-white">
+    <div className="flex flex-col h-full bg-background transition-colors">
       {/* Header */}
       <div className="bg-primary px-6 py-3 flex items-center gap-2 sticky top-0 z-10 shadow-sm shrink-0 h-[62px]">
         <button onClick={() => setViewState(2)} className="text-primary-foreground p-1 mr-2">
@@ -275,26 +275,26 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
         </div>
 
         {/* Comparison Card */}
-        <div className="border border-[rgba(42,42,51,0.08)] rounded-[8px] bg-white mt-4 p-6">
+        <div className="border border-border/40 rounded-[8px] bg-card mt-4 p-6 transition-colors">
           <div className="flex items-center justify-between gap-4">
             
             {/* Old Punch */}
             <div className="flex flex-col items-center gap-3 flex-1">
               <span className="text-[12px] font-semibold text-muted-foreground tracking-[0.5px]">Anterior</span>
-              <div className="w-[64px] h-[64px] rounded-full border border-[#e7e7eb] flex items-center justify-center bg-[#f9f9fb]">
+              <div className="w-[64px] h-[64px] rounded-full border border-text-lighten-3 flex items-center justify-center bg-muted/20 transition-colors">
                 <span className="text-[16px] text-muted-foreground font-medium line-through decoration-[#ef4444]/40">{selectedPunch}</span>
               </div>
             </div>
 
             {/* Icon */}
-            <div className="flex items-center justify-center pt-5 text-[#9ea1b9]">
+            <div className="flex items-center justify-center pt-5 text-muted-foreground">
                <SwapHorizIcon />
             </div>
 
             {/* New Punch */}
             <div className="flex flex-col items-center gap-3 flex-1">
               <span className="text-[12px] font-bold text-primary tracking-[0.5px]">Novo</span>
-              <div className="w-[64px] h-[64px] rounded-full border-2 border-primary bg-[#eaf8ff] flex items-center justify-center relative shadow-sm">
+              <div className="w-[64px] h-[64px] rounded-full border-2 border-primary bg-[#eaf8ff] dark:bg-primary/15 flex items-center justify-center relative shadow-sm transition-colors">
                 <div className="absolute -top-1.5 -right-1.5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm">
                   <CheckIcon style={{ fontSize: 14, color: 'currentColor' }} />
                 </div>
@@ -326,9 +326,9 @@ export function ReplacePunchScreen({ onBack }: ReplacePunchScreenProps) {
   );
 
   const renderSuccess = () => (
-    <div className="flex flex-col h-full bg-white animate-in fade-in duration-300">
+    <div className="flex flex-col h-full bg-background animate-in fade-in duration-300 transition-colors">
       {/* Header */}
-      <div className="bg-white px-4 py-3 flex items-center gap-2 sticky top-0 z-10 shrink-0">
+      <div className="bg-background px-4 py-3 flex items-center gap-2 sticky top-0 z-10 shrink-0 transition-colors">
          {/* Empty header or custom one? Design shows white header with status bar only */}
       </div>
 

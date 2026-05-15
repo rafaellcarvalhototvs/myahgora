@@ -131,7 +131,7 @@ export function DailyExceptionScreen({ onBack }: DailyExceptionScreenProps) {
                 <div className="flex flex-col gap-4">
                   <button
                     onClick={() => handleTypeSelect('exceptional-access')}
-                    className="border-2 border-primary bg-white rounded-[8px] p-4 hover:bg-primary/5 transition-colors text-left"
+                    className="border-2 border-primary bg-card rounded-[8px] p-4 hover:bg-primary/5 transition-colors text-left"
                   >
                     <div className="flex items-start gap-3">
                       <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
@@ -146,7 +146,7 @@ export function DailyExceptionScreen({ onBack }: DailyExceptionScreenProps) {
 
                   <button
                     onClick={() => handleTypeSelect('extension')}
-                    className="border-2 border-primary bg-white rounded-[8px] p-4 hover:bg-primary/5 transition-colors text-left"
+                    className="border-2 border-primary bg-card rounded-[8px] p-4 hover:bg-primary/5 transition-colors text-left"
                   >
                     <div className="flex items-start gap-3">
                       <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
@@ -161,7 +161,7 @@ export function DailyExceptionScreen({ onBack }: DailyExceptionScreenProps) {
 
                   <button
                     onClick={() => handleTypeSelect('convert-absence')}
-                    className="border-2 border-primary bg-white rounded-[8px] p-4 hover:bg-primary/5 transition-colors text-left"
+                    className="border-2 border-primary bg-card rounded-[8px] p-4 hover:bg-primary/5 transition-colors text-left"
                   >
                     <div className="flex items-start gap-3">
                       <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
@@ -246,8 +246,8 @@ export function DailyExceptionScreen({ onBack }: DailyExceptionScreenProps) {
                 </div>
 
                 {/* Info Box */}
-                <div className="bg-[#ebf3fc] flex gap-[8px] items-start p-[16px] rounded-[4px] w-full">
-                  <div className="shrink-0 text-[#1166CC]">
+                <div className="bg-[#ebf3fc] dark:bg-info/20 flex gap-[8px] items-start p-[16px] rounded-[4px] w-full transition-colors">
+                  <div className="shrink-0 text-[#1166CC] dark:text-info-foreground">
                     <InfoIcon color="inherit" />
                   </div>
                   <div className="flex flex-col gap-[4px] text-foreground">
@@ -255,7 +255,7 @@ export function DailyExceptionScreen({ onBack }: DailyExceptionScreenProps) {
                       Aprovação obrigatória e trilha de auditoria
                     </p>
                     <p className="text-[14px] leading-[20px]">
-                      Sua solicitação será enviada ao gestor via PontoWeb ou Ahgora Leader. A justificativa é obrigatória para conformidade legal. Acompanhe o status: <span className="font-semibold text-[#e6a840]">Amarelo</span> (pendente), <span className="font-semibold text-[#22aa44]">Verde</span> (aprovada) ou <span className="font-semibold text-destructive">Vermelho</span> (recusada).
+                      Sua solicitação será enviada ao gestor via PontoWeb ou Ahgora Leader. A justificativa é obrigatória para conformidade legal. Acompanhe o status: <span className="font-semibold text-warning dark:text-warning-foreground">Amarelo</span> (pendente), <span className="font-semibold text-success dark:text-chart-2">Verde</span> (aprovada) ou <span className="font-semibold text-destructive dark:text-destructive-contrast">Vermelho</span> (recusada).
                     </p>
                   </div>
                 </div>
@@ -275,7 +275,7 @@ export function DailyExceptionScreen({ onBack }: DailyExceptionScreenProps) {
                 <div className="h-px bg-text-lighten-3 w-full shrink-0" />
 
                 {/* Current Limit Info */}
-                <div className="bg-[#f5f5fa] border border-muted rounded-[4px] p-4">
+                <div className="bg-[#f5f5fa] dark:bg-muted/20 border border-muted rounded-[4px] p-4 transition-colors">
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-foreground">Limite disponível hoje</span>
                     <span className="text-base font-semibold text-primary">120 minutos</span>
@@ -292,7 +292,7 @@ export function DailyExceptionScreen({ onBack }: DailyExceptionScreenProps) {
                       max="120"
                       value={formData.minutes}
                       onChange={(e) => handleChange('minutes', e.target.value)}
-                      className={`w-full border rounded-[4px] px-4 py-3 text-sm ${
+                      className={`w-full border rounded-[4px] px-4 py-3 text-sm bg-card text-foreground ${
                         errors.minutes ? 'border-destructive border-2' : 'border-border'
                       }`}
                       placeholder="Ex: 30"
@@ -319,8 +319,8 @@ export function DailyExceptionScreen({ onBack }: DailyExceptionScreenProps) {
                 </div>
 
                 {/* Info Box */}
-                <div className="bg-[#ebf3fc] flex gap-[8px] items-start p-[16px] rounded-[4px] w-full">
-                  <div className="shrink-0 text-[#1166CC]">
+                <div className="bg-[#ebf3fc] dark:bg-info/20 flex gap-[8px] items-start p-[16px] rounded-[4px] w-full transition-colors">
+                  <div className="shrink-0 text-[#1166CC] dark:text-info-foreground">
                     <InfoIcon color="inherit" />
                   </div>
                   <div className="flex flex-col gap-[4px] text-foreground">
@@ -328,7 +328,7 @@ export function DailyExceptionScreen({ onBack }: DailyExceptionScreenProps) {
                       Consumo imediato e aprovação
                     </p>
                     <p className="text-[14px] leading-[20px]">
-                      O limite de minutos é consumido a partir desta solicitação, mesmo antes da aprovação. O gestor decidirá via PontoWeb ou Ahgora Leader. Acompanhe o status: <span className="font-semibold text-[#e6a840]">Amarelo</span> (pendente), <span className="font-semibold text-[#22aa44]">Verde</span> (aprovada) ou <span className="font-semibold text-destructive">Vermelho</span> (recusada).
+                      O limite de minutos é consumido a partir desta solicitação, mesmo antes da aprovação. O gestor decidirá via PontoWeb ou Ahgora Leader. Acompanhe o status: <span className="font-semibold text-warning dark:text-warning-foreground">Amarelo</span> (pendente), <span className="font-semibold text-success dark:text-chart-2">Verde</span> (aprovada) ou <span className="font-semibold text-destructive dark:text-destructive-contrast">Vermelho</span> (recusada).
                     </p>
                   </div>
                 </div>
@@ -378,8 +378,8 @@ export function DailyExceptionScreen({ onBack }: DailyExceptionScreenProps) {
                 </div>
 
                 {/* Info Box */}
-                <div className="bg-[#ebf3fc] flex gap-[8px] items-start p-[16px] rounded-[4px] w-full">
-                  <div className="shrink-0 text-[#1166CC]">
+                <div className="bg-[#ebf3fc] dark:bg-info/20 flex gap-[8px] items-start p-[16px] rounded-[4px] w-full transition-colors">
+                  <div className="shrink-0 text-[#1166CC] dark:text-info-foreground">
                     <InfoIcon color="inherit" />
                   </div>
                   <div className="flex flex-col gap-[4px] text-foreground">
@@ -387,7 +387,7 @@ export function DailyExceptionScreen({ onBack }: DailyExceptionScreenProps) {
                       Aprovação obrigatória e trilha de auditoria
                     </p>
                     <p className="text-[14px] leading-[20px]">
-                      Sua solicitação será enviada ao gestor via PontoWeb ou Ahgora Leader. A justificativa é obrigatória para conformidade legal. Acompanhe o status: <span className="font-semibold text-[#e6a840]">Amarelo</span> (pendente), <span className="font-semibold text-[#22aa44]">Verde</span> (aprovada) ou <span className="font-semibold text-destructive">Vermelho</span> (recusada).
+                      Sua solicitação será enviada ao gestor via PontoWeb ou Ahgora Leader. A justificativa é obrigatória para conformidade legal. Acompanhe o status: <span className="font-semibold text-warning dark:text-warning-foreground">Amarelo</span> (pendente), <span className="font-semibold text-success dark:text-chart-2">Verde</span> (aprovada) ou <span className="font-semibold text-destructive dark:text-destructive-contrast">Vermelho</span> (recusada).
                     </p>
                   </div>
                 </div>

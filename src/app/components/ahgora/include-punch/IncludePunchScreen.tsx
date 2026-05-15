@@ -103,8 +103,8 @@ export function IncludePunchScreen({ onBack }: IncludePunchScreenProps) {
 
             {/* Pause Info Box */}
             {punchType === 'pause' && (
-              <div className="bg-[#ebf3fc] flex gap-[8px] items-start p-[16px] rounded-[4px] w-full">
-                <div className="shrink-0 text-[#1166CC]">
+              <div className="bg-[#ebf3fc] dark:bg-info/20 flex gap-[8px] items-start p-[16px] rounded-[4px] w-full transition-colors">
+                <div className="shrink-0 text-[#1166CC] dark:text-info-foreground">
                   <InfoIcon color="inherit" />
                 </div>
                 <div className="flex flex-col gap-[4px] text-foreground">
@@ -125,7 +125,7 @@ export function IncludePunchScreen({ onBack }: IncludePunchScreenProps) {
               value={formData.date}
               onChange={(e) => setFormData({...formData, date: e.target.value})}
               placeholder="Selecione uma data"
-              startIcon={<CalendarTodayIcon className="text-[#58586B]" />}
+              startIcon={<CalendarTodayIcon className="text-muted-foreground" />}
               endIcon={errors.date ? <ErrorIcon className="text-destructive" /> : null}
               error={!!errors.date}
               helperText={errors.date}
@@ -139,7 +139,7 @@ export function IncludePunchScreen({ onBack }: IncludePunchScreenProps) {
               value={formData.time}
               onChange={(e) => setFormData({...formData, time: e.target.value})}
               placeholder="Selecione um horário"
-              startIcon={<AccessTimeIcon className="text-[#58586B]" />}
+              startIcon={<AccessTimeIcon className="text-muted-foreground" />}
               endIcon={errors.time ? <ErrorIcon className="text-destructive" /> : null}
               error={!!errors.time}
               helperText={errors.time}

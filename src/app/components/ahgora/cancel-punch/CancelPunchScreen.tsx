@@ -92,7 +92,7 @@ export function CancelPunchScreen({ onBack }: CancelPunchScreenProps) {
             <span className="text-sm text-foreground">06 de Set, 2025</span>
           </div>
 
-          <div className="flex gap-3 overflow-x-auto pb-2 -mx-2 px-2 items-center">
+          <div className="flex gap-3 overflow-x-auto pt-1 pb-2 -mx-2 px-2 items-center">
             {PUNCHES.length === 0 ? (
               <p className="text-muted-foreground text-sm">Não há batidas</p>
             ) : (
@@ -157,8 +157,8 @@ export function CancelPunchScreen({ onBack }: CancelPunchScreenProps) {
         </div>
 
         {/* Info Box - Approval Flow */}
-        <div className="bg-[#ebf3fc] flex gap-[8px] items-start p-[16px] rounded-[4px] w-full">
-          <div className="shrink-0 text-[#1166CC]">
+        <div className="bg-[#ebf3fc] dark:bg-info/20 flex gap-[8px] items-start p-[16px] rounded-[4px] w-full transition-colors">
+          <div className="shrink-0 text-[#1166CC] dark:text-info-foreground">
             <InfoIcon color="inherit" />
           </div>
           <div className="flex flex-col gap-[4px] text-foreground">
@@ -166,7 +166,7 @@ export function CancelPunchScreen({ onBack }: CancelPunchScreenProps) {
               Fluxo de aprovação
             </p>
             <p className="text-[14px] leading-[20px]">
-              Sua solicitação será enviada ao gestor para aprovação. Acompanhe o status no espelho detalhado: <span className="font-semibold text-[#FFAA00]">Amarelo</span> (pendente), <span className="font-semibold text-[#22aa44]">Verde</span> (aprovada) ou <span className="font-semibold text-destructive">Vermelho</span> (recusada).
+              Sua solicitação será enviada ao gestor para aprovação. Acompanhe o status no espelho detalhado: <span className="font-semibold text-warning dark:text-warning-foreground">Amarelo</span> (pendente), <span className="font-semibold text-success dark:text-chart-2">Verde</span> (aprovada) ou <span className="font-semibold text-destructive dark:text-destructive-contrast">Vermelho</span> (recusada).
             </p>
           </div>
         </div>
