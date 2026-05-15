@@ -115,20 +115,22 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex justify-center font-['Open_Sans'] transition-colors">
-      <div className="w-full max-w-md bg-background min-h-screen relative shadow-2xl dark:shadow-none pb-20 transition-colors">
+    <div className="fixed inset-0 overflow-hidden bg-background flex justify-center items-stretch font-['Open_Sans'] h-[100dvh] w-screen transition-colors">
+      <div className="w-full max-w-md bg-background h-full relative shadow-2xl dark:shadow-none flex flex-col transition-colors">
         <Header 
           userName="Rafael" 
           avatarUrl={avatarUrl} 
           onNotificationClick={() => setCurrentView('punch-reminder')}
           onAvatarClick={() => setCurrentView('profile-settings')}
         />
-        <TimeCard />
-        <DetailLink onClick={() => handleAction('detailed-mirror')} />
-        <ActionButtons onAction={handleAction} />
-        <ComplimentsCarousel />
-        <AppCard />
-        <OptionsGrid />
+        <div className="flex-1 min-h-0 overflow-y-auto pb-20 bg-background transition-colors">
+          <TimeCard />
+          <DetailLink onClick={() => handleAction('detailed-mirror')} />
+          <ActionButtons onAction={handleAction} />
+          <ComplimentsCarousel />
+          <AppCard />
+          <OptionsGrid />
+        </div>
         <BottomNav />
       </div>
     </div>
