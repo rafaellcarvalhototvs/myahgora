@@ -59,8 +59,8 @@ const options = [
 
 export function OptionsGrid() {
   return (
-    <div className="flex flex-col px-6 pt-[0px] pb-[32px]">
-      <h3 className="font-semibold text-base mb-4 text-foreground tracking-[0.024px] leading-6">Outras opções</h3>
+    <section className="flex flex-col gap-4 px-6 pb-[32px]">
+      <h3 className="font-semibold text-base text-foreground tracking-[0.024px] leading-6">Outras opções</h3>
       
       <div className="grid grid-cols-2 gap-x-[17px] gap-y-4">
         {options.map((option, index) => (
@@ -87,6 +87,6 @@ export function OptionsGrid() {
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 }

@@ -6,7 +6,7 @@ export function AppCard() {
     <section className="px-6 flex flex-col gap-4" aria-labelledby="apps-section-title">
       <h3
         id="apps-section-title"
-        className="font-semibold text-lg text-foreground"
+        className="font-semibold text-base text-foreground tracking-[0.024px] leading-6"
       >
         Acesse cursos e apps
       </h3>
